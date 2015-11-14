@@ -38,11 +38,10 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
         Integer userId = 0;
         User user = userService.loadById(1);
         String url = request.getRequestURI();
-        request.setAttribute(PermissionKey.login_user_cookie_key, request.getRequestURL());
         if (StringTools.isNotEmpty(request.getQueryString())) {
             url = url.concat("?").concat(request.getQueryString());
         }
-        request.setAttribute(PermissionKey.login_user_cookie_key, url);
+        request.setAttribute(PermissionKey.visit_url, url);
         // 装载会话中的登录上下文
         UserContent.setLUser(null);
         UserContent.setRequest(request);
