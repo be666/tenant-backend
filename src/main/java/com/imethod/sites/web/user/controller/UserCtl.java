@@ -9,10 +9,7 @@ import com.imethod.domain.User;
 import com.imethod.sites.web.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * time : 15/11/13.
@@ -29,12 +26,25 @@ public class UserCtl {
     @Autowired
     private UserService userService;
 
+    @RequestMapping(value="/user/{userId}",method = RequestMethod.GET)
+    @ResponseBody
+    public User list(@PathVariable Integer userId) {
+        User user = null;
+        try {
+            user = userService.loadById(userId);
+        }catch (Exception e){
+            logger.error(e);
+
+        }
+        return user;
+    }
+
     /**
      * add user
      * @param user
      * @return
      */
-    @RequestMapping(value="/user",method = RequestMethod.PUT)
+    @RequestMapping(value="/user",method = RequestMethod.POST)
     @ResponseBody
     public ReturnBean insert (User user) {
 
@@ -54,12 +64,13 @@ public class UserCtl {
      * @param user
      * @return
      */
-    @RequestMapping(value="/user",method = RequestMethod.POST)
+    @RequestMapping(value="/user/{userId}",method = RequestMethod.POST)
     @ResponseBody
-    public ReturnBean update(User user) {
+    public ReturnBean update(@PathVariable Integer userId,User user) {
 
         ReturnBean  returnBean = new ReturnBean();
         try {
+            user.setUserId(userId);
             userService.update(user);
         }catch (Exception e){
             logger.error(e);

@@ -1,5 +1,6 @@
 package com.imethod.sites.web.tenant.service;
 
+import com.imethod.constant.Constants;
 import com.imethod.core.jdbc.PageMaker;
 import com.imethod.core.log.Logger;
 import com.imethod.core.log.LoggerFactory;
@@ -41,7 +42,7 @@ public class TenantService {
 
         tenantDB.setPlatformTenantId(tenant.getPlatformTenantId());
         tenantDB.setTenantName(tenant.getTenantName());
-        tenantDB.setState(tenant.getState());
+        tenantDB.setState(Constants.STATE_TRUE);
         tenantDB.setUpdateAt(now);
         tenantDB.setUpdaterId(tenant.getUpdaterId());
 

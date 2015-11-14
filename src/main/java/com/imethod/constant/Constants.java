@@ -8,6 +8,6 @@ package com.imethod.constant;
  * 1.
  */
 public class Constants {
-    public static final int DELETED_FALSE = 0;
-    public static final int DELETED_TRUE = 1;
+    public static final int STATE_FALSE = 0;
+    public static final int STATE_TRUE = 1;
 }

@@ -33,7 +33,6 @@ public class CourseService {
         Date now =  DateTools.getCurrentDateTime();
         course.setCreateAt(now);
         course.setUpdateAt(now);
-        course.setDeleteFlag(Constants.DELETED_FALSE);
         return courseDao.insert(course);
     }
 
@@ -68,7 +67,6 @@ public class CourseService {
         if(courseDB==null){
              return new ReturnBean(ReturnBean.FALSE,"课程不存在！");
         }
-        courseDB.setDeleteFlag(Constants.DELETED_TRUE);
         try {
             courseDao.update(courseDB);
         } catch (IllegalAccessException | InvocationTargetException e) {
