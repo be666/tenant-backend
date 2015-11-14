@@ -1,0 +1,35 @@
+table, .imethod-table {
+  width: 100%;
+  background: @color-white;
+  tr, td, th {
+    line-height: 40px;
+  }
+  thead, .imethod-thead {
+    background: @color-g01;
+  }
+  tbody, .imethod-body {
+    tr {
+      &:hover {
+        .face(yellow, red)
+      }
+    }
+  }
+  border: 0 solid @color-g01;
+  tr, .imethod-tr {
+    border-left-width: 1px;
+    td {
+      border-right-width: 1px;
+    }
+  }
+  thead, .imethod-thead {
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+  }
+  tbody, .imethod-tbody {
+    border-bottom-width: 1px;
+  }
+  tfoot, .imethod-tfoot {
+    border-bottom-width: 1px;
+  }
+}
+
