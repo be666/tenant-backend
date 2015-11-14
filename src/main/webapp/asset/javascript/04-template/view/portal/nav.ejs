@@ -1,0 +1,29 @@
+<%
+var menuList = menuList || [];
+var menuLength = menuList.length;
+%>
+<div class="course-nav">
+    <ul class="nav">
+        <%
+        for (var i = 0; i < menuLength; i++) {
+            var menu = menuList[i]||{};
+            var childMenu = menu['childMenu'] || [];
+        log(childMenu);
+            var cLength = childMenu.length;
+        %>
+        <li menu_id="<%= menu.menuId %>">
+            <a href="javascript:void(0)"
+               menu_id="<%= menu.menuId %>"
+               content="<%= menu.content %>"
+                    >
+                <%= menu.menuName %>
+            </a>
+        </li>
+        <% if(cLength > 0){ %>
+        <% include('./nav',{
+        menuList:childMenu
+        }) %>
+        <% } %>
+        <% } %>
+    </ul>
+</div>

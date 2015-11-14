@@ -1,16 +1,15 @@
 package com.imethod.sites.web.sys.auth;
 
 import com.imethod.core.util.StringTools;
-import com.imethod.domain.Rule;
 import com.imethod.domain.User;
 import com.imethod.sites.web.permission.service.PermissionService;
 import com.imethod.sites.web.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,15 +33,17 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
+        if(handler instanceof ResourceHttpRequestHandler){
+            return  true;
+        }
         //获取用户
         Integer userId = 0;
         User user = userService.loadById(1);
         String url = request.getRequestURI();
-        request.setAttribute(PermissionKey.login_user_cookie_key, request.getRequestURL());
         if (StringTools.isNotEmpty(request.getQueryString())) {
             url = url.concat("?").concat(request.getQueryString());
         }
-        request.setAttribute(PermissionKey.login_user_cookie_key, url);
+        request.setAttribute(PermissionKey.visit_url, url);
         // 装载会话中的登录上下文
         UserContent.setLUser(null);
         UserContent.setRequest(request);
@@ -80,7 +81,7 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
                 request.setAttribute("responseBody", "true");
             }
         }
-        request.setAttribute("LUser", user);
+        request.setAttribute("LUser", lUser);
         if (methodHandler == null) {
             return true;
         }
@@ -95,7 +96,18 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         super.afterCompletion(request, response, handler, ex);
-        restUserContent();
+//        restUserContent();
+    }
+
+
+    @Override
+    public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        super.afterConcurrentHandlingStarted(request, response, handler);
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        super.postHandle(request, response, handler, modelAndView);
     }
 
     private void restUserContent() {

@@ -4,12 +4,69 @@
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
+
+    <definition name="main.lr" extends="template.lr">
+        <put-attribute name="content_l" value="/WEB-INF/jsp/nav.jsp"/>
+    </definition>
+
+
     <definition name="main" extends="template">
         <put-attribute name="content">
-            <definition extends="template.lr">
-                <put-attribute name="content_l" value="/WEB-INF/jsp/main/nav.jsp"/>
-                <put-attribute name="content_r" value="/WEB-INF/jsp/main/index.jsp"/>
+            <definition extends="main.lr">
+                <put-attribute name="content_r" value="/WEB-INF/jsp/index.jsp"/>
             </definition>
         </put-attribute>
     </definition>
+
+
+    <definition name="alarm" extends="template">
+        <put-attribute name="content">
+            <definition extends="main.lr">
+                <put-attribute name="content_r" value="/WEB-INF/jsp/alarm/index.jsp"/>
+            </definition>
+        </put-attribute>
+    </definition>
+
+
+    <definition name="bi" extends="template">
+        <put-attribute name="content">
+            <definition extends="main.lr">
+                <put-attribute name="content_r" value="/WEB-INF/jsp/bi/index.jsp"/>
+            </definition>
+        </put-attribute>
+    </definition>
+
+    <definition name="tenant" extends="template">
+        <put-attribute name="content">
+            <definition extends="main.lr">
+                <put-attribute name="content_r" value="/WEB-INF/jsp/tenant/index.jsp"/>
+            </definition>
+        </put-attribute>
+    </definition>
+
+    <definition name="tenant.info" extends="template">
+        <put-attribute name="content">
+            <definition extends="main.lr">
+                <put-attribute name="content_r" value="/WEB-INF/jsp/tenant/info.jsp"/>
+            </definition>
+        </put-attribute>
+    </definition>
+
+
+    <definition name="course" extends="template">
+        <put-attribute name="content">
+            <definition extends="main.lr">
+                <put-attribute name="content_r" value="/WEB-INF/jsp/course/index.jsp"/>
+            </definition>
+        </put-attribute>
+    </definition>
+
+    <definition name="permission" extends="template">
+        <put-attribute name="content">
+            <definition extends="main.lr">
+                <put-attribute name="content_r" value="/WEB-INF/jsp/permission/index.jsp"/>
+            </definition>
+        </put-attribute>
+    </definition>
+
 </tiles-definitions>

@@ -12,10 +12,10 @@
  *  1.
  */
 (function ($w, $) {
-    var utils = $w.imethod.utils;
+    var utils = $w.iMethod.utils;
 
-    $w.imethod.btn = [];
-    $w.imethod.def = {};
+    $w.iMethod.btn = [];
+    $w.iMethod.def = {};
     //参数配置
     var status = {
         disable: 0,
@@ -24,7 +24,7 @@
         complete: 3
     }
 
-    $w.imethod.def.btn = {
+    $w.iMethod.def.btn = {
         disableText: "提交x",
         normalText: "提交",
         submittingText: "提交中",
@@ -51,10 +51,10 @@
         }
     };
 
-    var imethodBtn = function (targetId, args) {
+    var iMethodBtn = function (targetId, args) {
         var _t = "#" + targetId;
         var $btn = $(_t);
-        $btn.data("imethodBtn", "complete");
+        $btn.data("iMethodBtn", "complete");
         var handler = {
             setStatus: function (status) {
                 switch (status) {
@@ -84,7 +84,7 @@
             },
             ajax: function () {
                 if (config.url) {
-                    imethod._.ajax({
+                    iMethod._.ajax({
                         url: config.url,
                         data: config.data,
                         type: config.type,
@@ -122,7 +122,7 @@
             }
         };
 
-        var config = $.extend({}, $w.imethod.def.btn, args);
+        var config = $.extend({}, $w.iMethod.def.btn, args);
         $btn.on("click", function () {
             if (handler.beforeClick()) {
                 handler.setStatus(status.submitting);
@@ -133,27 +133,27 @@
 
     };
 
-    $w.imethod.btn = [];
+    $w.iMethod.btn = [];
 
-    $.fn.imethodBtn = function (args) {
+    $.fn.iMethodBtn = function (args) {
         var $Target = $(this);
         var $TargetId = $Target.attr("id");
         if (typeof $TargetId == "undefined") {
-            $TargetId = "imethod_btn_" + imethod.seq();
+            $TargetId = "iMethod_btn_" + iMethod.seq();
             $Target.attr("id", $TargetId)
         }
-        if ($Target.data("imethodBtn") !== "complete") {
-            if (typeof $w.imethod.btn[$TargetId] != "undefined") {
-                $w.imethod.btn[$TargetId].destroy()
+        if ($Target.data("iMethodBtn") !== "complete") {
+            if (typeof $w.iMethod.btn[$TargetId] != "undefined") {
+                $w.iMethod.btn[$TargetId].destroy()
             }
-            $w.imethod.btn[$TargetId] = null
+            $w.iMethod.btn[$TargetId] = null
         }
-        if (typeof $w.imethod.btn[$TargetId] == "undefined" || $w.imethod.btn[$TargetId] == null) {
-            $w.imethod.btn[$TargetId] = new imethodBtn($TargetId, args)
+        if (typeof $w.iMethod.btn[$TargetId] == "undefined" || $w.iMethod.btn[$TargetId] == null) {
+            $w.iMethod.btn[$TargetId] = new iMethodBtn($TargetId, args)
         } else {
-            $w.imethod.btn[$TargetId].setConfig(args)
+            $w.iMethod.btn[$TargetId].setConfig(args)
         }
-        return $w.imethod.btn[$TargetId];
+        return $w.iMethod.btn[$TargetId];
     }
 
 })(window, jQuery);

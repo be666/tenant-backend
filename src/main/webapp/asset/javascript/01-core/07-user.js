@@ -35,5 +35,5 @@
       return this._.currentTenant.tenantId;
     }
   };
-  $w.imethod.user = user;
+  $w.iMethod.user = user;
 })(window, jQuery);

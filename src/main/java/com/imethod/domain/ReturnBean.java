@@ -11,23 +11,28 @@ import java.util.Map;
  */
 public class ReturnBean {
 
-    public static  final Boolean TRUE = true;
-    public static  final Boolean FALSE = false ;
+    public static final Boolean TRUE = true;
+    public static final Boolean FALSE = false;
 
     private Boolean status = TRUE;
 
-    private String msg ;
+    private String msg;
 
-    private Map<String,Object> dataMap ;
+    private Map<String, Object> dataMap;
 
-    public ReturnBean(Boolean status,String msg,Map<String,Object> dataMap) {
+    public ReturnBean(Boolean status, String msg, Map<String, Object> dataMap) {
         this.status = status;
         this.msg = msg;
         this.dataMap = dataMap;
     }
 
-    public ReturnBean(Boolean status,String msg) {
-        this.status = status;
+    public ReturnBean(Map<String, Object> dataMap) {
+        this.status = true;
+        this.dataMap = dataMap;
+    }
+
+    public ReturnBean(String msg) {
+        this.status = false;
         this.msg = msg;
     }
 

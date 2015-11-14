@@ -8,5 +8,5 @@
 define('service/user_service', function (require, exports, module) {
 
 
-  imethod.service.user_service = module.exports
+  iMethod.service.user_service = module.exports
 });

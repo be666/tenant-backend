@@ -7,7 +7,7 @@
  */
 define('service/mvc_service', function (require, exports, module) {
   exports.query = function (callback) {
-    imethod._.ajax({
+    iMethod._.ajax({
       url: "/mvc/demo",
       type: "post",
       success: function (res) {
@@ -16,5 +16,5 @@ define('service/mvc_service', function (require, exports, module) {
       }
     })
   }
-  imethod.service.mvc_service = module.exports
+  iMethod.service.mvc_service = module.exports
 });

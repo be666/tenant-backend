@@ -21,6 +21,7 @@ public class User {
     private String mobile;
     private String email;
     private String gender;
+    private String password;
     private Integer state;
     private Integer createrId;
     private Date createAt;
@@ -75,6 +76,16 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Basic
+    @Column(name = "password", nullable = true, insertable = true, updatable = true, length = 100)
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Basic

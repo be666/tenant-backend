@@ -6,7 +6,7 @@
  *  1.
  */
 (function ($w) {
-  $w.imethod._.dialog = {
+  $w.iMethod._.dialog = {
     ext: {
       alert: null,
       confirm: null,
@@ -16,9 +16,9 @@
     },
     history: [],
     alert: function (msg, callback) {
-      $w.imethod._.dialog.history.push(msg);
-      if ($w.imethod._.dialog.ext.alert) {
-        return $w.imethod._.dialog.ext.alert(msg, callback);
+      $w.iMethod._.dialog.history.push(msg);
+      if ($w.iMethod._.dialog.ext.alert) {
+        return $w.iMethod._.dialog.ext.alert(msg, callback);
       } else {
         $w.alert(msg);
         callback && callback();
@@ -26,9 +26,9 @@
       }
     },
     confirm: function (msg, callback) {
-      $w.imethod._.dialog.history.push(msg);
-      if ($w.imethod._.dialog.ext.confirm) {
-        return $w.imethod._.dialog.ext.confirm(msg, callback);
+      $w.iMethod._.dialog.history.push(msg);
+      if ($w.iMethod._.dialog.ext.confirm) {
+        return $w.iMethod._.dialog.ext.confirm(msg, callback);
       } else {
         var flag = $w.confirm(msg);
         if (flag) {
@@ -40,9 +40,9 @@
       }
     },
     warn: function (msg, callback) {
-      $w.imethod._.dialog.history.push(msg);
-      if ($w.imethod._.dialog.ext.warn) {
-        return $w.imethod._.dialog.ext.warn(msg, callback);
+      $w.iMethod._.dialog.history.push(msg);
+      if ($w.iMethod._.dialog.ext.warn) {
+        return $w.iMethod._.dialog.ext.warn(msg, callback);
       } else {
         $w.alert(msg);
         callback && callback();
@@ -50,9 +50,9 @@
       }
     },
     error: function (msg, callback) {
-      $w.imethod._.dialog.history.push(msg);
-      if ($w.imethod._.dialog.ext.error) {
-        return $w.imethod._.dialog.ext.error(msg, callback);
+      $w.iMethod._.dialog.history.push(msg);
+      if ($w.iMethod._.dialog.ext.error) {
+        return $w.iMethod._.dialog.ext.error(msg, callback);
       } else {
         $w.alert(msg);
         callback && callback();
@@ -60,9 +60,9 @@
       }
     },
     prompt: function (msg, callback) {
-      $w.imethod._.dialog.history.push(msg);
-      if ($w.imethod._.dialog.ext.prompt) {
-        return $w.imethod._.dialog.ext.prompt(msg, callback);
+      $w.iMethod._.dialog.history.push(msg);
+      if ($w.iMethod._.dialog.ext.prompt) {
+        return $w.iMethod._.dialog.ext.prompt(msg, callback);
       } else {
         var msg = $w.prompt(msg);
         callback && callback(msg);
@@ -70,20 +70,20 @@
       }
     },
     dialog: function (text, opts) {
-      $w.imethod._.dialog.history.push(text);
-      if ($w.imethod._.dialog.ext.dialog) {
-        return $w.imethod._.dialog.ext.dialog(text, opts);
+      $w.iMethod._.dialog.history.push(text);
+      if ($w.iMethod._.dialog.ext.dialog) {
+        return $w.iMethod._.dialog.ext.dialog(text, opts);
       } else {
         $w.alert(text);
         return {};
       }
     }
   };
-  $w.imethod.alert = $w.imethod._.dialog.alert;
-  $w.imethod.confirm = $w.imethod._.dialog.confirm;
-  $w.imethod.success = $w.imethod._.dialog.alert;
-  $w.imethod.error = $w.imethod._.dialog.error;
-  $w.imethod.warn = $w.imethod._.dialog.warn;
-  $w.imethod.dialog = $w.imethod._.dialog.dialog;
-  $w.imethod.prompt = $w.imethod._.dialog.prompt;
+  $w.iMethod.alert = $w.iMethod._.dialog.alert;
+  $w.iMethod.confirm = $w.iMethod._.dialog.confirm;
+  $w.iMethod.success = $w.iMethod._.dialog.alert;
+  $w.iMethod.error = $w.iMethod._.dialog.error;
+  $w.iMethod.warn = $w.iMethod._.dialog.warn;
+  $w.iMethod.dialog = $w.iMethod._.dialog.dialog;
+  $w.iMethod.prompt = $w.iMethod._.dialog.prompt;
 })(window);

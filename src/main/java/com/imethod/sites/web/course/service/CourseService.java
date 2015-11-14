@@ -30,15 +30,15 @@ public class CourseService {
     private CourseDao courseDao;
 
     public Course insert(Course course) {
-        Date now =  DateTools.getCurrentDateTime();
+        Date now = DateTools.getCurrentDateTime();
         course.setCreateAt(now);
         course.setUpdateAt(now);
         return courseDao.insert(course);
     }
 
     public void update(Course course) {
-        Date now =  DateTools.getCurrentDateTime();
-        Course courseDB =  courseDao.loadById(course.getCourseId());
+        Date now = DateTools.getCurrentDateTime();
+        Course courseDB = courseDao.loadById(course.getCourseId());
 
         courseDB.setCourseName(course.getCourseName());
         courseDB.setState(course.getState());
@@ -47,25 +47,22 @@ public class CourseService {
 
         try {
             courseDao.update(course);
-        } catch (IllegalAccessException e) {
-            logger.error(e.getMessage());
-        } catch (InvocationTargetException e) {
+        } catch (IllegalAccessException | InvocationTargetException e) {
             logger.error(e.getMessage());
         }
     }
 
     public PageMaker listCourse(String query, Long pageIndex, Long pageSize) {
-        PageMaker pageMaker = courseDao.listCourse(query, pageIndex, pageSize);
-        return pageMaker;
+        return courseDao.listCourse(query, pageIndex, pageSize);
     }
 
 
     public ReturnBean delete(Integer courseId) {
 
         ReturnBean returnBean = new ReturnBean();
-        Course courseDB =  courseDao.loadById(courseId);
-        if(courseDB==null){
-             return new ReturnBean(ReturnBean.FALSE,"课程不存在！");
+        Course courseDB = courseDao.loadById(courseId);
+        if (courseDB == null) {
+            return new ReturnBean("课程不存在！");
         }
         try {
             courseDao.update(courseDB);
