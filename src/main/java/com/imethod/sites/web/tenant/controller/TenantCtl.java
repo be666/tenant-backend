@@ -3,6 +3,7 @@ package com.imethod.sites.web.tenant.controller;
 import com.imethod.core.jdbc.PageMaker;
 import com.imethod.core.log.Logger;
 import com.imethod.core.log.LoggerFactory;
+import com.imethod.domain.ReturnBean;
 import com.imethod.domain.Tenant;
 import com.imethod.sites.web.tenant.service.TenantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,17 +35,18 @@ public class TenantCtl {
      * @param tenant
      * @return
      */
+    @ResponseBody
     @RequestMapping(value="/tenant",method = RequestMethod.PUT)
-    public boolean insert(Tenant tenant) {
+    public ReturnBean insert(Tenant tenant) {
 
-        boolean retState = false;
+        ReturnBean  returnBean = new ReturnBean();
         try {
             tenantService.insert(tenant);
-            retState = true;
         }catch (Exception e){
-
+            returnBean.setStatus(ReturnBean.FALSE);
+            returnBean.setMsg("保存失败， "+e.getMessage());
         }
-        return retState;
+        return returnBean;
     }
 
     /**
@@ -52,17 +54,19 @@ public class TenantCtl {
      * @param tenant
      * @return
      */
+    @ResponseBody
     @RequestMapping(value="/tenant",method = RequestMethod.POST)
-    public boolean update(Tenant tenant) {
+    public ReturnBean update(Tenant tenant) {
 
-        boolean retState = false;
+        ReturnBean  returnBean = new ReturnBean();
         try {
             tenantService.update(tenant);
-            retState = true;
         }catch (Exception e){
             logger.error(e.getMessage());
+            returnBean.setStatus(ReturnBean.FALSE);
+            returnBean.setMsg("更新失败， "+e.getMessage());
         }
-        return retState;
+        return returnBean;
     }
 
     @RequestMapping(value="/tenant",method = RequestMethod.GET)

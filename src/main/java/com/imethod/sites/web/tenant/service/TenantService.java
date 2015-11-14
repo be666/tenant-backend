@@ -31,7 +31,7 @@ public class TenantService {
     public Tenant insert(Tenant tenant) {
         Date now =  DateTools.getCurrentDateTime();
         tenant.setCreateAt(now);
-        tenant.setCreateAt(now);
+        tenant.setUpdateAt(now);
         return tenantDao.insert(tenant);
     }
 
@@ -43,7 +43,7 @@ public class TenantService {
         tenantDB.setTenantName(tenant.getTenantName());
         tenantDB.setState(tenant.getState());
         tenantDB.setUpdateAt(now);
-        tenantDB.setUpdateId(tenant.getUpdateId());
+        tenantDB.setUpdaterId(tenant.getUpdaterId());
 
         try {
             tenantDao.update(tenant);

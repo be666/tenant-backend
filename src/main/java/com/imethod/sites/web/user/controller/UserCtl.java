@@ -3,6 +3,7 @@ package com.imethod.sites.web.user.controller;
 import com.imethod.core.jdbc.PageMaker;
 import com.imethod.core.log.Logger;
 import com.imethod.core.log.LoggerFactory;
+import com.imethod.domain.ReturnBean;
 import com.imethod.domain.User;
 import com.imethod.domain.User;
 import com.imethod.sites.web.user.service.UserService;
@@ -34,16 +35,18 @@ public class UserCtl {
      * @return
      */
     @RequestMapping(value="/user",method = RequestMethod.PUT)
-    public boolean insert(User user) {
+    @ResponseBody
+    public ReturnBean insert (User user) {
 
-        boolean retState = false;
+        ReturnBean  returnBean = new ReturnBean();
         try {
             userService.insert(user);
-            retState = true;
         }catch (Exception e){
             e.printStackTrace();
+            returnBean.setStatus(ReturnBean.FALSE);
+            returnBean.setMsg("保存失败， "+e.getMessage());
         }
-        return retState;
+        return returnBean;
     }
 
     /**
@@ -52,16 +55,18 @@ public class UserCtl {
      * @return
      */
     @RequestMapping(value="/user",method = RequestMethod.POST)
-    public boolean update(User user) {
+    @ResponseBody
+    public ReturnBean update(User user) {
 
-        boolean retState = false;
+        ReturnBean  returnBean = new ReturnBean();
         try {
             userService.update(user);
-            retState = true;
         }catch (Exception e){
-            logger.error(e.getMessage());
+            logger.error(e);
+            returnBean.setStatus(ReturnBean.FALSE);
+            returnBean.setMsg("更新失败， "+e.getMessage());
         }
-        return retState;
+        return returnBean;
     }
 
     @RequestMapping(value="/user",method = RequestMethod.GET)
@@ -76,8 +81,8 @@ public class UserCtl {
         try {
             pageMaker = userService.listUser(query, pageIndex, pageSize);
         }catch (Exception e){
-            e.printStackTrace();
-            logger.error(e.getMessage());
+            logger.error(e);
+
         }
         return pageMaker;
     }

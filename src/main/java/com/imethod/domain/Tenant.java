@@ -19,9 +19,9 @@ public class Tenant {
     private String tenantName;
     private Integer orgId;
     private Integer state;
-    private Integer createId;
+    private Integer createrId;
     private Date createAt;
-    private Integer updateId;
+    private Integer updaterId;
     private Date updateAt;
     private Integer platformTenantId;
 
@@ -66,13 +66,13 @@ public class Tenant {
     }
 
     @Basic
-    @Column(name = "create_id", nullable = true, insertable = true, updatable = true)
-    public Integer getCreateId() {
-        return createId;
+    @Column(name = "creater_id", nullable = true, insertable = true, updatable = true)
+    public Integer getCreaterId() {
+        return createrId;
     }
 
-    public void setCreateId(Integer createId) {
-        this.createId = createId;
+    public void setCreaterId(Integer createrId) {
+        this.createrId = createrId;
     }
 
     @Basic
@@ -86,13 +86,13 @@ public class Tenant {
     }
 
     @Basic
-    @Column(name = "update_id", nullable = true, insertable = true, updatable = true)
-    public Integer getUpdateId() {
-        return updateId;
+    @Column(name = "updater_id", nullable = true, insertable = true, updatable = true)
+    public Integer getUpdaterId() {
+        return updaterId;
     }
 
-    public void setUpdateId(Integer updateId) {
-        this.updateId = updateId;
+    public void setUpdaterId(Integer updaterId) {
+        this.updaterId = updaterId;
     }
 
     @Basic
