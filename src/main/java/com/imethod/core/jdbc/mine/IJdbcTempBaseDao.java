@@ -81,6 +81,7 @@ public abstract class IJdbcTempBaseDao {
         try {
             return insert(object, null);
         } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
+            e.printStackTrace();
             ExceptionTools.unchecked(e);
         }
         return null;
