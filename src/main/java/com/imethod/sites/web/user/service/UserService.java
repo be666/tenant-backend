@@ -5,7 +5,6 @@ import com.imethod.core.log.Logger;
 import com.imethod.core.log.LoggerFactory;
 import com.imethod.core.util.DateTools;
 import com.imethod.domain.User;
-import com.imethod.sites.web.tenant.dao.TenantDao;
 import com.imethod.sites.web.user.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +31,7 @@ public class UserService {
         Date now =  DateTools.getCurrentDateTime();
         user.setUpdateAt(now);
         user.setCreateAt(now);
+
         userDao.insert(user);
     }
 
@@ -56,6 +56,10 @@ public class UserService {
 
     public PageMaker listUser(String query, Long pageIndex, Long pageSize) {
 
-        return userDao.listUser(query,pageIndex,pageSize);
+        return userDao.listUser(query, pageIndex, pageSize);
+    }
+
+    public User loadById(Integer userId) {
+        return userDao.loadById(userId);
     }
 }

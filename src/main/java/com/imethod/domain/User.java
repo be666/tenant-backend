@@ -7,8 +7,8 @@ import javax.persistence.Id;
 import java.util.Date;
 
 /**
- * time : 15/11/13.
- * auth :
+ * time : 15/11/14.
+ * auth : jqwang
  * desc :
  * tips :
  * 1.
@@ -18,15 +18,14 @@ public class User {
     private Integer userId;
     private String userName;
     private Integer orgId;
+    private String mobile;
+    private String email;
+    private String gender;
     private Integer state;
     private Integer createrId;
     private Date createAt;
     private Integer updaterId;
     private Date updateAt;
-    private String email;
-    private String mobile;
-    private String gender;
-
 
     @Id
     @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
@@ -59,6 +58,36 @@ public class User {
     }
 
     @Basic
+    @Column(name = "mobile", nullable = true, insertable = true, updatable = true, length = 20)
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    @Basic
+    @Column(name = "email", nullable = true, insertable = true, updatable = true, length = 100)
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Basic
+    @Column(name = "gender", nullable = true, insertable = true, updatable = true, length = 20)
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    @Basic
     @Column(name = "state", nullable = true, insertable = true, updatable = true)
     public Integer getState() {
         return state;
@@ -69,17 +98,17 @@ public class User {
     }
 
     @Basic
-    @Column(name = "creater_id", nullable = true, insertable = true)
+    @Column(name = "creater_id", nullable = true, insertable = true, updatable = true)
     public Integer getCreaterId() {
         return createrId;
     }
 
-    public void setCreterId(Integer createrId) {
+    public void setCreaterId(Integer createrId) {
         this.createrId = createrId;
     }
 
     @Basic
-    @Column(name = "create_at", nullable = true, insertable = true)
+    @Column(name = "create_at", nullable = true, insertable = true, updatable = true)
     public Date getCreateAt() {
         return createAt;
     }
@@ -94,8 +123,8 @@ public class User {
         return updaterId;
     }
 
-    public void setUpdaterId(Integer updateId) {
-        this.updaterId = updateId;
+    public void setUpdaterId(Integer updaterId) {
+        this.updaterId = updaterId;
     }
 
     @Basic
@@ -108,33 +137,41 @@ public class User {
         this.updateAt = updateAt;
     }
 
-    @Basic
-    @Column(name = "email", nullable = true, insertable = true, updatable = true, length = 100)
-    public String getEmail() {
-        return email;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (userId != null ? !userId.equals(user.userId) : user.userId != null) return false;
+        if (userName != null ? !userName.equals(user.userName) : user.userName != null) return false;
+        if (orgId != null ? !orgId.equals(user.orgId) : user.orgId != null) return false;
+        if (mobile != null ? !mobile.equals(user.mobile) : user.mobile != null) return false;
+        if (email != null ? !email.equals(user.email) : user.email != null) return false;
+        if (gender != null ? !gender.equals(user.gender) : user.gender != null) return false;
+        if (state != null ? !state.equals(user.state) : user.state != null) return false;
+        if (createrId != null ? !createrId.equals(user.createrId) : user.createrId != null) return false;
+        if (createAt != null ? !createAt.equals(user.createAt) : user.createAt != null) return false;
+        if (updaterId != null ? !updaterId.equals(user.updaterId) : user.updaterId != null) return false;
+        if (updateAt != null ? !updateAt.equals(user.updateAt) : user.updateAt != null) return false;
+
+        return true;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Basic
-    @Column(name = "mobile", nullable = true, insertable = true, updatable = true, length = 20)
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    @Basic
-    @Column(name = "gender", nullable = true, insertable = true, updatable = true, length = 10)
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
+    @Override
+    public int hashCode() {
+        int result = userId != null ? userId.hashCode() : 0;
+        result = 31 * result + (userName != null ? userName.hashCode() : 0);
+        result = 31 * result + (orgId != null ? orgId.hashCode() : 0);
+        result = 31 * result + (mobile != null ? mobile.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (gender != null ? gender.hashCode() : 0);
+        result = 31 * result + (state != null ? state.hashCode() : 0);
+        result = 31 * result + (createrId != null ? createrId.hashCode() : 0);
+        result = 31 * result + (createAt != null ? createAt.hashCode() : 0);
+        result = 31 * result + (updaterId != null ? updaterId.hashCode() : 0);
+        result = 31 * result + (updateAt != null ? updateAt.hashCode() : 0);
+        return result;
     }
 }

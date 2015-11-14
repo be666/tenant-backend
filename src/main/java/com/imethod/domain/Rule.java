@@ -4,10 +4,11 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Date;
 
 /**
- * time : 15/11/13.
- * auth :
+ * time : 15/11/14.
+ * auth : jqwang
  * desc :
  * tips :
  * 1.
@@ -18,10 +19,10 @@ public class Rule {
     private Integer menuId;
     private Integer userId;
     private Integer state;
-    private String createId;
-    private String createAt;
-    private String updateId;
-    private String updateAt;
+    private Integer createrId;
+    private Date createAt;
+    private Integer updaterId;
+    private Date updateAt;
 
     @Id
     @Column(name = "rule_id", nullable = false, insertable = true, updatable = true)
@@ -64,44 +65,74 @@ public class Rule {
     }
 
     @Basic
-    @Column(name = "create_id", nullable = true, insertable = true, updatable = true, length = 45)
-    public String getCreateId() {
-        return createId;
+    @Column(name = "creater_id", nullable = true, insertable = true, updatable = true)
+    public Integer getCreaterId() {
+        return createrId;
     }
 
-    public void setCreateId(String createId) {
-        this.createId = createId;
+    public void setCreaterId(Integer createrId) {
+        this.createrId = createrId;
     }
 
     @Basic
-    @Column(name = "create_at", nullable = true, insertable = true, updatable = true, length = 45)
-    public String getCreateAt() {
+    @Column(name = "create_at", nullable = true, insertable = true, updatable = true)
+    public Date getCreateAt() {
         return createAt;
     }
 
-    public void setCreateAt(String createAt) {
+    public void setCreateAt(Date createAt) {
         this.createAt = createAt;
     }
 
     @Basic
-    @Column(name = "update_id", nullable = true, insertable = true, updatable = true, length = 45)
-    public String getUpdateId() {
-        return updateId;
+    @Column(name = "updater_id", nullable = true, insertable = true, updatable = true)
+    public Integer getUpdaterId() {
+        return updaterId;
     }
 
-    public void setUpdateId(String updateId) {
-        this.updateId = updateId;
+    public void setUpdaterId(Integer updaterId) {
+        this.updaterId = updaterId;
     }
 
     @Basic
-    @Column(name = "update_at", nullable = true, insertable = true, updatable = true, length = 45)
-    public String getUpdateAt() {
+    @Column(name = "update_at", nullable = true, insertable = true, updatable = true)
+    public Date getUpdateAt() {
         return updateAt;
     }
 
-    public void setUpdateAt(String updateAt) {
+    public void setUpdateAt(Date updateAt) {
         this.updateAt = updateAt;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        Rule rule = (Rule) o;
+
+        if (ruleId != null ? !ruleId.equals(rule.ruleId) : rule.ruleId != null) return false;
+        if (menuId != null ? !menuId.equals(rule.menuId) : rule.menuId != null) return false;
+        if (userId != null ? !userId.equals(rule.userId) : rule.userId != null) return false;
+        if (state != null ? !state.equals(rule.state) : rule.state != null) return false;
+        if (createrId != null ? !createrId.equals(rule.createrId) : rule.createrId != null) return false;
+        if (createAt != null ? !createAt.equals(rule.createAt) : rule.createAt != null) return false;
+        if (updaterId != null ? !updaterId.equals(rule.updaterId) : rule.updaterId != null) return false;
+        if (updateAt != null ? !updateAt.equals(rule.updateAt) : rule.updateAt != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = ruleId != null ? ruleId.hashCode() : 0;
+        result = 31 * result + (menuId != null ? menuId.hashCode() : 0);
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
+        result = 31 * result + (state != null ? state.hashCode() : 0);
+        result = 31 * result + (createrId != null ? createrId.hashCode() : 0);
+        result = 31 * result + (createAt != null ? createAt.hashCode() : 0);
+        result = 31 * result + (updaterId != null ? updaterId.hashCode() : 0);
+        result = 31 * result + (updateAt != null ? updateAt.hashCode() : 0);
+        return result;
+    }
 }
