@@ -4,6 +4,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Date;
 
 /**
  * time : 15/11/13.
@@ -18,10 +19,14 @@ public class User {
     private String userName;
     private Integer orgId;
     private Integer state;
-    private String cretaId;
-    private String createAt;
-    private String updateId;
-    private String updateAt;
+    private Integer createrId;
+    private Date createAt;
+    private Integer updaterId;
+    private Date updateAt;
+    private String email;
+    private String mobile;
+    private String gender;
+
 
     @Id
     @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
@@ -64,43 +69,72 @@ public class User {
     }
 
     @Basic
-    @Column(name = "creta_id", nullable = true, insertable = true, updatable = true, length = 45)
-    public String getCretaId() {
-        return cretaId;
+    @Column(name = "creater_id", nullable = true, insertable = true)
+    public Integer getCreaterId() {
+        return createrId;
     }
 
-    public void setCretaId(String cretaId) {
-        this.cretaId = cretaId;
+    public void setCreterId(Integer createrId) {
+        this.createrId = createrId;
     }
 
     @Basic
-    @Column(name = "create_at", nullable = true, insertable = true, updatable = true, length = 45)
-    public String getCreateAt() {
+    @Column(name = "create_at", nullable = true, insertable = true)
+    public Date getCreateAt() {
         return createAt;
     }
 
-    public void setCreateAt(String createAt) {
+    public void setCreateAt(Date createAt) {
         this.createAt = createAt;
     }
 
     @Basic
-    @Column(name = "update_id", nullable = true, insertable = true, updatable = true, length = 45)
-    public String getUpdateId() {
-        return updateId;
+    @Column(name = "updater_id", nullable = true, insertable = true, updatable = true)
+    public Integer getUpdaterId() {
+        return updaterId;
     }
 
-    public void setUpdateId(String updateId) {
-        this.updateId = updateId;
+    public void setUpdaterId(Integer updateId) {
+        this.updaterId = updateId;
     }
 
     @Basic
-    @Column(name = "update_at", nullable = true, insertable = true, updatable = true, length = 45)
-    public String getUpdateAt() {
+    @Column(name = "update_at", nullable = true, insertable = true, updatable = true)
+    public Date getUpdateAt() {
         return updateAt;
     }
 
-    public void setUpdateAt(String updateAt) {
+    public void setUpdateAt(Date updateAt) {
         this.updateAt = updateAt;
     }
 
+    @Basic
+    @Column(name = "email", nullable = true, insertable = true, updatable = true, length = 100)
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Basic
+    @Column(name = "mobile", nullable = true, insertable = true, updatable = true, length = 20)
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    @Basic
+    @Column(name = "gender", nullable = true, insertable = true, updatable = true, length = 10)
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 }
