@@ -5,8 +5,8 @@
  * note:
  *  1.
  */
-define('service/user_service', function (require, exports, module) {
+define('service/tenant_service', function (require, exports, module) {
 
 
-  imethod.service.user_service = module.exports
+  imethod.service.tenant_service = module.exports
 });

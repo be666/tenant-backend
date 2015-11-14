@@ -4,11 +4,11 @@
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
-    <definition name="tenant" extends="template">
+    <definition name="main" extends="template">
         <put-attribute name="content">
             <definition extends="template.lr">
-                <put-attribute name="content_l" value="/WEB-INF/jsp/tenant/nav.jsp"/>
-                <put-attribute name="content_r" value="/WEB-INF/jsp/tenant/index.jsp"/>
+                <put-attribute name="content_l" value="/WEB-INF/jsp/main/nav.jsp"/>
+                <put-attribute name="content_r" value="/WEB-INF/jsp/main/index.jsp"/>
             </definition>
         </put-attribute>
     </definition>
