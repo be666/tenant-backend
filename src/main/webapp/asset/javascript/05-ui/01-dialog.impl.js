@@ -1,5 +1,5 @@
 (function ($w) {
-  var utils = $w.imethod.utils;
+  var utils = $w.iMethod.utils;
 
   var def = {
     template: null,
@@ -21,7 +21,7 @@
 
   };
 
-  $w.imethod._.dialog.ext = {
+  $w.iMethod._.dialog.ext = {
     alert: null,
     confirm: null,
     warn: null,

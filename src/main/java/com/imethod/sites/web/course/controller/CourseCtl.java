@@ -25,19 +25,38 @@ public class CourseCtl {
     @Autowired
     private CourseService courseService;
 
+
+    @RequestMapping(value = "/course", method = RequestMethod.GET)
+    public String list(@RequestParam(required = false) String query,
+                       @RequestParam(required = false) Long pageIndex,
+                       @RequestParam(required = false) Long pageSize) {
+
+        pageIndex = pageIndex == null ? 1 : pageIndex;
+        pageSize = pageSize == null ? 10 : pageSize;
+        PageMaker pageMaker = null;
+        try {
+            pageMaker = courseService.listCourse(query, pageIndex, pageSize);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error(e.getMessage());
+        }
+        return "course";
+    }
+
     /**
      * add course
+     *
      * @param course
      * @return
      */
-    @RequestMapping(value="/course",method = RequestMethod.PUT)
+    @RequestMapping(value = "/course", method = RequestMethod.POST)
     @ResponseBody
     public ReturnBean insert(Course course) {
 
         ReturnBean ret = new ReturnBean();
         try {
             courseService.insert(course);
-        }catch (Exception e){
+        } catch (Exception e) {
             ret.setMsg("保存出错");
             ret.setStatus(ReturnBean.FALSE);
         }
@@ -46,18 +65,19 @@ public class CourseCtl {
 
     /**
      * update course
+     *
      * @param course
      * @return
      */
-    @RequestMapping(value="/course",method = RequestMethod.POST)
+    @RequestMapping(value = "/course/{curseId}", method = RequestMethod.POST)
     @ResponseBody
-    public ReturnBean update(Course course) {
+    public ReturnBean update(@PathVariable String curseId, Course course) {
 
         ReturnBean ret = new ReturnBean();
         try {
             courseService.update(course);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             ret.setMsg("更新出错");
             ret.setStatus(ReturnBean.FALSE);
         }
@@ -66,30 +86,16 @@ public class CourseCtl {
 
     /**
      * delete course
+     *
      * @param courseId
      * @return
      */
-    @RequestMapping(value="/course/{courseId}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/course/del/{courseId}", method = RequestMethod.POST)
+    @ResponseBody
     public ReturnBean update(@PathVariable Integer courseId) {
         ReturnBean ret = new ReturnBean();
-        ret =  courseService.delete(courseId);
+        ret = courseService.delete(courseId);
         return ret;
     }
 
-    @RequestMapping(value="/course",method = RequestMethod.GET)
-    public String list(@RequestParam(required = false) String query,
-                        @RequestParam(required = false) Long pageIndex,
-                        @RequestParam(required = false) Long pageSize) {
-
-        pageIndex = pageIndex==null?1:pageIndex;
-        pageSize = pageSize==null?10:pageSize;
-        PageMaker pageMaker = null;
-        try {
-            pageMaker = courseService.listCourse(query, pageIndex, pageSize);
-        }catch (Exception e){
-            e.printStackTrace();
-            logger.error(e.getMessage());
-        }
-        return "";
-    }
 }

@@ -54,7 +54,7 @@ public class UserContent {
     }
 
 
-    public static LUser getUser() {
+    public static LUser getLUser() {
         return userThreadLocal.get();
     }
 
@@ -72,5 +72,6 @@ public class UserContent {
         requestThreadLocal.set(null);
         responseThreadLocal.set(null);
     }
+
 
 }

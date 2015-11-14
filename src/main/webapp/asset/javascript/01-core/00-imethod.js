@@ -7,9 +7,10 @@
  */
 (function ($w, $) {
   $w._window = {};
-  $w.imethod = $w.imethod || {
+  $w.iMethod = $w.iMethod || {
       _: {},
       ui: {},
+      ui_home:"iMethod_ui_home",
       service: {},
       controller: {},
       contextPath: "/",
@@ -20,8 +21,8 @@
         do {
           _id = Math.random() + "00000000";
           _id = _id.substr(_id.indexOf(".") + 1, 6);
-        } while (!!$w.imethod._seq[_id]);
-        $w.imethod._seq[_id] = !0;
+        } while (!!$w.iMethod._seq[_id]);
+        $w.iMethod._seq[_id] = !0;
         return _id;
       }
     };

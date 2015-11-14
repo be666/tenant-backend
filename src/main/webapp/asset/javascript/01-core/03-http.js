@@ -6,19 +6,19 @@
  *  1.
  */
 (function ($w, $) {
-  $w.imethod._.ajaxs = {
+  $w.iMethod._.ajaxs = {
     _: {},
     push: function (id, xhr) {
-      $w.imethod._.ajaxs._[id] = xhr;
+      $w.iMethod._.ajaxs._[id] = xhr;
     },
     pop: function (id) {
-      $w.imethod._.ajaxs._[id] = null;
+      $w.iMethod._.ajaxs._[id] = null;
     },
     get: function (id) {
-      return $w.imethod._.ajaxs._[id];
+      return $w.iMethod._.ajaxs._[id];
     }
   };
-  $w.imethod._.ajax = function (url, options) {
+  $w.iMethod._.ajax = function (url, options) {
     if (typeof url == "object") {
       options = url;
       url = null;
@@ -39,9 +39,9 @@
       $w.console.log("无效的请求地址");
       return null;
     }
-    var seq = $w.imethod.seq();
+    var seq = $w.iMethod.seq();
     var params = {
-      url: $w.imethod.contextPath + "/" + url,
+      url: $w.iMethod.contextPath + "/" + url,
       data: options['data'] || {},
       dateType: options['dateType'] || "html",
       type: options['type'] || 'get',
@@ -50,7 +50,7 @@
         if (typeof complete == "function") {
           complete(response)
         }
-        $w.imethod._.ajaxs.pop(seq);
+        $w.iMethod._.ajaxs.pop(seq);
       },
       success: function (response) {
         var success = options['success'];
@@ -63,7 +63,10 @@
         if (typeof error == "function") {
           error(response)
         } else {
-          imethod.alert("netError");
+          iMethod.error({
+            title:"提示!",
+            content:"网络异常！"
+          });
         }
       }
     };

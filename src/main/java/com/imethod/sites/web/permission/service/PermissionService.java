@@ -1,5 +1,7 @@
 package com.imethod.sites.web.permission.service;
 
+import com.imethod.core.util.ListTools;
+import com.imethod.domain.Menu;
 import com.imethod.domain.Rule;
 import com.imethod.domain.User;
 import com.imethod.sites.web.permission.dao.PermissionDao;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * time : 15/11/14.
@@ -27,8 +30,12 @@ public class PermissionService {
      *
      * @param userId
      */
-    public List<Rule> getUserRule(Integer userId) {
+    public List<Menu> getUserRule(Integer userId) {
         return new ArrayList<>();
+    }
+
+    public List<Map<String, Object>> getUserRule(Integer userId, Integer menuType) {
+        return permissionDao.getUserRule(userId, menuType);
     }
 
     /**
@@ -36,7 +43,12 @@ public class PermissionService {
      *
      * @param userId
      */
-    public List<String> getUserRuleStr(Integer userId,String ruleType) {
+    public List<String> getUserRuleStr(Integer userId, String ruleType) {
         return new ArrayList<>();
+    }
+
+    public List<Map<String, Object>> getUserMenu(Integer userId) {
+        List<Map<String, Object>> rule = getUserRule(userId, 1);
+        return ListTools.buildTree(rule, "menuId", "menuPid", "childMenu");
     }
 }

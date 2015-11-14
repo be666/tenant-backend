@@ -12,6 +12,7 @@
 <head>
     <title><tiles:getAsString name="title" defaultValue="imethod"/></title>
     <%--user-scalable=no 移动 禁用缩放--%>
+    <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="${contextPath}/css/boot.min.css"/>
@@ -21,10 +22,7 @@
         seajs.config({
             base: "${basePath}/js"
         });
-        imethod.contextPath = "${contextPath}";
-        imethod.user.setUser({
-//            userId: 541513
-        })
+        iMethod.contextPath = "${contextPath}";
     </script>
 </head>
 <body>
@@ -34,7 +32,7 @@
 <script src="${contextPath}/js/ui.min.js"></script>
 <script src="${contextPath}/js/config.min.js"></script>
 <script>
-    console.log("imethod 1.0 ");
+    console.log("iMethod 1.0 ");
 </script>
 </body>
 </html>

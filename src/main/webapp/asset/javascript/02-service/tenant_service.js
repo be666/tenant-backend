@@ -8,5 +8,5 @@
 define('service/tenant_service', function (require, exports, module) {
 
 
-  imethod.service.tenant_service = module.exports
+  iMethod.service.tenant_service = module.exports
 });

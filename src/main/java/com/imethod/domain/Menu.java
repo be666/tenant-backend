@@ -18,7 +18,8 @@ public class Menu {
     private Integer menuId;
     private String menuName;
     private Integer menuType;
-    private Integer meunPid;
+    private Integer menuPid;
+    private String content;
     private Integer state;
     private Integer createrId;
     private Date createAt;
@@ -56,13 +57,23 @@ public class Menu {
     }
 
     @Basic
-    @Column(name = "meun_pid", nullable = true, insertable = true, updatable = true)
+    @Column(name = "menu_pid", nullable = true, insertable = true, updatable = true)
     public Integer getMeunPid() {
-        return meunPid;
+        return menuPid;
     }
 
-    public void setMeunPid(Integer meunPid) {
-        this.meunPid = meunPid;
+    public void setMeunPid(Integer menuPid) {
+        this.menuPid = menuPid;
+    }
+
+    @Basic
+    @Column(name = "content", nullable = true, insertable = true, updatable = true)
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     @Basic
@@ -125,7 +136,7 @@ public class Menu {
         if (menuId != null ? !menuId.equals(menu.menuId) : menu.menuId != null) return false;
         if (menuName != null ? !menuName.equals(menu.menuName) : menu.menuName != null) return false;
         if (menuType != null ? !menuType.equals(menu.menuType) : menu.menuType != null) return false;
-        if (meunPid != null ? !meunPid.equals(menu.meunPid) : menu.meunPid != null) return false;
+        if (menuPid != null ? !menuPid.equals(menu.menuPid) : menu.menuPid != null) return false;
         if (state != null ? !state.equals(menu.state) : menu.state != null) return false;
         if (createrId != null ? !createrId.equals(menu.createrId) : menu.createrId != null) return false;
         if (createAt != null ? !createAt.equals(menu.createAt) : menu.createAt != null) return false;
@@ -140,7 +151,7 @@ public class Menu {
         int result = menuId != null ? menuId.hashCode() : 0;
         result = 31 * result + (menuName != null ? menuName.hashCode() : 0);
         result = 31 * result + (menuType != null ? menuType.hashCode() : 0);
-        result = 31 * result + (meunPid != null ? meunPid.hashCode() : 0);
+        result = 31 * result + (menuPid != null ? menuPid.hashCode() : 0);
         result = 31 * result + (state != null ? state.hashCode() : 0);
         result = 31 * result + (createrId != null ? createrId.hashCode() : 0);
         result = 31 * result + (createAt != null ? createAt.hashCode() : 0);

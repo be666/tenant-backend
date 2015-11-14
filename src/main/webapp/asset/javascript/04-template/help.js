@@ -46,6 +46,12 @@ template.helper("attr", function (name, value) {
     return "";
 });
 
+template.helper("htmlClean", function (html) {
+
+    html=html.toLocaleLowerCase().replace(/<style>.+<\/style>/g,'')
+    return $("<div></div>").html(html).html();
+});
+
 
 template.helper("def", {
     btnText: "click",

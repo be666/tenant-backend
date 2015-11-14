@@ -5,8 +5,31 @@
  * note:
  *  1.
  */
-define('controller/common/portal', ['service/user_service', "template"], function (require, exports, module) {
+define('controller/common/portal', [
+    'service/permission_service',
+    'view/portal/nav',
+    "template"], function (require, exports, module) {
 
-  imethod.controller.common = imethod.controller.common || {};
-  imethod.controller.common.portal = module.exports;
+    var perService = require("service/permission_service");
+    var navView = require("view/portal/nav");
+    exports.loadMenu = function (targetId) {
+        var $target = $("#" + targetId);
+        perService.loadMenu(function (dataMap) {
+            var menuList = dataMap['menuList'];
+            $target.html(navView({
+                menuList: menuList
+            }));
+        })
+        $target.on("click.menu", "a", function () {
+            var $this = $(this);
+            var menu_id = $this.attr("menu_id");
+            var content = $this.attr("content");
+            if (!iMethod.utils.nothing(content)) {
+                window.location.href = iMethod.utils.resoleUrl(iMethod.contextPath + "/" + content);
+            }
+        })
+    };
+
+    iMethod.controller.common = iMethod.controller.common || {};
+    iMethod.controller.common.portal = module.exports;
 });
