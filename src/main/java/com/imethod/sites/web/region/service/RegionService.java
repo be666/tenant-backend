@@ -27,7 +27,7 @@ public class RegionService {
     @Autowired
     private RegionDaO regionDao;
 
-    private Map<String,Region> getRegionMap(){
+    public Map<String,Region> getRegionMap(){
         List<Region> regionList = regionDao.listRegion();
         Map<String,Region> regionMap = new LinkedHashMap<>();
         for(Region region : regionList){

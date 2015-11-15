@@ -34,12 +34,25 @@ public abstract class IJdbcTempBaseDao {
         return getNamedParameterJdbcTemplate().update(sql, params);
     }
 
-    public Map<String, Object> queryForMap(String sql, Map<String, Object> params) {
-        return getNamedParameterJdbcTemplate().queryForMap(sql, params);
+    public <T> List<T> queryForList(String sql, Map<String, Object> params, Class<T> clazz) {
+        List<Map<String, Object>> mapList = queryForList(sql, params);
+        List<T> tList = new ArrayList<>();
+        T t;
+        for (Map<String, Object> map : mapList) {
+            try {
+                t = clazz.newInstance();
+                BeanTools.copyNotNullProperties(t, map);
+                tList.add(t);
+            } catch (InstantiationException | IllegalAccessException e) {
+                ExceptionTools.unchecked(e);
+            }
+
+        }
+        return tList;
     }
 
-    public <T> List<T> queryForList(String sql, Map<String, Object> params, Class<T> clazz) {
-        return getNamedParameterJdbcTemplate().queryForList(sql, params, clazz);
+    public Map<String, Object> queryForMap(String sql, Map<String, Object> params) {
+        return getNamedParameterJdbcTemplate().queryForMap(sql, params);
     }
 
 
