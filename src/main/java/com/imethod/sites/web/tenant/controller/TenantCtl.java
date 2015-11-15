@@ -10,10 +10,10 @@ import com.imethod.sites.web.code.service.CodeService;
 import com.imethod.sites.web.tenant.service.TenantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,7 +26,7 @@ import java.util.Map;
 @Controller
 public class TenantCtl {
 
-    Logger logger = LoggerFactory.getLogger(TenantService.class);
+    Logger logger = LoggerFactory.getLogger(TenantCtl.class);
 
     @Autowired
     private TenantService tenantService;
@@ -35,7 +35,25 @@ public class TenantCtl {
     private CodeService codeService;
 
     @RequestMapping(value = "/tenant", method = RequestMethod.GET)
-    public String index() {
+    public String index(ModelMap map) {
+        PageMaker pageMaker = null;
+        try {
+            pageMaker = tenantService.listTenant(null, null, null, 1l, 10l);
+            int totalTenant = tenantService.countTotalTenant();
+            int currentStatus10Count = tenantService.countTenant(10);
+            Map<Integer, Code> currentStatusCodeMap = codeService.listCodeMap("currentStatus");
+            Map<Integer, Code> serviceTypeCodeMap = codeService.listCodeMap("serviceType");
+            map.put("currentStatusCodeMap", currentStatusCodeMap);
+            map.put("serviceTypeCodeMap", serviceTypeCodeMap);
+            map.put("pageMaker", pageMaker);
+            map.put("currentStatus", 1);
+            map.put("currentStage", 1);
+            map.put("totalTenant", totalTenant);
+            map.put("currentStatus10Count", currentStatus10Count);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error(e.getMessage());
+        }
         return "tenant";
     }
 
@@ -86,34 +104,22 @@ public class TenantCtl {
         return returnBean;
     }
 
-    @RequestMapping(value = "/tenant/query", method = RequestMethod.POST)
+    @RequestMapping(value = "/tenant/query", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String,Object> list(@RequestParam(required = false) String query,
-                          @RequestParam(required = false) Long pageIndex,
-                          @RequestParam(required = false) Long pageSize,
-                          @RequestParam(required = false) Integer currentStatus,
-                          @RequestParam(required = false) Integer currentStage) {
-        Map<String,Object> map = new HashMap<>();
-        pageIndex = pageIndex == null ? 1 : pageIndex;
-        pageSize = pageSize == null ? 10 : pageSize;
-        PageMaker pageMaker = null;
+    public ReturnBean list(@RequestParam(required = false) String query,
+                           @RequestParam(required = false, defaultValue = "1") Long pageIndex,
+                           @RequestParam(required = false, defaultValue = "10") Long pageSize,
+                           @RequestParam(required = false) Integer currentStatus,
+                           @RequestParam(required = false) Integer currentStage) {
+        Map<String, Object> map = new HashMap<>();
         try {
-            pageMaker = tenantService.listTenant(query,currentStatus,currentStage ,pageIndex, pageSize);
-            int totalTenant = tenantService.countTotalTenant();
-            int currentStatus10Count = tenantService.countTenant(10);
-            Map<Integer,Code> currentStatusCodeMap = codeService.listCodeMap("currentStatus");
-            Map<Integer,Code> serviceTypeCodeMap = codeService.listCodeMap("serviceType");
-            map.put("currentStatusCodeMap",currentStatusCodeMap);
-            map.put("serviceTypeCodeMap",serviceTypeCodeMap);
-            map.put("pageMaker",pageMaker);
-            map.put("currentStatus",currentStatus);
-            map.put("currentStage",currentStage);
-            map.put("totalTenant",totalTenant);
-            map.put("currentStatus10Count",currentStatus10Count);
+            map.put("pageMaker", tenantService.listTenant(query, currentStatus, currentStage, pageIndex, pageSize));
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());
         }
-        return map;
+        return new ReturnBean(map);
     }
+
+
 }

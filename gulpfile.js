@@ -112,7 +112,7 @@ gulp.task('make_lib', function () {
         .pipe(concat("lib.js"))
         .pipe(gulp.dest('src/main/webapp/asset/out/js'))
         .pipe(rename({suffix: '.min'}))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest('src/main/webapp/asset/dist/js'))
 });
 
@@ -146,7 +146,7 @@ gulp.task('make_core', function () {
         .pipe(concat("core.js"))
         .pipe(gulp.dest('src/main/webapp/asset/out/js'))
         .pipe(rename({suffix: '.min'}))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest('src/main/webapp/asset/dist/js'))
 });
 
@@ -178,7 +178,7 @@ gulp.task('make_ui', function () {
         .pipe(concat("ui.js"))
         .pipe(gulp.dest('src/main/webapp/asset/out/js'))
         .pipe(rename({suffix: '.min'}))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest('src/main/webapp/asset/dist/js'))
 });
 
@@ -194,7 +194,7 @@ var serviceFile = 'src/main/webapp/asset/javascript/02-service/**/*.js';
 gulp.task('build_service', function () {
     return gulp.src(serviceFile)
         .pipe(gulp.dest('src/main/webapp/asset/out/js/service'))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest('src/main/webapp/asset/dist/js/service'))
 });
 
@@ -211,7 +211,7 @@ var controllerFile = 'src/main/webapp/asset/javascript/06-controller/**/*.js'
 gulp.task('build_controller', function () {
     return gulp.src(controllerFile)
         .pipe(gulp.dest('src/main/webapp/asset/out/js/controller'))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest('src/main/webapp/asset/dist/js/controller'))
 });
 

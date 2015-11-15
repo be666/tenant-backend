@@ -6,7 +6,15 @@
             课程
         </div>
         <div class="panel-body">
+            <div class="table" id="couserTab">
 
+            </div>
         </div>
     </div>
 </div>
+<script>
+    var pageMaker=${iMethod:toJSONlLine(pageMaker)}
+            seajs.use(["controller/course"], function (tenantCtl) {
+                tenantCtl.table('couserTab',pageMaker);
+            })
+</script>

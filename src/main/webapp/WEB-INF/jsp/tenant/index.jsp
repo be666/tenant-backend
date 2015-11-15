@@ -6,7 +6,15 @@
             租户
         </div>
         <div class="panel-body">
+            <div class="table" id="tenantTab">
 
+            </div>
         </div>
     </div>
 </div>
+<script>
+    var pageMaker=${iMethod:toJSONlLine(pageMaker)}
+    seajs.use(["controller/tenant"], function (tenantCtl) {
+        tenantCtl.table('tenantTab',pageMaker);
+    })
+</script>
