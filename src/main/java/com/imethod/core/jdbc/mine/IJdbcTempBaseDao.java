@@ -401,6 +401,12 @@ public abstract class IJdbcTempBaseDao {
         return rt.toString();
     }
 
+    public int queryForInt(String sql,Map<String,Object> map){
+        Integer integer =  getNamedParameterJdbcTemplate().queryForObject(sql, map, Integer.class);
+        return integer==null?0:integer;
+    }
+
+
     public void batchUpdate(String sql, Map[] params) {
         getNamedParameterJdbcTemplate().batchUpdate(sql, params);
     }

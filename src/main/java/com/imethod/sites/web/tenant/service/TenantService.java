@@ -5,7 +5,9 @@ import com.imethod.core.jdbc.PageMaker;
 import com.imethod.core.log.Logger;
 import com.imethod.core.log.LoggerFactory;
 import com.imethod.core.util.DateTools;
+import com.imethod.domain.Code;
 import com.imethod.domain.Tenant;
+import com.imethod.sites.web.code.service.CodeService;
 import com.imethod.sites.web.tenant.dao.TenantDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * time : 15/11/13.
@@ -28,6 +31,9 @@ public class TenantService {
 
     @Autowired
     private TenantDao tenantDao;
+
+    @Autowired
+    private CodeService codeService;
 
     public Tenant insert(Tenant tenant) {
         Date now =  DateTools.getCurrentDateTime();
@@ -55,8 +61,30 @@ public class TenantService {
         }
     }
 
-    public PageMaker listTenant(String query, Long pageIndex, Long pageSize) {
-        PageMaker pageMaker = tenantDao.listTenant( query,  pageIndex,  pageSize);
+    public PageMaker listTenant(String query,Integer currentStatus,Integer currentStage, Long pageIndex, Long pageSize) {
+        PageMaker pageMaker = tenantDao.listTenant( query, currentStatus,currentStage, pageIndex,  pageSize);
+        if(pageMaker.getItems()==null||pageMaker.getItems().size()==0){
+            return pageMaker;
+        }
+
+//        for(Map<String, Object> map : pageMaker.getItems()){
+//            Integer statusCode  = (Integer)map.get("currentStatus");
+//            map.put("currentStatusName",currentStatusCodeMap.get(statusCode).getCodeName());
+//
+//            Integer stageCode  = (Integer)map.get("currentStage");
+//            map.put("currentStageName",serviceTypeCodeMap.get(stageCode).getCodeName());
+//        }
+
         return pageMaker;
     }
+
+    public int countTenant(Integer currentStatus) {
+        return tenantDao.countTenant(currentStatus);
+    }
+
+    public int countTotalTenant() {
+        return countTenant(null);
+    }
+
+
 }
