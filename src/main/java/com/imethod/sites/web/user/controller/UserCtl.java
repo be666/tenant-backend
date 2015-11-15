@@ -94,11 +94,9 @@ public class UserCtl {
                         @RequestParam(required = false) Long pageIndex,
                         @RequestParam(required = false) Long pageSize) {
 
-        pageIndex = pageIndex==null?1:pageIndex;
-        pageSize = pageSize==null?10:pageSize;
         PageMaker pageMaker = null;
         try {
-            pageMaker = userService.listUser(query, pageIndex, pageSize);
+            pageMaker = userService.listUser(query,pageIndex, pageSize);
         }catch (Exception e){
             logger.error(e);
 

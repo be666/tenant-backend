@@ -3,12 +3,17 @@ package com.imethod.sites.web.course.controller;
 import com.imethod.core.jdbc.PageMaker;
 import com.imethod.core.log.Logger;
 import com.imethod.core.log.LoggerFactory;
+import com.imethod.domain.Code;
 import com.imethod.domain.Course;
 import com.imethod.domain.ReturnBean;
+import com.imethod.sites.web.code.service.CodeService;
 import com.imethod.sites.web.course.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * time : 15/11/13.
@@ -24,23 +29,29 @@ public class CourseCtl {
 
     @Autowired
     private CourseService courseService;
+    @Autowired
+    private CodeService codeService;
 
 
     @RequestMapping(value = "/course", method = RequestMethod.GET)
-    public String list(@RequestParam(required = false) String query,
+    @ResponseBody
+    public Map<String,Object> list(@RequestParam(required = false) String query,
+                       @RequestParam(required = false) Integer courseType,
                        @RequestParam(required = false) Long pageIndex,
                        @RequestParam(required = false) Long pageSize) {
 
-        pageIndex = pageIndex == null ? 1 : pageIndex;
-        pageSize = pageSize == null ? 10 : pageSize;
-        PageMaker pageMaker = null;
+        Map<String,Object> map = new HashMap<>();
         try {
-            pageMaker = courseService.listCourse(query, pageIndex, pageSize);
+            PageMaker pageMaker = courseService.listCourse(query,courseType, pageIndex, pageSize);
+
+            Map<Integer,Code> typeCodeMap = codeService.listCodeMap("courseType");
+            map.put("pageMaker",pageMaker);
+            map.put("typeCodeMap",typeCodeMap);
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());
         }
-        return "course";
+        return map;
     }
 
     /**

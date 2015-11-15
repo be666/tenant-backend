@@ -53,17 +53,18 @@ public class UserDao extends IJdbcTempBaseDao {
         return user;
     }
 
-    String SQL_LIST_USER =  "select * from user ";
-    String SQL_LIST_USER_QUERY =  "select * from user where user_name like :query or email like :query  ";
+    String SQL_LIST_USER =  "select * from user where state = 1  ";
 
-    public PageMaker listUser(String query, Long pageIndex, Long pageSize) {
+    public PageMaker listUser(String query,  Long pageIndex, Long pageSize) {
         Map<String,Object> map =  new HashMap<>();
-        String sql = SQL_LIST_USER;
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(SQL_LIST_USER);
         if(StringTools.isNotEmpty(query)){
-            sql =SQL_LIST_USER_QUERY;
+            buffer.append(" and ( user_name like :query or mobile like :query or email like :query) ");
             map.put("query",iSqlHelp.like(query));
         }
-        PageMaker page = this.queryPageList(sql,pageIndex,pageSize,map);
+
+        PageMaker page = this.queryPageList(buffer.toString(),pageIndex,pageSize,map);
         return page;
     }
 }

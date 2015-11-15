@@ -54,17 +54,33 @@ public class CourseDao extends IJdbcTempBaseDao {
         return course;
     }
 
-    String SQL_LIST_COURSE =  "select * from course ";
-    String SQL_LIST_COURSE_LIKE =  "select * from course where course_name like :courseName ";
+    /**
+     * query
+     * @param query
+     * @param courseType
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
 
-    public PageMaker listCourse(String query, Long pageIndex, Long pageSize) {
+    private static String  SQL_LIST_COURSE =  "select c.*,a.tenantNum from course c join " +
+            "(select course_id,count(1) as tenantNum from tenant_course_rp " +
+            "where state = 1 group by course_id)\n" +
+            " a on a.course_id = c.course_id where c.state = 1  ";
+
+    public PageMaker listCourse(String query,Integer courseType, Long pageIndex, Long pageSize) {
         Map<String,Object> map =  new HashMap<>();
-        String sql = SQL_LIST_COURSE;
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(SQL_LIST_COURSE);
         if(StringTools.isNotEmpty(query)){
-            sql =SQL_LIST_COURSE_LIKE;
+            buffer.append(" and c.course_name like :courseName  ");
             map.put("courseName",iSqlHelp.like(query));
         }
-        PageMaker page = this.queryPageList(sql,pageIndex,pageSize,map);
+        if(StringTools.isNotEmpty(courseType)){
+            buffer.append(" and c.course_type =:courseType ");
+            map.put("courseType",courseType);
+        }
+        PageMaker page = this.queryPageList(buffer.toString(),pageIndex,pageSize,map);
         return page;
     }
 }
