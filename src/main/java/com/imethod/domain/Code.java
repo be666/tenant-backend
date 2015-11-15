@@ -4,6 +4,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * time : 15/11/14.
@@ -14,22 +16,25 @@ import javax.persistence.Id;
  */
 @Entity
 public class Code {
-    private Long codeId;
+    private Integer codeId;
     private String codeType;
     private Integer levelType;
-    private String code;
+    private Integer code;
     private String codeName;
-    private Long parentId;
+    private Integer parentId;
+
     private Integer state;
-    private String codeEnName;
+    //private String codeEnName;
+
+    //private Map<Integer,Code> codeMap = new HashMap<>();
 
     @Id
     @Column(name = "code_id", nullable = false, insertable = true, updatable = true)
-    public Long getCodeId() {
+    public Integer getCodeId() {
         return codeId;
     }
 
-    public void setCodeId(Long codeId) {
+    public void setCodeId(Integer codeId) {
         this.codeId = codeId;
     }
 
@@ -55,11 +60,11 @@ public class Code {
 
     @Basic
     @Column(name = "code", nullable = true, insertable = true, updatable = true, length = 20)
-    public String getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 
@@ -75,11 +80,11 @@ public class Code {
 
     @Basic
     @Column(name = "parent_id", nullable = true, insertable = true, updatable = true)
-    public Long getParentId() {
+    public Integer getParentId() {
         return parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(Integer parentId) {
         this.parentId = parentId;
     }
 
@@ -91,16 +96,6 @@ public class Code {
 
     public void setState(Integer state) {
         this.state = state;
-    }
-
-    @Basic
-    @Column(name = "code_en_name", nullable = true, insertable = true, updatable = true, length = 100)
-    public String getCodeEnName() {
-        return codeEnName;
-    }
-
-    public void setCodeEnName(String codeEnName) {
-        this.codeEnName = codeEnName;
     }
 
     @Override
@@ -117,7 +112,6 @@ public class Code {
         if (codeName != null ? !codeName.equals(code1.codeName) : code1.codeName != null) return false;
         if (parentId != null ? !parentId.equals(code1.parentId) : code1.parentId != null) return false;
         if (state != null ? !state.equals(code1.state) : code1.state != null) return false;
-        if (codeEnName != null ? !codeEnName.equals(code1.codeEnName) : code1.codeEnName != null) return false;
 
         return true;
     }
@@ -131,7 +125,8 @@ public class Code {
         result = 31 * result + (codeName != null ? codeName.hashCode() : 0);
         result = 31 * result + (parentId != null ? parentId.hashCode() : 0);
         result = 31 * result + (state != null ? state.hashCode() : 0);
-        result = 31 * result + (codeEnName != null ? codeEnName.hashCode() : 0);
         return result;
     }
+
+
 }

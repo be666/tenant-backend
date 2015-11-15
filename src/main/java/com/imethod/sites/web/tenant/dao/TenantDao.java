@@ -59,17 +59,38 @@ public class TenantDao extends IJdbcTempBaseDao {
         return tenant;
     }
 
-    String SQL_LIST_TENANT =  "select * from tenant ";
+    String SQL_LIST_TENANT =  "select * from tenant where state = 1 ";
     String SQL_LIST_TENANT_LIKE =  "select * from tenant where tenant_name like :tenantName ";
 
-    public PageMaker listTenant(String query, Long pageIndex, Long pageSize) {
+    public PageMaker listTenant(String query, Integer currentStatus, Integer currentStage, Long pageIndex, Long pageSize) {
         Map<String,Object> map =  new HashMap<>();
-        String sql = SQL_LIST_TENANT;
+        StringBuffer sb = new StringBuffer(200);
+        sb.append(SQL_LIST_TENANT);
         if(StringTools.isNotEmpty(query)){
-            sql =SQL_LIST_TENANT_LIKE;
+            sb.append(" tenant_name like :tenantName ");
             map.put("tenantName",iSqlHelp.like(query));
         }
-        PageMaker page = this.queryPageList(sql,pageIndex,pageSize,map);
+        if(StringTools.isNotEmpty(currentStatus)){
+            sb.append(" current_status =:currentStatus ");
+            map.put("currentStatus",currentStatus);
+        }
+        if(StringTools.isNotEmpty(currentStage)){
+            sb.append(" current_stage =:currentStage ");
+            map.put("currentStage",currentStage);
+        }
+        PageMaker page = this.queryPageList(sb.toString(),pageIndex,pageSize,map);
         return page;
+    }
+
+    String COUNT_SQL = " select count(1) from tenant where state = 1  ";
+    public int countTenant(Integer currentStatus) {
+        Map<String,Object> map =  new HashMap<>();
+        StringBuffer sb = new StringBuffer(200);
+        sb.append(COUNT_SQL);
+        if(StringTools.isNotEmpty(currentStatus)){
+            sb.append(" and  current_status =:currentStatus ");
+            map.put("currentStatus",currentStatus);
+        }
+        return this.queryForInt(sb.toString(),map);
     }
 }
