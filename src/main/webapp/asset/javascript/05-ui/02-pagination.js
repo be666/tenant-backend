@@ -58,16 +58,18 @@
                     pageSize: pageSize,
                     totalPage: totalPage
                 }));
+            } else {
+                $target.html(params.templateEmpty({
+                    content: ""
+                }));
             }
-            $target.html(params.templateEmpty({
-                content: ""
-            }));
         };
 
 
         var pub = {
             setConfig: function (opts) {
                 params = utils.extend(def, opts);
+                page();
             },
             destroy: function () {
 
@@ -79,6 +81,13 @@
             var page = $this.attr("data-page");
             var pageClick = params['pageClick'];
             var pageSize = params['pageSize'];
+            pageClick && pageClick(page, pageSize);
+        });
+        $target.on("click.pageClick", "[data-size]", function () {
+            var $this = $(this);
+            var page = params['curPage'];
+            var pageClick = params['pageClick'];
+            var pageSize = $this.attr("data-size");
             pageClick && pageClick(page, pageSize);
         });
 

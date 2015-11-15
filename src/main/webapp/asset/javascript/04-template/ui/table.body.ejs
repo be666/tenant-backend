@@ -1,0 +1,19 @@
+<%
+var titles = titles || [];
+var tLength = titles.length;
+var datas = datas || [];
+var dLength = datas.length;
+for(var i = 0;i < dLength;i++){
+    var data = datas[i];
+%>
+<tr>
+    <% for(var j = 0;j < tLength;j++){
+        var title = titles[j];
+        var key = title['key'];
+    %>
+    <td>
+        <%= data[key] %>
+    </td>
+    <% } %>
+</tr>
+<% } %>
