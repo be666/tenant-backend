@@ -7,6 +7,27 @@
  */
 define('service/course_service', function (require, exports, module) {
 
+    exports.queryCourse = function (callback, query) {
+
+        iMethod._.ajax({
+            url: "/course/query",
+            data: {
+                pageIndex: query['pageIndex'],
+                pageSize: query['pageSize'],
+                currentStatus: query['currentStatus'],
+                currentStage: query['currentStage']
+            },
+            type: "get",
+            success: function (res) {
+                if (res.status == 1) {
+                    callback && callback(res['dataMap'] || {});
+                } else if (res['msg']) {
+                    iMethod.alert(res['msg']);
+                }
+            }
+        })
+    };
+
 
     iMethod.service.course_service = module.exports
 });

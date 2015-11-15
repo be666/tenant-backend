@@ -80,7 +80,6 @@ public class CourseDao extends IJdbcTempBaseDao {
             buffer.append(" and c.course_type =:courseType ");
             map.put("courseType",courseType);
         }
-        PageMaker page = this.queryPageList(buffer.toString(),pageIndex,pageSize,map);
-        return page;
+        return this.queryPageList(buffer.toString(), pageIndex, pageSize, map);
     }
 }

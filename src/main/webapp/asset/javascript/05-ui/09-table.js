@@ -49,16 +49,16 @@
                     dataList: dataList
                 }));
             },
-            buildFoot: function (page, dataList) {
-                dataList = dataList || [];
+            buildFoot: function (page) {
                 if (utils.nothing(page)) {
                     var templateFoot = params['templateFoot'];
                     $(".iMethod-foot", $target).html(templateFoot());
                 } else {
-                    $(".Method-foot td.page", $target).iMethodPage({
+                    $(".iMethod-foot td.page", $target).iMethodPage({
                         curPage: page['curPage'],
                         totalPage: page['totalPage'],
-                        rowCount: dataList.length
+                        rowCount: page['rowCount'],
+                        pageClick: page['pageClick']
                     });
                 }
             }
@@ -67,17 +67,26 @@
         $target.html(
             template()
         );
+        var templateFoot = params['templateFoot'];
+        $(".iMethod-foot", $target).html(templateFoot());
         if (utils.nothing(params['titles'])) {
             var titles = [];
             var dataList = params['dataList'];
             var dl = dataList.length;
             if (dl > 0) {
-                var dt = dataList[0]
+                var dt = dataList[0];
                 for (var k in dt) {
-                    titles[k] = k;
+                    var obj = {};
+                    if (utils.isStr(k)) {
+                        titles.push({
+                            name: k,
+                            key: k
+                        });
+                    }
+
                 }
+                params['titles'] = titles;
             }
-            params['titles'] = titles;
         }
         pub.setConfig();
         return pub;

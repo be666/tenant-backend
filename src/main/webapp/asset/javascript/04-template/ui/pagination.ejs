@@ -22,7 +22,8 @@ var sLenght = sizes.length;
                 var pg = pages[i];
             %>
             <li class="<% if(curPage == pg){ %>active<% } %>">
-                <a href="javascript:void(0)" data-page="<%= pages[pg] %>"><%= pages[pg] %>
+                <a href="javascript:void(0)" data-page="<%= pg %>">
+                    <%= pg %>
                 </a>
             </li>
             <% } %>
@@ -37,7 +38,6 @@ var sLenght = sizes.length;
                 <a href="javascript:void(0)">
                     共<%= totalPage %> 页
                 </a>
-
             </li>
         </ul>
     </div>

@@ -12,6 +12,7 @@
 
     var def = {
         curPage: 1,
+        pageSize: 10,
         totalPage: 1,
         rowCount: 0,
         template: template("pagination"),
@@ -55,6 +56,7 @@
                 $target.html(params.template({
                     curPage: curPage,
                     pages: pages,
+                    rowCount:rowCount,
                     pageSize: pageSize,
                     totalPage: totalPage
                 }));

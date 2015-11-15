@@ -10,6 +10,7 @@ import com.imethod.sites.web.code.service.CodeService;
 import com.imethod.sites.web.course.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -34,24 +35,30 @@ public class CourseCtl {
 
 
     @RequestMapping(value = "/course", method = RequestMethod.GET)
-    @ResponseBody
-    public Map<String,Object> list(@RequestParam(required = false) String query,
-                       @RequestParam(required = false) Integer courseType,
-                       @RequestParam(required = false) Long pageIndex,
-                       @RequestParam(required = false) Long pageSize) {
-
-        Map<String,Object> map = new HashMap<>();
+    public String list(ModelMap map) {
         try {
-            PageMaker pageMaker = courseService.listCourse(query,courseType, pageIndex, pageSize);
+            PageMaker pageMaker = courseService.listCourse(null, null, 1l, 10l);
 
-            Map<Integer,Code> typeCodeMap = codeService.listCodeMap("courseType");
-            map.put("pageMaker",pageMaker);
-            map.put("typeCodeMap",typeCodeMap);
+            Map<Integer, Code> typeCodeMap = codeService.listCodeMap("courseType");
+            map.put("pageMaker", pageMaker);
+            map.put("typeCodeMap", typeCodeMap);
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());
         }
-        return map;
+        return "course";
+    }
+
+    @RequestMapping(value = "/course/query", method = RequestMethod.GET)
+    @ResponseBody
+    public ReturnBean list(@RequestParam(required = false) String query,
+                           @RequestParam(required = false) Integer courseType,
+                           @RequestParam(required = false) Long pageIndex,
+                           @RequestParam(required = false) Long pageSize) {
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("pageMaker", courseService.listCourse(query, courseType, pageIndex, pageSize));
+        return new ReturnBean(map);
     }
 
     /**
@@ -82,7 +89,7 @@ public class CourseCtl {
      */
     @RequestMapping(value = "/course/{curseId}", method = RequestMethod.POST)
     @ResponseBody
-    public ReturnBean update(@PathVariable String curseId, Course course) {
+    public ReturnBean update(@PathVariable Long curseId, Course course) {
 
         ReturnBean ret = new ReturnBean();
         try {
