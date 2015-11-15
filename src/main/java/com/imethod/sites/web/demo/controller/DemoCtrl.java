@@ -1,6 +1,9 @@
 package com.imethod.sites.web.demo.controller;
 
+import com.imethod.sites.web.region.service.RegionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,9 +24,14 @@ import java.util.Map;
 @Controller
 public class DemoCtrl {
 
+
+    @Autowired
+    private RegionService regionService;
+
     @RequestMapping("/mvc/goto/*")
     public String index(HttpServletRequest request) {
         String contextPath = request.getContextPath();
+        regionService.getRegionMap();
         return request.getRequestURI().substring((contextPath + ("/mvc/goto/")).length());
     }
 

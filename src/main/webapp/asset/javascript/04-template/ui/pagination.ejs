@@ -10,7 +10,7 @@ var sLenght = sizes.length;
 <div class="pager">
 
     <div class="page-index">
-        <ul >
+        <ul>
             <% if (curPage != 1) { %>
             <li>
                 <a href="javascript:void(0)" data-page="<%= curPage - 1 %>">
@@ -20,17 +20,11 @@ var sLenght = sizes.length;
             <% } %>
             <% for (var i = 0;i < pLenght;i++){
                 var pg = pages[i];
-            if (pages[pg] == curPage) { %>
-            <li class="active">
+            %>
+            <li class="<% if(curPage == pg){ %>active<% } %>">
                 <a href="javascript:void(0)" data-page="<%= pages[pg] %>"><%= pages[pg] %>
                 </a>
             </li>
-            <% } else { %>
-            <li>
-                <a href="javascript:void(0)" data-page="<%= pages[pg] %>"><%= pages[pg] %>
-                </a>
-            </li>
-            <% } %>
             <% } %>
             <% if (curPage != totalPage) { %>
             <li>
@@ -48,14 +42,18 @@ var sLenght = sizes.length;
         </ul>
     </div>
     <div class="page-size">
-        <% for(var i = 0;i < sLenght;i++){ %>
-        <ul class="pagination">
+        <ul>
+            <% for(var i = 0;i < sLenght;i++){
+                var size = sizes[i];
+            %>
             <li>
-                <a href="javascript:void(0)" data-page="<%= curPage + 1 %>">
-                    下一页
+                <a href="javascript:void(0)"
+                   class="<% if(pageSize == size){ %>active<% } %>"
+                   data-size="<%= size %>">
+                    <%= size %>
                 </a>
             </li>
+            <% } %>
         </ul>
-        <% } %>
     </div>
 </div>
