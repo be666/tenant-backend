@@ -2,13 +2,13 @@
 var menuList = menuList || [];
 var menuLength = menuList.length;
 %>
-<div class="course-nav">
+<div class="nav-warp">
     <ul class="nav">
         <%
         for (var i = 0; i < menuLength; i++) {
-            var menu = menuList[i]||{};
+            var menu = menuList[i] || {};
             var childMenu = menu['childMenu'] || [];
-        log(childMenu);
+            log(childMenu);
             var cLength = childMenu.length;
         %>
         <li menu_id="<%= menu.menuId %>">
@@ -17,13 +17,16 @@ var menuLength = menuList.length;
                content="<%= menu.content %>"
                     >
                 <%= menu.menuName %>
+                <% if(cLength > 0){ %>
+                <span class="nav-toggle">&#9660</span>
+                <% } %>
             </a>
+            <% if(cLength > 0){ %>
+            <% include('./nav',{
+            menuList:childMenu
+            }) %>
+            <% } %>
         </li>
-        <% if(cLength > 0){ %>
-        <% include('./nav',{
-        menuList:childMenu
-        }) %>
-        <% } %>
         <% } %>
     </ul>
 </div>

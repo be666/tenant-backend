@@ -3,15 +3,10 @@
 <div class="col-md-9">
     <div class="panel panel-default" style="margin-top: 30px">
         <div class="panel-heading">
-            预警
+            组织机构
         </div>
         <div class="panel-body">
 
         </div>
     </div>
 </div>
-<script>
-    seajs.use(['controller/alarm'], function () {
-
-    })
-</script>

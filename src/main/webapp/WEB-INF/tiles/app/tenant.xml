@@ -69,4 +69,20 @@
         </put-attribute>
     </definition>
 
+    <definition name="user" extends="template">
+        <put-attribute name="content">
+            <definition extends="main.lr">
+                <put-attribute name="content_r" value="/WEB-INF/jsp/user/index.jsp"/>
+            </definition>
+        </put-attribute>
+    </definition>
+
+    <definition name="org" extends="template">
+        <put-attribute name="content">
+            <definition extends="main.lr">
+                <put-attribute name="content_r" value="/WEB-INF/jsp/org/index.jsp"/>
+            </definition>
+        </put-attribute>
+    </definition>
+
 </tiles-definitions>
