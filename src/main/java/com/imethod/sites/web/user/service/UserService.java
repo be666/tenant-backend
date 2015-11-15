@@ -59,9 +59,7 @@ public class UserService {
     }
 
     public PageMaker listUser(String query, Long pageIndex, Long pageSize) {
-
-
-        return userDao.listUser(query, pageIndex, pageSize);
+        return userDao.listUser(query,pageIndex, pageSize);
     }
 
     public User loadById(Integer userId) {

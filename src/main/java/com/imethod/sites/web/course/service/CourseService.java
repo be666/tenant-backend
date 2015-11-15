@@ -52,8 +52,8 @@ public class CourseService {
         }
     }
 
-    public PageMaker listCourse(String query, Long pageIndex, Long pageSize) {
-        return courseDao.listCourse(query, pageIndex, pageSize);
+    public PageMaker listCourse(String query, Integer courseType,Long pageIndex, Long pageSize) {
+        return courseDao.listCourse(query,courseType, pageIndex, pageSize);
     }
 
 
