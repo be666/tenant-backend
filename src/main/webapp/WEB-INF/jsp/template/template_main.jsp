@@ -16,6 +16,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="${contextPath}/css/boot.min.css"/>
+    <link rel="stylesheet" type="text/css" href="${contextPath}/css/imethod.min.css"/>
     <script src="${contextPath}/js/lib.min.js" id="seajsnode"></script>
     <script src="${contextPath}/js/core.min.js"></script>
     <script>

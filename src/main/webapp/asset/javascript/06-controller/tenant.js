@@ -7,6 +7,6 @@
  */
 define('controller/tenant', ['service/user_service', "template"], function (require, exports, module) {
 
-    imethod.controller.common = imethod.controller.common || {};
-    imethod.controller.common.portal = module.exports;
+    iMethod.controller.common = iMethod.controller.common || {};
+    iMethod.controller.common.portal = module.exports;
 });

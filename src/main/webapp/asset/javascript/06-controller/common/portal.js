@@ -19,15 +19,25 @@ define('controller/common/portal', [
             $target.html(navView({
                 menuList: menuList
             }));
-        })
+        });
         $target.on("click.menu", "a", function () {
             var $this = $(this);
             var menu_id = $this.attr("menu_id");
             var content = $this.attr("content");
-            if (!iMethod.utils.nothing(content)) {
+            if (!iMethod.utils.isEmptyStr(content)) {
                 window.location.href = iMethod.utils.resoleUrl(iMethod.contextPath + "/" + content);
+            } else {
+                if ($this.closest("li").hasClass("active")) {
+                    $this.closest("li").removeClass("active");
+                    $(".nav-toggle", $this).html("&#9660");
+                } else {
+                    $this.closest("li").addClass("active");
+                    $(".nav-toggle", $this).html("&#9650");
+                }
             }
-        })
+        });
+
+
     };
 
     iMethod.controller.common = iMethod.controller.common || {};

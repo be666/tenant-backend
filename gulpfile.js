@@ -169,10 +169,11 @@ gulp.task('make_ui', function () {
         'src/main/webapp/asset/javascript/05-ui/03-http.js',
         'src/main/webapp/asset/javascript/05-ui/04-select.js',
         'src/main/webapp/asset/javascript/05-ui/05-page.js',
-        'src/main/webapp/asset/javascript/05-ui/06-tabs.js',
+        'src/main/webapp/asset/javascript/05-ui/06-tab.js',
         'src/main/webapp/asset/javascript/05-ui/06-pagination.js',
         'src/main/webapp/asset/javascript/05-ui/07-tree.js',
-        'src/main/webapp/asset/javascript/05-ui/08-btn.js'
+        'src/main/webapp/asset/javascript/05-ui/08-btn.js',
+        'src/main/webapp/asset/javascript/05-ui/09-table.js'
     ])
         .pipe(concat("ui.js"))
         .pipe(gulp.dest('src/main/webapp/asset/out/js'))
@@ -283,7 +284,7 @@ gulp.task("clean_out", function () {
 
 });
 
-gulp.task("other",function(){
+gulp.task("other", function () {
     gulp.src("src/main/webapp/asset/javascript/08-other/**/*.js")
         .pipe(uglify())
         .pipe(gulp.dest('src/main/webapp/asset/dist/js/other'))

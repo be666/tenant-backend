@@ -1,0 +1,61 @@
+<%
+var curPage = curPage || 1;
+var pages = pages || [1];
+var pLenght = pages.length;
+var totalPage = totalPage || 1;
+var pageSize = pageSize || "";
+var sizes = sizes || [20, 50, 100, 500];
+var sLenght = sizes.length;
+%>
+<div class="pager">
+
+    <div class="page-index">
+        <ul >
+            <% if (curPage != 1) { %>
+            <li>
+                <a href="javascript:void(0)" data-page="<%= curPage - 1 %>">
+                    上一页
+                </a>
+            </li>
+            <% } %>
+            <% for (var i = 0;i < pLenght;i++){
+                var pg = pages[i];
+            if (pages[pg] == curPage) { %>
+            <li class="active">
+                <a href="javascript:void(0)" data-page="<%= pages[pg] %>"><%= pages[pg] %>
+                </a>
+            </li>
+            <% } else { %>
+            <li>
+                <a href="javascript:void(0)" data-page="<%= pages[pg] %>"><%= pages[pg] %>
+                </a>
+            </li>
+            <% } %>
+            <% } %>
+            <% if (curPage != totalPage) { %>
+            <li>
+                <a href="javascript:void(0)" data-page="<%= curPage + 1 %>">
+                    下一页
+                </a>
+            </li>
+            <% } %>
+            <li>
+                <a href="javascript:void(0)">
+                    共<%= totalPage %> 页
+                </a>
+
+            </li>
+        </ul>
+    </div>
+    <div class="page-size">
+        <% for(var i = 0;i < sLenght;i++){ %>
+        <ul class="pagination">
+            <li>
+                <a href="javascript:void(0)" data-page="<%= curPage + 1 %>">
+                    下一页
+                </a>
+            </li>
+        </ul>
+        <% } %>
+    </div>
+</div>
