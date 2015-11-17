@@ -7,10 +7,10 @@ var pageSize = pageSize || "";
 var sizes = sizes || [20, 50, 100, 500];
 var sLenght = sizes.length;
 %>
-<div class="pager">
+<div class="iMethod-page">
 
-    <div class="page-index">
-        <ul>
+    <div class="iMethod-page-index">
+        <ul class="clearfix">
             <% if (curPage != 1) { %>
             <li>
                 <a href="javascript:void(0)" data-page="<%= curPage - 1 %>">
@@ -41,8 +41,10 @@ var sLenght = sizes.length;
             </li>
         </ul>
     </div>
-    <div class="page-size">
-        <ul>
+
+    <div class="iMethod-page-size">
+        每页显示
+        <ul class="clearfix">
             <% for(var i = 0;i < sLenght;i++){
                 var size = sizes[i];
             %>
@@ -55,5 +57,6 @@ var sLenght = sizes.length;
             </li>
             <% } %>
         </ul>
+        条
     </div>
 </div>

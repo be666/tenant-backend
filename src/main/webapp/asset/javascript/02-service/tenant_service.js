@@ -7,7 +7,7 @@
  */
 define('service/tenant_service', function (require, exports, module) {
 
-    exports.queryTenant = function (callbacl, query) {
+    exports.queryTenant = function (callback,query) {
 
         iMethod._.ajax({
             url: "/tenant/query",
