@@ -45,5 +45,11 @@ define('controller/tenant', ['service/tenant_service', "template"], function (re
         _tenantTabId = tenantTabId;
         tableInit(pageMaker);
     };
+
+
+    var infoHash=new iMethod.hash();
+    exports.info = function () {
+
+    };
     iMethod.controller.tenant = module.exports;
 });

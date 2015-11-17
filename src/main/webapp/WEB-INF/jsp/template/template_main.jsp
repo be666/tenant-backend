@@ -21,7 +21,7 @@
     <script src="${contextPath}/js/core.min.js"></script>
     <script>
         seajs.config({
-            base: "${basePath}/js"
+            base: "${contextPath}/js"
         });
         iMethod.contextPath = "${contextPath}";
     </script>
