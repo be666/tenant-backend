@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
+import java.util.List;
 
 /**
  * time : 15/11/13.
@@ -52,8 +53,9 @@ public class CourseService {
         }
     }
 
-    public PageMaker listCourse(String query, Integer courseType,Long pageIndex, Long pageSize) {
-        return courseDao.listCourse(query,courseType, pageIndex, pageSize);
+    public PageMaker pageCourseRelation(String query, Integer courseType,Long courseId,Long pageIndex, Long pageSize) {
+        PageMaker pageMaker =  courseDao.pageCourseRelation(query,courseType,courseId, pageIndex, pageSize);
+        return pageMaker;
     }
 
 
@@ -71,5 +73,10 @@ public class CourseService {
             returnBean.setMsg("删除失败！");
         }
         return returnBean;
+    }
+
+    public List<Course> listCourseAll() {
+        List<Course> courseList  = courseDao.listCourseAll();
+        return courseList;
     }
 }

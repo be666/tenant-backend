@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,16 +38,19 @@ public class CourseCtl {
     @ResponseBody
     public Map<String,Object> list(@RequestParam(required = false) String query,
                        @RequestParam(required = false) Integer courseType,
+                       @RequestParam(required = false) Long courseId,
                        @RequestParam(required = false) Long pageIndex,
                        @RequestParam(required = false) Long pageSize) {
 
         Map<String,Object> map = new HashMap<>();
         try {
-            PageMaker pageMaker = courseService.listCourse(query,courseType, pageIndex, pageSize);
+            PageMaker pageMaker = courseService.pageCourseRelation(query,courseType,courseId, pageIndex, pageSize);
+            List<Course> courseList = courseService.listCourseAll();
 
-            Map<Integer,Code> typeCodeMap = codeService.listCodeMap("courseType");
+            //Map<Integer,Code> typeCodeMap = codeService.listCodeMap("courseType");
             map.put("pageMaker",pageMaker);
-            map.put("typeCodeMap",typeCodeMap);
+            map.put("courseList",courseList);
+           //map.put("typeCodeMap",typeCodeMap);
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());
