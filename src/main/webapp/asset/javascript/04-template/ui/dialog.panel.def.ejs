@@ -1,0 +1,34 @@
+<%
+var buttons = buttons || [];
+var title = title || [];
+var content = content || [];
+var bLength = buttons.length;
+%>
+<div class="iMethod-dialog-panel <%= splitJoin(className) %>">
+    <div class="iMethod-dialog-heading">
+        <h5 class="iMethod-dialog-title">
+            <%= title %>
+        </h5>
+        <i class="iMethod-dialog-close">
+            X
+        </i>
+    </div>
+    <div class="iMethod-dialog-body">
+        <%== content %>
+    </div>
+    <% if(!isEmptyArr(buttons)){ %>
+    <div class="iMethod-dialog-footer">
+        <%
+        for(var i = 0;i < bLength;i++){
+            var btn = buttons[i];
+        %>
+        <div class="btn btn-default <%= splitJoin(btn.className) %>"
+                <%= attr("name", btn.name) %>
+                <%= attr("value", btn.value) %>
+                >
+            <%= btn.text %>
+        </div>
+        <% } %>
+    </div>
+    <% } %>
+</div>

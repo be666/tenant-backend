@@ -24,8 +24,8 @@
     $w.iMethod.dialogFactory = {};
     var dialog = function (opt) {
         var params = utils.extend(def, opt);
-        var pos=utils.extend(def['pos'],opt['pos']);
-        params['pos']=pos;
+        var pos = utils.extend(def['pos'], opt['pos']);
+        params['pos'] = pos;
         var viewTemplate = template(params['viewTemplate']);
         var $target = $(viewTemplate({
             className: params['className'],
@@ -34,8 +34,9 @@
             buttons: params['buttons']
         }));
         $target.appendTo($("#" + iMethod.ui_home));
-        if (opt['mask']) {
+        if (params['mask']) {
             $target.wrap("<div class='iMethod-dialog-wap'></div>");
+            $target.before("<div class='iMethod-dialog-mask'></div>")
         }
         var $targetId = $target.attr("id");
         if (!utils.nothing($w.iMethod.dialogFactory[$targetId])) {
@@ -51,7 +52,9 @@
             var btn = buttons[i];
             var className = btn['className'];
             var onclick = btn['click'];
+           $("."+className,$target).data("data-click",onclick)
             $target.on("click." + className, "." + className, function () {
+                console.log(onclick);
                 onclick && onclick();
             })
         }
@@ -72,7 +75,7 @@
         var pub = {
             target: $target,
             close: function () {
-                if (!!params['mask']) {
+                if (params['mask']) {
                     $target.parent().remove();
                 } else {
                     $target.remove();
@@ -80,14 +83,14 @@
                 $w.iMethod.dialogFactory[$targetId] == null;
             },
             hide: function () {
-                if (!!params['mask']) {
+                if (params['mask']) {
                     $target.parent().remove();
                 } else {
                     $target.remove();
                 }
             },
             show: function () {
-                if (!!params['mask']) {
+                if (params['mask']) {
                     $target.parent().show();
                 } else {
                     $target.show();
@@ -95,15 +98,24 @@
                 pub.position();
             },
             position: function () {
-                if (!!params['mask']) {
-                    params['pos']['of'] = $target.parent();
+                if (params['mask']) {
+                    var wH = $(window).height();
+                    var ww = $(window).width();
+                    $target.closest(".iMethod-dialog-wap").css({width: ww + "px", height: wH + "px"});
+                    $target.prev().css({width: ww + "px", height: wH + "px"});
+                    $(".iMethod-dialog-wap").position({
+                        my: "center",
+                        at: "center",
+                        of: $w
+                    });
+                    params['pos']['of'] = $target.closest(".iMethod-dialog-wap");
                     $target.position(params['pos']);
                 } else {
                     $target.position(params['pos']);
                 }
             },
-            getConfig:function(){
-                return  params;
+            getConfig: function () {
+                return params;
             }
         };
         pub.position();
@@ -222,13 +234,10 @@
 
     $w.iMethod.resize.push("dialog", function () {
         var df = $w.iMethod.dialogFactory || {};
-        var wH = $(window).height();
-        var ww = $(window).width();
-        $(".iMethod-dialog-wap").css({width: ww + "px", height: wH + "px"})
         var v;
         for (var k in df) {
-            v=df[k];
-            if(utils.nothing(v)){
+            v = df[k];
+            if (!utils.nothing(v)) {
                 v.position();
             }
         }
