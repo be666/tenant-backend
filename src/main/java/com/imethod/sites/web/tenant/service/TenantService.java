@@ -76,4 +76,8 @@ public class TenantService {
     }
 
 
+    public List<Tenant> listTenantAll() {
+
+        return  tenantDao.listTenantAll();
+    }
 }

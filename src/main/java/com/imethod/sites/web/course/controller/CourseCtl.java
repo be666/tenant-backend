@@ -6,8 +6,10 @@ import com.imethod.core.log.LoggerFactory;
 import com.imethod.domain.Code;
 import com.imethod.domain.Course;
 import com.imethod.domain.ReturnBean;
+import com.imethod.domain.Tenant;
 import com.imethod.sites.web.code.service.CodeService;
 import com.imethod.sites.web.course.service.CourseService;
+import com.imethod.sites.web.tenant.service.TenantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -32,8 +34,9 @@ public class CourseCtl {
     @Autowired
     private CourseService courseService;
     @Autowired
+    private TenantService tenantService;
+    @Autowired
     private CodeService codeService;
-
 
     @RequestMapping(value = "/course", method = RequestMethod.GET)
     public String list(@RequestParam(required = false) String query,
@@ -46,7 +49,7 @@ public class CourseCtl {
         try {
             PageMaker pageMaker = courseService.pageCourseRelation(query,courseType,courseId, pageIndex, pageSize);
             List<Course> courseList = courseService.listCourseAll();
-
+            List<Tenant> tenantList = tenantService.listTenantAll();
             //Map<Integer,Code> typeCodeMap = codeService.listCodeMap("courseType");
             map.put("pageMaker",pageMaker);
             map.put("courseList",courseList);

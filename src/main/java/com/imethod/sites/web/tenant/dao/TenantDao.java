@@ -59,14 +59,16 @@ public class TenantDao extends IJdbcTempBaseDao {
         return tenant;
     }
 
-    String SQL_LIST_TENANT =  "select t.tenant_id,t.tenant_name ,tcr.course_count, s.start_time,s.end_time,\n" +
-            "s.expire_statue ,t.current_status,c1.code_name as current_status_name ,t.service_type,c2.code_name as service_type_name " +
-            "from tenant t join \n" +
-            "(select tenant_id,count(1) as course_count from tenant_course_rp where state = 1  group by tenant_id) tcr on tcr.tenant_id = t.tenant_id \n" +
-            "join service s on s.service_id = t.service_id\n" +
-            "join code c1 on c1.code = t.current_status and c1.code_type = 'currentStatus'\n" +
-            "join code c2 on c2.code = t.service_type and c2.code_type = 'serviceType'\n" +
-            "where t.state = 1";
+    String SQL_LIST_TENANT =  " select t.tenant_id,t.tenant_name ,ifnull(tcr.course_count,0) as course_count," +
+            "           ifnull(c.class_count,0) as class_count,s.start_time,s.end_time,\n" +
+            "            s.expire_statue ,t.current_status,c1.code_name as current_status_name ,t.service_type,c2.code_name as service_type_name  \n" +
+            "            from tenant t \n" +
+            "            left join (select tenant_id,count(1) as course_count from tenant_course_rp where state = 1  group by tenant_id) tcr on tcr.tenant_id = t.tenant_id \n" +
+            "            left join service s on s.service_id = t.service_id\n" +
+            "            left join code c1 on c1.code = t.current_status and c1.code_type = 'currentStatus'\n" +
+            "            left join code c2 on c2.code = t.service_type and c2.code_type = 'serviceType'\n" +
+            "            left join (select tenant_id,count(1) as class_count from class where state = 1 group by tenant_id ) c on c.tenant_id = t.tenant_id \n" +
+            "            where t.state = 1 ";
 
     public PageMaker pageTenant(String query, Integer currentStatus, Integer serviceType, Long pageIndex, Long pageSize) {
         Map<String,Object> map =  new HashMap<>();
@@ -98,5 +100,9 @@ public class TenantDao extends IJdbcTempBaseDao {
             map.put("currentStatus",currentStatus);
         }
         return this.queryForInt(sb.toString(),map);
+    }
+    String LIST_TENANT = " select * from course where state = 1 ";
+    public List<Tenant> listTenantAll() {
+        return queryForList(LIST_TENANT,null,Tenant.class);
     }
 }

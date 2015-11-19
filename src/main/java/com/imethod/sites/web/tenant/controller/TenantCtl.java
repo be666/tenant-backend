@@ -34,28 +34,7 @@ public class TenantCtl {
     @Autowired
     private CodeService codeService;
 
-//    @RequestMapping(value = "/tenant", method = RequestMethod.GET)
-//    public String index(ModelMap map) {
-//        PageMaker pageMaker = null;
-//        try {
-//            pageMaker = tenantService.listTenant(null, null, null, 1l, 10l);
-//            int totalTenant = tenantService.countTotalTenant();
-//            int currentStatus10Count = tenantService.countTenant(10);
-//            Map<Integer, Code> currentStatusCodeMap = codeService.listCodeMap("currentStatus");
-//            Map<Integer, Code> serviceTypeCodeMap = codeService.listCodeMap("serviceType");
-//            map.put("currentStatusCodeMap", currentStatusCodeMap);
-//            map.put("serviceTypeCodeMap", serviceTypeCodeMap);
-//            map.put("pageMaker", pageMaker);
-//            map.put("currentStatus", 1);
-//            map.put("currentStage", 1);
-//            map.put("totalTenant", totalTenant);
-//            map.put("currentStatus10Count", currentStatus10Count);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            logger.error(e.getMessage());
-//        }
-//        return "tenant";
-//    }
+
     @RequestMapping(value = "/tenant", method = RequestMethod.GET)
     public String index(ModelMap map) {
         PageMaker pageMaker = null;

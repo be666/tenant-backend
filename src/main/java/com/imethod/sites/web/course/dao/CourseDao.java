@@ -67,11 +67,11 @@ public class CourseDao extends IJdbcTempBaseDao {
     private static String  SQL_LIST_COURSE =  "select tcr.tc_id,tcr.course_id,c.course_name,tcr.tenant_id,t.tenant_name,c.course_type,c1.code_name as course_type_name\n" +
             ",s.start_time,s.end_time,s.expire_statue,c2.code_name as expire_statue_name\n" +
             "from tenant_course_rp tcr \n" +
-            " join course c on c.course_id = tcr.course_id \n" +
-            " join tenant t on tcr.tenant_id = t.tenant_id \n" +
-            " join service s on tcr.service_id = s.service_id \n" +
-            " join code c1 on c1.code = c.course_type \n" +
-            " join code c2 on c2.code = s.expire_statue \n" +
+            "left join course c on c.course_id = tcr.course_id \n" +
+            "left join tenant t on tcr.tenant_id = t.tenant_id \n" +
+            "left join service s on tcr.service_id = s.service_id \n" +
+            "left join code c1 on c1.code = c.course_type \n" +
+            "left join code c2 on c2.code = s.expire_statue \n" +
             " where tcr.state = 1 and c1.code_type = 'courseType' and c2.code_type = 'expireStatue'";
 
     public PageMaker pageCourseRelation(String query,Integer courseType,Long courseId, Long pageIndex, Long pageSize) {
