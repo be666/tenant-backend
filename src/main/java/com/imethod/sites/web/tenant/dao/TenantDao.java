@@ -59,24 +59,30 @@ public class TenantDao extends IJdbcTempBaseDao {
         return tenant;
     }
 
-    String SQL_LIST_TENANT =  "select * from tenant where state = 1 ";
-    String SQL_LIST_TENANT_LIKE =  "select * from tenant where tenant_name like :tenantName ";
+    String SQL_LIST_TENANT =  "select t.tenant_id,t.tenant_name ,tcr.course_count, s.start_time,s.end_time,\n" +
+            "s.expire_statue ,t.current_status,c1.code_name as current_status_name ,t.service_type,c2.code_name as service_type_name " +
+            "from tenant t join \n" +
+            "(select tenant_id,count(1) as course_count from tenant_course_rp where state = 1  group by tenant_id) tcr on tcr.tenant_id = t.tenant_id \n" +
+            "join service s on s.service_id = t.service_id\n" +
+            "join code c1 on c1.code = t.current_status and c1.code_type = 'currentStatus'\n" +
+            "join code c2 on c2.code = t.service_type and c2.code_type = 'serviceType'\n" +
+            "where t.state = 1";
 
-    public PageMaker listTenant(String query, Integer currentStatus, Integer currentStage, Long pageIndex, Long pageSize) {
+    public PageMaker pageTenant(String query, Integer currentStatus, Integer serviceType, Long pageIndex, Long pageSize) {
         Map<String,Object> map =  new HashMap<>();
         StringBuffer sb = new StringBuffer(200);
         sb.append(SQL_LIST_TENANT);
         if(StringTools.isNotEmpty(query)){
-            sb.append(" tenant_name like :tenantName ");
+            sb.append(" and t.tenant_name like :tenantName ");
             map.put("tenantName",iSqlHelp.like(query));
         }
         if(StringTools.isNotEmpty(currentStatus)){
-            sb.append(" current_status =:currentStatus ");
+            sb.append(" and t.current_status =:currentStatus ");
             map.put("currentStatus",currentStatus);
         }
-        if(StringTools.isNotEmpty(currentStage)){
-            sb.append(" current_stage =:currentStage ");
-            map.put("currentStage",currentStage);
+        if(StringTools.isNotEmpty(serviceType)){
+            sb.append(" and  t.service_type =:serviceType ");
+            map.put("serviceType",serviceType);
         }
         PageMaker page = this.queryPageList(sb.toString(),pageIndex,pageSize,map);
         return page;

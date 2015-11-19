@@ -61,19 +61,8 @@ public class TenantService {
         }
     }
 
-    public PageMaker listTenant(String query,Integer currentStatus,Integer currentStage, Long pageIndex, Long pageSize) {
-        PageMaker pageMaker = tenantDao.listTenant( query, currentStatus,currentStage, pageIndex,  pageSize);
-        if(pageMaker.getItems()==null||pageMaker.getItems().size()==0){
-            return pageMaker;
-        }
-
-//        for(Map<String, Object> map : pageMaker.getItems()){
-//            Integer statusCode  = (Integer)map.get("currentStatus");
-//            map.put("currentStatusName",currentStatusCodeMap.get(statusCode).getCodeName());
-//
-//            Integer stageCode  = (Integer)map.get("currentStage");
-//            map.put("currentStageName",serviceTypeCodeMap.get(stageCode).getCodeName());
-//        }
+    public PageMaker pageTenant(String query,Integer currentStatus,Integer serviceType, Long pageIndex, Long pageSize) {
+        PageMaker pageMaker = tenantDao.pageTenant(query, currentStatus, serviceType, pageIndex, pageSize);
 
         return pageMaker;
     }

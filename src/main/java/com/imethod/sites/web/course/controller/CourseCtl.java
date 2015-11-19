@@ -58,17 +58,6 @@ public class CourseCtl {
         return "course";
     }
 
-    @RequestMapping(value = "/course/query", method = RequestMethod.GET)
-    @ResponseBody
-    public ReturnBean list(@RequestParam(required = false) String query,
-                           @RequestParam(required = false) Integer courseType,
-                           @RequestParam(required = false) Long pageIndex,
-                           @RequestParam(required = false) Long pageSize) {
-
-        Map<String, Object> map = new HashMap<>();
-        map.put("pageMaker", courseService.listCourse(query, courseType, pageIndex, pageSize));
-        return new ReturnBean(map);
-    }
 
     /**
      * add course
