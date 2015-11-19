@@ -85,4 +85,12 @@
         </put-attribute>
     </definition>
 
+    <definition name="code" extends="template">
+        <put-attribute name="content">
+            <definition extends="main.lr">
+                <put-attribute name="content_r" value="/WEB-INF/jsp/code/index.jsp"/>
+            </definition>
+        </put-attribute>
+    </definition>
+
 </tiles-definitions>
