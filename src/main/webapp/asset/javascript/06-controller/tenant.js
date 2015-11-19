@@ -5,9 +5,18 @@
  * note:
  *  1.
  */
-define('controller/tenant', ['service/tenant_service', "template"], function (require, exports, module) {
+define('controller/tenant', [
+    "controller/user",
+    'service/tenant_service',
+    'view/tenant/info',
+    'view/course/info',
+    "template"
+], function (require, exports, module) {
 
+    var userCtl = require("controller/user");
     var tenantService = require("service/tenant_service");
+    var tenantInfo = require("view/tenant/info");
+    var courseInfo = require("view/course/info");
 
     var _tenantTabId = null;
     var tableInit = function (pageMaker) {
@@ -47,8 +56,17 @@ define('controller/tenant', ['service/tenant_service', "template"], function (re
     };
 
 
-    var infoHash=new iMethod.hash();
-    exports.info = function () {
+    var infoHash = iMethodHash();
+    exports.info = function (tenant_info, course_info) {
+        var $tenantInfo = $("#" + tenant_info);
+        var $courseInfo = $("#" + course_info);
+        $tenantInfo.html(tenantInfo());
+        $courseInfo.html(courseInfo());
+        $tenantInfo.on("click.select-sell", ".select-sell", function () {
+            userCtl.selectUser(function (userList) {
+
+            });
+        });
 
     };
     iMethod.controller.tenant = module.exports;

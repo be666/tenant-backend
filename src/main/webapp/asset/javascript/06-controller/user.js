@@ -5,8 +5,23 @@
  * note:
  *  1.
  */
-define('controller/tenant', ['service/user_service', "template"], function (require, exports, module) {
+define('controller/user', [
+    'service/user_service',
+    'view/user/list',
+    "template"
+], function (require, exports, module) {
+    var usrList = require("view/user/list");
 
-    iMethod.controller.common = iMethod.controller.common || {};
-    iMethod.controller.common.portal = module.exports;
+    var selectUserCallback;
+    exports.selectUser = function (callback) {
+        selectUserCallback = callback;
+        var selectUserDialog = iMethod.dialog({
+            className: "iMethod-dialog-user",
+            title: "选择用户",
+            content: usrList(),
+            buttons: []
+        });
+        selectUserDialog.target().on("")
+    };
+    iMethod.controller.user = module.exports;
 });
