@@ -20,7 +20,7 @@ public class Tenant {
     private Integer orgId;
     private Integer platformTenantId;
     private Integer currentStatus;
-    private Integer currentStage;
+    private Integer serviceType;
     private Integer courseNum;
     private String domain;
     private Integer state;
@@ -28,7 +28,7 @@ public class Tenant {
     private Date createAt;
     private Integer updaterId;
     private Date updateAt;
-
+    private Integer serviceId;
     @Id
     @Column(name = "tenant_id", nullable = false, insertable = true, updatable = true)
     public Integer getTenantId() {
@@ -80,13 +80,13 @@ public class Tenant {
     }
 
     @Basic
-    @Column(name = "current_stage", nullable = true, insertable = true, updatable = true)
-    public Integer getCurrentStage() {
-        return currentStage;
+    @Column(name = "service_type", nullable = true, insertable = true, updatable = true)
+    public Integer getServiceType() {
+        return serviceType;
     }
 
-    public void setCurrentStage(Integer currentStage) {
-        this.currentStage = currentStage;
+    public void setServiceType(Integer serviceType) {
+        this.serviceType = serviceType;
     }
 
     @Basic
@@ -159,48 +159,14 @@ public class Tenant {
         this.updateAt = updateAt;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Tenant tenant = (Tenant) o;
-
-        if (tenantId != null ? !tenantId.equals(tenant.tenantId) : tenant.tenantId != null) return false;
-        if (tenantName != null ? !tenantName.equals(tenant.tenantName) : tenant.tenantName != null) return false;
-        if (orgId != null ? !orgId.equals(tenant.orgId) : tenant.orgId != null) return false;
-        if (platformTenantId != null ? !platformTenantId.equals(tenant.platformTenantId) : tenant.platformTenantId != null)
-            return false;
-        if (currentStatus != null ? !currentStatus.equals(tenant.currentStatus) : tenant.currentStatus != null)
-            return false;
-        if (currentStage != null ? !currentStage.equals(tenant.currentStage) : tenant.currentStage != null)
-            return false;
-        if (courseNum != null ? !courseNum.equals(tenant.courseNum) : tenant.courseNum != null) return false;
-        if (domain != null ? !domain.equals(tenant.domain) : tenant.domain != null) return false;
-        if (state != null ? !state.equals(tenant.state) : tenant.state != null) return false;
-        if (createrId != null ? !createrId.equals(tenant.createrId) : tenant.createrId != null) return false;
-        if (createAt != null ? !createAt.equals(tenant.createAt) : tenant.createAt != null) return false;
-        if (updaterId != null ? !updaterId.equals(tenant.updaterId) : tenant.updaterId != null) return false;
-        if (updateAt != null ? !updateAt.equals(tenant.updateAt) : tenant.updateAt != null) return false;
-
-        return true;
+    @Basic
+    @Column(name = "service_id", nullable = false, insertable = true, updatable = true)
+    public Integer getServiceId() {
+        return serviceId;
     }
 
-    @Override
-    public int hashCode() {
-        int result = tenantId != null ? tenantId.hashCode() : 0;
-        result = 31 * result + (tenantName != null ? tenantName.hashCode() : 0);
-        result = 31 * result + (orgId != null ? orgId.hashCode() : 0);
-        result = 31 * result + (platformTenantId != null ? platformTenantId.hashCode() : 0);
-        result = 31 * result + (currentStatus != null ? currentStatus.hashCode() : 0);
-        result = 31 * result + (currentStage != null ? currentStage.hashCode() : 0);
-        result = 31 * result + (courseNum != null ? courseNum.hashCode() : 0);
-        result = 31 * result + (domain != null ? domain.hashCode() : 0);
-        result = 31 * result + (state != null ? state.hashCode() : 0);
-        result = 31 * result + (createrId != null ? createrId.hashCode() : 0);
-        result = 31 * result + (createAt != null ? createAt.hashCode() : 0);
-        result = 31 * result + (updaterId != null ? updaterId.hashCode() : 0);
-        result = 31 * result + (updateAt != null ? updateAt.hashCode() : 0);
-        return result;
+    public void setServiceId(Integer serviceId) {
+        this.serviceId = serviceId;
     }
+
 }
