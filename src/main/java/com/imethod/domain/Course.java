@@ -27,7 +27,9 @@ public class Course {
     private Date createAt;
     private Integer updaterId;
     private Date updateAt;
-
+    private Integer  serviceId;
+    private Service  service;
+    private String tenantName;
     @Id
     @Column(name = "course_id", nullable = false, insertable = true, updatable = true)
     public Integer getCourseId() {
@@ -109,6 +111,16 @@ public class Course {
     }
 
     @Basic
+    @Column(name = "service_id", nullable = false, insertable = true, updatable = true)
+    public Integer getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(Integer serviceId) {
+        this.serviceId = serviceId;
+    }
+
+    @Basic
     @Column(name = "creater_id", nullable = true, insertable = true, updatable = true)
     public Integer getCreaterId() {
         return createrId;
@@ -171,20 +183,19 @@ public class Course {
         return true;
     }
 
-    @Override
-    public int hashCode() {
-        int result = courseId != null ? courseId.hashCode() : 0;
-        result = 31 * result + (courseName != null ? courseName.hashCode() : 0);
-        result = 31 * result + (tenantId != null ? tenantId.hashCode() : 0);
-        result = 31 * result + (courseType != null ? courseType.hashCode() : 0);
-        result = 31 * result + (info != null ? info.hashCode() : 0);
-        result = 31 * result + (score != null ? score.hashCode() : 0);
-        result = 31 * result + (videoLength != null ? videoLength.hashCode() : 0);
-        result = 31 * result + (state != null ? state.hashCode() : 0);
-        result = 31 * result + (createrId != null ? createrId.hashCode() : 0);
-        result = 31 * result + (createAt != null ? createAt.hashCode() : 0);
-        result = 31 * result + (updaterId != null ? updaterId.hashCode() : 0);
-        result = 31 * result + (updateAt != null ? updateAt.hashCode() : 0);
-        return result;
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+    }
+
+    public String getTenantName() {
+        return tenantName;
+    }
+
+    public void setTenantName(String tenantName) {
+        this.tenantName = tenantName;
     }
 }

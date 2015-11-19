@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,13 +36,21 @@ public class CourseCtl {
 
 
     @RequestMapping(value = "/course", method = RequestMethod.GET)
-    public String list(ModelMap map) {
-        try {
-            PageMaker pageMaker = courseService.listCourse(null, null, 1l, 10l);
+    public String list(@RequestParam(required = false) String query,
+                       @RequestParam(required = false) Integer courseType,
+                       @RequestParam(required = false) Long courseId,
+                       @RequestParam(required = false) Long pageIndex,
+                       @RequestParam(required = false) Long pageSize) {
 
-            Map<Integer, Code> typeCodeMap = codeService.listCodeMap("courseType");
-            map.put("pageMaker", pageMaker);
-            map.put("typeCodeMap", typeCodeMap);
+        Map<String,Object> map = new HashMap<>();
+        try {
+            PageMaker pageMaker = courseService.pageCourseRelation(query,courseType,courseId, pageIndex, pageSize);
+            List<Course> courseList = courseService.listCourseAll();
+
+            //Map<Integer,Code> typeCodeMap = codeService.listCodeMap("courseType");
+            map.put("pageMaker",pageMaker);
+            map.put("courseList",courseList);
+           //map.put("typeCodeMap",typeCodeMap);
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());
