@@ -18,13 +18,13 @@ public class Service {
     private Integer serviceId;
     private Date startTime;
     private Date endTime;
-    private Integer serviceType;
+    private String serviceType;
     private Integer state;
     private Integer createrId;
     private Date createAt;
     private Integer updaterId;
     private Date updateAt;
-
+    private Integer expireStatue;
     @Id
     @Column(name = "service_id", nullable = false, insertable = true, updatable = true)
     public Integer getServiceId() {
@@ -57,11 +57,11 @@ public class Service {
 
     @Basic
     @Column(name = "service_type", nullable = true, insertable = true, updatable = true)
-    public Integer getServiceType() {
+    public String getServiceType() {
         return serviceType;
     }
 
-    public void setServiceType(Integer serviceType) {
+    public void setServiceType(String serviceType) {
         this.serviceType = serviceType;
     }
 
@@ -73,6 +73,15 @@ public class Service {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+    @Basic
+    @Column(name = "expire_statue", nullable = true, insertable = true, updatable = true)
+    public Integer getExpireStatue() {
+        return expireStatue;
+    }
+
+    public void setExpireStatue(Integer expireStatue) {
+        this.expireStatue = expireStatue;
     }
 
     @Basic
@@ -115,37 +124,5 @@ public class Service {
         this.updateAt = updateAt;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
 
-        Service service = (Service) o;
-
-        if (serviceId != null ? !serviceId.equals(service.serviceId) : service.serviceId != null) return false;
-        if (startTime != null ? !startTime.equals(service.startTime) : service.startTime != null) return false;
-        if (endTime != null ? !endTime.equals(service.endTime) : service.endTime != null) return false;
-        if (serviceType != null ? !serviceType.equals(service.serviceType) : service.serviceType != null) return false;
-        if (state != null ? !state.equals(service.state) : service.state != null) return false;
-        if (createrId != null ? !createrId.equals(service.createrId) : service.createrId != null) return false;
-        if (createAt != null ? !createAt.equals(service.createAt) : service.createAt != null) return false;
-        if (updaterId != null ? !updaterId.equals(service.updaterId) : service.updaterId != null) return false;
-        if (updateAt != null ? !updateAt.equals(service.updateAt) : service.updateAt != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = serviceId != null ? serviceId.hashCode() : 0;
-        result = 31 * result + (startTime != null ? startTime.hashCode() : 0);
-        result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
-        result = 31 * result + (serviceType != null ? serviceType.hashCode() : 0);
-        result = 31 * result + (state != null ? state.hashCode() : 0);
-        result = 31 * result + (createrId != null ? createrId.hashCode() : 0);
-        result = 31 * result + (createAt != null ? createAt.hashCode() : 0);
-        result = 31 * result + (updaterId != null ? updaterId.hashCode() : 0);
-        result = 31 * result + (updateAt != null ? updateAt.hashCode() : 0);
-        return result;
-    }
 }
