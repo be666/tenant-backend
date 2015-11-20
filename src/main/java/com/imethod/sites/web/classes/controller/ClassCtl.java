@@ -52,7 +52,7 @@ public class ClassCtl {
             e.printStackTrace();
             logger.error(e.getMessage());
         }
-        return "course";
+        return "class";
     }
 
 
