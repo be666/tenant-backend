@@ -53,8 +53,8 @@ public class CourseService {
         }
     }
 
-    public PageMaker pageCourseRelation(String query, Integer courseType,Long courseId,Long pageIndex, Long pageSize) {
-        PageMaker pageMaker =  courseDao.pageCourseRelation(query,courseType,courseId, pageIndex, pageSize);
+    public PageMaker pageCourseRelation(String query, Integer courseType, Long courseId,Long tenantId, Long pageIndex, Long pageSize) {
+        PageMaker pageMaker =  courseDao.pageCourseRelation(query,courseType,courseId,tenantId, pageIndex, pageSize);
         return pageMaker;
     }
 

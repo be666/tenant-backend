@@ -42,17 +42,19 @@ public class CourseCtl {
     public String list(@RequestParam(required = false) String query,
                        @RequestParam(required = false) Integer courseType,
                        @RequestParam(required = false) Long courseId,
+                       @RequestParam(required = false) Long tenantId,
                        @RequestParam(required = false) Long pageIndex,
                        @RequestParam(required = false) Long pageSize) {
 
         Map<String,Object> map = new HashMap<>();
         try {
-            PageMaker pageMaker = courseService.pageCourseRelation(query,courseType,courseId, pageIndex, pageSize);
+            PageMaker pageMaker = courseService.pageCourseRelation(query,courseType,courseId,tenantId ,pageIndex, pageSize);
             List<Course> courseList = courseService.listCourseAll();
             List<Tenant> tenantList = tenantService.listTenantAll();
             //Map<Integer,Code> typeCodeMap = codeService.listCodeMap("courseType");
             map.put("pageMaker",pageMaker);
             map.put("courseList",courseList);
+            map.put("tenantList",tenantList);
            //map.put("typeCodeMap",typeCodeMap);
         } catch (Exception e) {
             e.printStackTrace();
