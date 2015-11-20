@@ -25,7 +25,7 @@ import java.util.Map;
 @Controller
 public class UserCtl {
 
-    Logger logger = LoggerFactory.getLogger(UserService.class);
+    Logger logger = LoggerFactory.getLogger(UserCtl.class);
 
     @Autowired
     private UserService userService;
@@ -35,7 +35,7 @@ public class UserCtl {
 
     @RequestMapping(value="/user/{userId}",method = RequestMethod.GET)
     @ResponseBody
-    public User list(@PathVariable Integer userId) {
+    public User load(@PathVariable Integer userId) {
         User user = null;
         try {
 

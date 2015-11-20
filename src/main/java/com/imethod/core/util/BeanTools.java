@@ -10,7 +10,9 @@
 package com.imethod.core.util;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.beanutils.converters.DateConverter;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
@@ -24,6 +26,9 @@ import java.util.Map;
  */
 public class BeanTools {
 
+    static {
+        ConvertUtils.register(new DateConverter(null), java.util.Date.class);
+    }
 
     public static void populate(Object bean, Map<String, ? extends Object> properties) {
         try {

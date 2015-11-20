@@ -1,0 +1,33 @@
+<%
+var codeList = codeList || [];
+var codeLenght = codeList.length;
+%>
+<% for (var i = 0;i < cLenght;i++){
+    var code = codeList[i];
+    var childList = code['childList'];
+    var childLength = childList.length;
+%>
+<div class="panel">
+    <div class="panel-heading">
+        <%= code['codeName'] %>
+        /
+        <% code['codeEnName'] %>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <ul>
+                <%
+                for(var j = 0;j < childLength;j++){
+                    var child = childList[i];
+                %>
+                <li>
+                    <%= code['codeName'] %>
+                    /
+                    <% code['codeEnName'] %>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</div>
+<% } %>

@@ -97,7 +97,6 @@ public class CourseCtl {
         ReturnBean ret = new ReturnBean();
         try {
             courseService.update(course);
-
         } catch (Exception e) {
             ret.setMsg("更新出错");
             ret.setStatus(ReturnBean.FALSE);
