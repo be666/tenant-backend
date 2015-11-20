@@ -6,6 +6,7 @@
  *  1.
  */
 define('controller/user', [
+    'controller/org',
     'service/user_service',
     'view/user/list',
     'view/user/info',
@@ -14,6 +15,7 @@ define('controller/user', [
     var userList = require("view/user/list");
     var userInfo = require("view/user/info");
     var userService = require("service/user_service");
+    var orgCtl = require("controller/org");
 
     var selectUserCallback;
     var selectUserDialog;
@@ -29,7 +31,7 @@ define('controller/user', [
         userTable();
         selectUserDialog.target.on("click.iMethod-userAdd", ".iMethod-userAdd", function () {
             addUser()
-        })
+        });
         selectUserDialog.target.on("click.iMethod-userSelect", ".iMethod-userSelect", function () {
             var user = {};
             selectUserCallback(user)
@@ -78,11 +80,13 @@ define('controller/user', [
             }]
         });
         addUserDialog.target.on("click.iMethod-sure", ".iMethod-sure", function () {
-            addUserDialog.target.find("");
             var user = {};
             userService.saveUser(user, function (user) {
                 selectUserCallback(user);
             })
+        })
+        addUserDialog.target.on("click.iMethod-org", ".iMethod-org", function () {
+            orgCtl.dialogOrg();
         })
     };
     iMethod.controller.user = module.exports;

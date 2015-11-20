@@ -226,6 +226,7 @@
 
     utils.extend = function (dist, obj) {
         obj = obj || dist;
+        dist = $.extend({}, dist);
         return $.extend(dist, obj)
     };
 
@@ -247,6 +248,16 @@
     utils.resoleUrl = function (str) {
         str = str || "";
         return str.replace(new RegExp("//", 'g'), "/");
+    };
+
+    utils.Array2Obj = function (arr) {
+        var obj = {};
+        var al = arr.length;
+        for (var i = 0; i < al; i++) {
+            var av = arr[i];
+            obj[av['name']] = av['value'];
+        }
+        return obj;
     };
 
     $w.iMethod.utils = $w.iMethod.utils || utils;
