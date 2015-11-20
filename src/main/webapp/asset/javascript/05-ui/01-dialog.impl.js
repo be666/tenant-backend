@@ -52,10 +52,9 @@
             var btn = buttons[i];
             var className = btn['className'];
             var onclick = btn['click'];
-           $("."+className,$target).data("data-click",onclick)
+            $("." + className, $target).data("data-click", onclick);
             $target.on("click." + className, "." + className, function () {
-                console.log(onclick);
-                onclick && onclick();
+                onclick && onclick($target);
             })
         }
         $target.on("click.target", function () {
