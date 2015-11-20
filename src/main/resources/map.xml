@@ -17,7 +17,6 @@
         <class>com.imethod.domain.TenantCourseRp</class>
         <class>com.imethod.domain.User</class>
         <class>com.imethod.domain.Classes</class>
-        <class>com.imethod.domain.Clazz</class>
         <properties>
             <property name="toplink.jdbc.url" value="jdbc:mysql://123.56.156.176:3306/tenant"/>
             <property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
