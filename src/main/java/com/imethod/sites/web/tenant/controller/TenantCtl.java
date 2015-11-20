@@ -34,11 +34,12 @@ public class TenantCtl {
     @Autowired
     private CodeService codeService;
 
+
     @RequestMapping(value = "/tenant", method = RequestMethod.GET)
     public String index(ModelMap map) {
         PageMaker pageMaker = null;
         try {
-            pageMaker = tenantService.listTenant(null, null, null, 1l, 10l);
+            pageMaker = tenantService.pageTenant(null, null, null, 1l, 10l);
             int totalTenant = tenantService.countTotalTenant();
             int currentStatus10Count = tenantService.countTenant(10);
             Map<Integer, Code> currentStatusCodeMap = codeService.listCodeMap("currentStatus");
@@ -46,8 +47,6 @@ public class TenantCtl {
             map.put("currentStatusCodeMap", currentStatusCodeMap);
             map.put("serviceTypeCodeMap", serviceTypeCodeMap);
             map.put("pageMaker", pageMaker);
-            map.put("currentStatus", 1);
-            map.put("currentStage", 1);
             map.put("totalTenant", totalTenant);
             map.put("currentStatus10Count", currentStatus10Count);
         } catch (Exception e) {
@@ -110,10 +109,10 @@ public class TenantCtl {
                            @RequestParam(required = false, defaultValue = "1") Long pageIndex,
                            @RequestParam(required = false, defaultValue = "10") Long pageSize,
                            @RequestParam(required = false) Integer currentStatus,
-                           @RequestParam(required = false) Integer currentStage) {
+                           @RequestParam(required = false) Integer serviceType) {
         Map<String, Object> map = new HashMap<>();
         try {
-            map.put("pageMaker", tenantService.listTenant(query, currentStatus, currentStage, pageIndex, pageSize));
+            map.put("pageMaker", tenantService.pageTenant(query, currentStatus, serviceType, pageIndex, pageSize));
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());

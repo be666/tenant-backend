@@ -28,8 +28,6 @@ public class Course {
     private Integer updaterId;
     private Date updateAt;
     private Integer  serviceId;
-    private Service  service;
-    private String tenantName;
     @Id
     @Column(name = "course_id", nullable = false, insertable = true, updatable = true)
     public Integer getCourseId() {
@@ -111,16 +109,6 @@ public class Course {
     }
 
     @Basic
-    @Column(name = "service_id", nullable = false, insertable = true, updatable = true)
-    public Integer getServiceId() {
-        return serviceId;
-    }
-
-    public void setServiceId(Integer serviceId) {
-        this.serviceId = serviceId;
-    }
-
-    @Basic
     @Column(name = "creater_id", nullable = true, insertable = true, updatable = true)
     public Integer getCreaterId() {
         return createrId;
@@ -183,19 +171,4 @@ public class Course {
         return true;
     }
 
-    public Service getService() {
-        return service;
-    }
-
-    public void setService(Service service) {
-        this.service = service;
-    }
-
-    public String getTenantName() {
-        return tenantName;
-    }
-
-    public void setTenantName(String tenantName) {
-        this.tenantName = tenantName;
-    }
 }
