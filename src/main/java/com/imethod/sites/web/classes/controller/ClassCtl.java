@@ -1,46 +1,38 @@
-package com.imethod.sites.web.course.controller;
+package com.imethod.sites.web.classes.controller;
 
 import com.imethod.core.jdbc.PageMaker;
 import com.imethod.core.log.Logger;
 import com.imethod.core.log.LoggerFactory;
-import com.imethod.domain.Code;
-import com.imethod.domain.Course;
-import com.imethod.domain.ReturnBean;
-import com.imethod.domain.Tenant;
+import com.imethod.domain.*;
+import com.imethod.sites.web.classes.service.ClassService;
 import com.imethod.sites.web.code.service.CodeService;
 import com.imethod.sites.web.course.service.CourseService;
 import com.imethod.sites.web.tenant.service.TenantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * time : 15/11/13.
- * auth :
- * desc :
- * tips :
- * 1.
- */
 @Controller
-public class CourseCtl {
+public class ClassCtl {
 
-    Logger logger = LoggerFactory.getLogger(CourseService.class);
+    Logger logger = LoggerFactory.getLogger(ClassCtl.class);
 
     @Autowired
     private CourseService courseService;
+    @Autowired
+    private ClassService classService;
     @Autowired
     private TenantService tenantService;
     @Autowired
     private CodeService codeService;
 
-    @RequestMapping(value = "/course", method = RequestMethod.GET)
+    @RequestMapping(value = "/class", method = RequestMethod.GET)
     public String list(@RequestParam(required = false) String query,
-                       @RequestParam(required = false) Integer courseType,
+                       @RequestParam(required = false) Integer finishStatus,
                        @RequestParam(required = false) Long courseId,
                        @RequestParam(required = false) Long tenantId,
                        @RequestParam(required = false) Long pageIndex,
@@ -48,14 +40,14 @@ public class CourseCtl {
 
         Map<String,Object> map = new HashMap<>();
         try {
-            PageMaker pageMaker = courseService.pageCourseRelation(query,courseType,courseId,tenantId ,pageIndex, pageSize);
+            PageMaker pageMaker = classService.pageClassesRelation(query, finishStatus, courseId, tenantId, pageIndex, pageSize);
             List<Course> courseList = courseService.listCourseAll();
             List<Tenant> tenantList = tenantService.listTenantAll();
-            //Map<Integer,Code> typeCodeMap = codeService.listCodeMap("courseType");
+            Map<Integer,Code> finishStatusMap = codeService.listCodeMap("finishStatus");
             map.put("pageMaker",pageMaker);
             map.put("courseList",courseList);
             map.put("tenantList",tenantList);
-           //map.put("typeCodeMap",typeCodeMap);
+           map.put("finishStatusMap",finishStatusMap);
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());
@@ -67,16 +59,16 @@ public class CourseCtl {
     /**
      * add course
      *
-     * @param course
+     * @param classes
      * @return
      */
-    @RequestMapping(value = "/course", method = RequestMethod.POST)
+    @RequestMapping(value = "/class", method = RequestMethod.POST)
     @ResponseBody
-    public ReturnBean insert(Course course) {
+    public ReturnBean insert(Classes classes) {
 
         ReturnBean ret = new ReturnBean();
         try {
-            courseService.insert(course);
+            classService.insert(classes);
         } catch (Exception e) {
             ret.setMsg("保存出错");
             ret.setStatus(ReturnBean.FALSE);
@@ -87,16 +79,16 @@ public class CourseCtl {
     /**
      * update course
      *
-     * @param course
+     * @param classes
      * @return
      */
-    @RequestMapping(value = "/course/{curseId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/class/{classId}", method = RequestMethod.POST)
     @ResponseBody
-    public ReturnBean update(@PathVariable Long curseId, Course course) {
+    public ReturnBean update(@PathVariable Long classId, Classes classes) {
 
         ReturnBean ret = new ReturnBean();
         try {
-            courseService.update(course);
+            classService.update(classes);
 
         } catch (Exception e) {
             ret.setMsg("更新出错");
@@ -108,14 +100,13 @@ public class CourseCtl {
     /**
      * delete course
      *
-     * @param courseId
+     * @param classId
      * @return
      */
-    @RequestMapping(value = "/course/del/{courseId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/class/del/{classId}", method = RequestMethod.POST)
     @ResponseBody
-    public ReturnBean update(@PathVariable Integer courseId) {
-        ReturnBean ret = new ReturnBean();
-        ret = courseService.delete(courseId);
+    public ReturnBean update(@PathVariable Integer classId) {
+        ReturnBean ret = classService.delete(classId);
         return ret;
     }
 

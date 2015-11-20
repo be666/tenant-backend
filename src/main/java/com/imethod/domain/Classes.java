@@ -3,10 +3,10 @@ package com.imethod.domain;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
- * time : 15/11/19.
+ * time : 15/11/20.
  * auth : jqwang
  * desc :
  * tips :
@@ -15,15 +15,15 @@ import java.sql.Timestamp;
 @Entity
 @javax.persistence.Table(name = "class", schema = "", catalog = "tenant")
 public class Classes {
-    private Long classId;
+    private Integer classId;
 
     @Id
     @javax.persistence.Column(name = "class_id", nullable = false, insertable = true, updatable = true)
-    public Long getClassId() {
+    public Integer getClassId() {
         return classId;
     }
 
-    public void setClassId(Long classId) {
+    public void setClassId(Integer classId) {
         this.classId = classId;
     }
 
@@ -99,27 +99,39 @@ public class Classes {
         this.state = state;
     }
 
-    private Timestamp classStartTime;
+    private Integer finishStatus;
+
+    @Basic
+    @javax.persistence.Column(name = "finish_status", nullable = true, insertable = true, updatable = true)
+    public Integer getFinishStatus() {
+        return finishStatus;
+    }
+
+    public void setFinishStatus(Integer finishStatus) {
+        this.finishStatus = finishStatus;
+    }
+
+    private Date classStartTime;
 
     @Basic
     @javax.persistence.Column(name = "class_start_time", nullable = true, insertable = true, updatable = true)
-    public Timestamp getClassStartTime() {
+    public Date getClassStartTime() {
         return classStartTime;
     }
 
-    public void setClassStartTime(Timestamp classStartTime) {
+    public void setClassStartTime(Date classStartTime) {
         this.classStartTime = classStartTime;
     }
 
-    private Timestamp classEndTime;
+    private Date classEndTime;
 
     @Basic
     @javax.persistence.Column(name = "class_end_time", nullable = true, insertable = true, updatable = true)
-    public Timestamp getClassEndTime() {
+    public Date getClassEndTime() {
         return classEndTime;
     }
 
-    public void setClassEndTime(Timestamp classEndTime) {
+    public void setClassEndTime(Date classEndTime) {
         this.classEndTime = classEndTime;
     }
 
@@ -147,15 +159,15 @@ public class Classes {
         this.videoWeight = videoWeight;
     }
 
-    private Integer topicWeight;
+    private Date topicWeight;
 
     @Basic
     @javax.persistence.Column(name = "topic_weight", nullable = true, insertable = true, updatable = true)
-    public Integer getTopicWeight() {
+    public Date getTopicWeight() {
         return topicWeight;
     }
 
-    public void setTopicWeight(Integer topicWeight) {
+    public void setTopicWeight(Date topicWeight) {
         this.topicWeight = topicWeight;
     }
 
@@ -219,85 +231,27 @@ public class Classes {
         this.updaterId = updaterId;
     }
 
-    private Timestamp createTime;
+    private Date createAt;
 
     @Basic
-    @javax.persistence.Column(name = "create_time", nullable = true, insertable = true, updatable = true)
-    public Timestamp getCreateTime() {
-        return createTime;
+    @javax.persistence.Column(name = "create_at", nullable = true, insertable = true, updatable = true)
+    public Date getCreateAt() {
+        return createAt;
     }
 
-    public void setCreateTime(Timestamp createTime) {
-        this.createTime = createTime;
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
     }
 
-    private Timestamp updateTime;
+    private Date updateAt;
 
     @Basic
-    @javax.persistence.Column(name = "update_time", nullable = true, insertable = true, updatable = true)
-    public Timestamp getUpdateTime() {
-        return updateTime;
+    @javax.persistence.Column(name = "update_at", nullable = true, insertable = true, updatable = true)
+    public Date getUpdateAt() {
+        return updateAt;
     }
 
-    public void setUpdateTime(Timestamp updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Classes classes = (Classes) o;
-
-        if (classId != null ? !classId.equals(classes.classId) : classes.classId != null) return false;
-        if (className != null ? !className.equals(classes.className) : classes.className != null) return false;
-        if (courseId != null ? !courseId.equals(classes.courseId) : classes.courseId != null) return false;
-        if (tenantId != null ? !tenantId.equals(classes.tenantId) : classes.tenantId != null) return false;
-        if (templateCourse != null ? !templateCourse.equals(classes.templateCourse) : classes.templateCourse != null)
-            return false;
-        if (serviceId != null ? !serviceId.equals(classes.serviceId) : classes.serviceId != null) return false;
-        if (state != null ? !state.equals(classes.state) : classes.state != null) return false;
-        if (classStartTime != null ? !classStartTime.equals(classes.classStartTime) : classes.classStartTime != null)
-            return false;
-        if (classEndTime != null ? !classEndTime.equals(classes.classEndTime) : classes.classEndTime != null)
-            return false;
-        if (isWeight != null ? !isWeight.equals(classes.isWeight) : classes.isWeight != null) return false;
-        if (videoWeight != null ? !videoWeight.equals(classes.videoWeight) : classes.videoWeight != null) return false;
-        if (topicWeight != null ? !topicWeight.equals(classes.topicWeight) : classes.topicWeight != null) return false;
-        if (quizWeight != null ? !quizWeight.equals(classes.quizWeight) : classes.quizWeight != null) return false;
-        if (assignmentWeight != null ? !assignmentWeight.equals(classes.assignmentWeight) : classes.assignmentWeight != null)
-            return false;
-        if (examWeight != null ? !examWeight.equals(classes.examWeight) : classes.examWeight != null) return false;
-        if (createrId != null ? !createrId.equals(classes.createrId) : classes.createrId != null) return false;
-        if (updaterId != null ? !updaterId.equals(classes.updaterId) : classes.updaterId != null) return false;
-        if (createTime != null ? !createTime.equals(classes.createTime) : classes.createTime != null) return false;
-        if (updateTime != null ? !updateTime.equals(classes.updateTime) : classes.updateTime != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = classId != null ? classId.hashCode() : 0;
-        result = 31 * result + (className != null ? className.hashCode() : 0);
-        result = 31 * result + (courseId != null ? courseId.hashCode() : 0);
-        result = 31 * result + (tenantId != null ? tenantId.hashCode() : 0);
-        result = 31 * result + (templateCourse != null ? templateCourse.hashCode() : 0);
-        result = 31 * result + (serviceId != null ? serviceId.hashCode() : 0);
-        result = 31 * result + (state != null ? state.hashCode() : 0);
-        result = 31 * result + (classStartTime != null ? classStartTime.hashCode() : 0);
-        result = 31 * result + (classEndTime != null ? classEndTime.hashCode() : 0);
-        result = 31 * result + (isWeight != null ? isWeight.hashCode() : 0);
-        result = 31 * result + (videoWeight != null ? videoWeight.hashCode() : 0);
-        result = 31 * result + (topicWeight != null ? topicWeight.hashCode() : 0);
-        result = 31 * result + (quizWeight != null ? quizWeight.hashCode() : 0);
-        result = 31 * result + (assignmentWeight != null ? assignmentWeight.hashCode() : 0);
-        result = 31 * result + (examWeight != null ? examWeight.hashCode() : 0);
-        result = 31 * result + (createrId != null ? createrId.hashCode() : 0);
-        result = 31 * result + (updaterId != null ? updaterId.hashCode() : 0);
-        result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
-        result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);
-        return result;
+    public void setUpdateAt(Date updateAt) {
+        this.updateAt = updateAt;
     }
 }

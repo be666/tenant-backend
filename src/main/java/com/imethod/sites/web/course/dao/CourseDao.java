@@ -55,31 +55,33 @@ public class CourseDao extends IJdbcTempBaseDao {
         return course;
     }
 
-    /**
-     * query
-     * @param query
-     * @param courseType
-     * @param pageIndex
-     * @param pageSize
-     * @return
-     */
 
     private static String  SQL_LIST_COURSE =  "select tcr.tc_id,tcr.course_id,c.course_name,tcr.tenant_id,t.tenant_name,c.course_type,c1.code_name as course_type_name\n" +
             ",s.start_time,s.end_time,s.expire_statue,c2.code_name as expire_statue_name\n" +
             "from tenant_course_rp tcr \n" +
-            "left join course c on c.course_id = tcr.course_id \n" +
-            "left join tenant t on tcr.tenant_id = t.tenant_id \n" +
+            " join course c on c.course_id = tcr.course_id \n" +
+            " join tenant t on tcr.tenant_id = t.tenant_id \n" +
             "left join service s on tcr.service_id = s.service_id \n" +
             "left join code c1 on c1.code = c.course_type \n" +
             "left join code c2 on c2.code = s.expire_statue \n" +
             " where tcr.state = 1 and c1.code_type = 'courseType' and c2.code_type = 'expireStatue'";
 
-    public PageMaker pageCourseRelation(String query,Integer courseType,Long courseId, Long pageIndex, Long pageSize) {
+    /**
+     *
+     * @param query
+     * @param courseType
+     * @param courseId
+     * @param tenantId
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
+    public PageMaker pageCourseRelation(String query,Integer courseType,Long courseId,Long tenantId, Long pageIndex, Long pageSize) {
         Map<String,Object> map =  new HashMap<>();
         StringBuffer buffer = new StringBuffer();
         buffer.append(SQL_LIST_COURSE);
         if(StringTools.isNotEmpty(query)){
-            buffer.append(" and ( c.course_name like :query and t.tenant_name like :query )  ");
+            buffer.append(" and ( c.course_name like :query or t.tenant_name like :query )  ");
             map.put("query",iSqlHelp.like(query));
         }
         if(StringTools.isNotEmpty(courseId)){
@@ -89,6 +91,10 @@ public class CourseDao extends IJdbcTempBaseDao {
         if(StringTools.isNotEmpty(courseType)){
             buffer.append(" and c.course_type =:courseType ");
             map.put("courseType",courseType);
+        }
+        if(StringTools.isNotEmpty(tenantId)){
+            buffer.append(" and tcr.tenant_id =:tenantId ");
+            map.put("tenantId",tenantId);
         }
         return this.queryPageList(buffer.toString(), pageIndex, pageSize, map);
     }
