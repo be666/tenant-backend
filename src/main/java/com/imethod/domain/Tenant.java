@@ -18,6 +18,7 @@ public class Tenant {
     private Integer tenantId;
     private String tenantName;
     private Integer orgId;
+    private String orgName;
     private Integer platformTenantId;
     private Integer currentStatus;
     private Integer serviceType;
@@ -169,4 +170,13 @@ public class Tenant {
         this.serviceId = serviceId;
     }
 
+    @Basic
+    @Column(name = "org_name", nullable = false, insertable = true, updatable = true)
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
 }

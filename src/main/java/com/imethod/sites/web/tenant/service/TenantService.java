@@ -39,6 +39,9 @@ public class TenantService {
         Date now =  DateTools.getCurrentDateTime();
         tenant.setCreateAt(now);
         tenant.setUpdateAt(now);
+        tenant.setState(Constants.STATE_TRUE);
+        tenant.setCreaterId(1);
+        tenant.setUpdaterId(1);
         return tenantDao.insert(tenant);
     }
 

@@ -58,7 +58,13 @@ public class TenantCtl {
 
 
     @RequestMapping(value = "/tenant/new", method = RequestMethod.GET)
-    public String create() {
+    public String create(ModelMap map) {
+        Map<Integer, Code> currentStatusCodeMap = codeService.listCodeMap("currentStatus");
+        Map<Integer, Code> serviceTypeCodeMap = codeService.listCodeMap("serviceType");
+
+        map.put("currentStatusCodeMap", currentStatusCodeMap);
+        map.put("serviceTypeCodeMap", serviceTypeCodeMap);
+
         return "tenant.info";
     }
 

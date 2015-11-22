@@ -275,11 +275,16 @@ public abstract class IJdbcTempBaseDao {
                                 .append(_key).append(" ");
                         params.put(_key, method.invoke(object));
                     }
+                    updates.append(_key)
+                            .append("=:")
+                            .append(_key).append(",");
+                    params.put(_key, method.invoke(object));
                 }
+
 
             }
         }
-        updates.setLength(updates.length() - 1);
+        updates.setLength(updates.length()==0?0:updates.length() - 1);
         String sql = updateTemplate.replace("tableName", getTableName(clazz, tableName))
                 .replace("{updates}", updates)
                 .replace("{wheres}", wheres);

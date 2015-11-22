@@ -63,6 +63,13 @@
 		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
 
+	<!-- spring job -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			spring-job*.xml
+		</param-value>
+	</context-param>
 	<!-- Open Entity Manager in View filter -->
 
 </web-app>

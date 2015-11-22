@@ -58,7 +58,7 @@ public class ClassDao extends IJdbcTempBaseDao {
 
 
     private static String  SQL_LIST_CLASS =  "select c.class_id,c.class_name,c.course_id,c1.course_name,c.tenant_id,t.tenant_name,c.class_start_time,c.class_end_time,\n" +
-            "c.is_weight,s.service_type,s.start_time,s.end_time,c.finish_status, co.code_name\n" +
+            "c.is_weight,s.service_type,s.start_time,s.end_time,c.finish_status, co.code_name as finish_status_name \n" +
             "from class c \n" +
             "join tenant t on c.tenant_id = t.tenant_id \n" +
             "join course c1 on c1.course_id = c.course_id \n" +
