@@ -24,7 +24,7 @@ public class Service {
     private Date createAt;
     private Integer updaterId;
     private Date updateAt;
-    private Integer expireStatue;
+    private Integer expireStatus;
     @Id
     @Column(name = "service_id", nullable = false, insertable = true, updatable = true)
     public Integer getServiceId() {
@@ -75,13 +75,13 @@ public class Service {
         this.state = state;
     }
     @Basic
-    @Column(name = "expire_statue", nullable = true, insertable = true, updatable = true)
-    public Integer getExpireStatue() {
-        return expireStatue;
+    @Column(name = "expire_status", nullable = true, insertable = true, updatable = true)
+    public Integer getExpireStatus() {
+        return expireStatus;
     }
 
-    public void setExpireStatue(Integer expireStatue) {
-        this.expireStatue = expireStatue;
+    public void setExpireStatus(Integer expireStatus) {
+        this.expireStatus = expireStatus;
     }
 
     @Basic

@@ -249,7 +249,7 @@
 
             <!-- TIMER -->
             <dependency>
-                <groupId>org.quartz-scheduler</groupId>
+                <groupId>org.matz-scheduler</groupId>
                 <artifactId>quartz</artifactId>
                 <version>${quartz.version}</version>
             </dependency>
