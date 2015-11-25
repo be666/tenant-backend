@@ -61,6 +61,14 @@
         </put-attribute>
     </definition>
 
+    <definition name="class" extends="template">
+        <put-attribute name="content">
+            <definition extends="main.lr">
+                <put-attribute name="content_r" value="/WEB-INF/jsp/class/index.jsp"/>
+            </definition>
+        </put-attribute>
+    </definition>
+
     <definition name="permission" extends="template">
         <put-attribute name="content">
             <definition extends="main.lr">

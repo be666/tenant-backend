@@ -1,14 +1,13 @@
-package com.imethod.sites.web.service.dao;
+package com.imethod.sites.web.job.dao;
 
 import com.imethod.core.jdbc.mine.IJdbcTempBaseDao;
 import com.imethod.core.jdbc.mine.ISqlHelp;
 import com.imethod.core.util.StringTools;
-import com.imethod.domain.Service;
+import com.imethod.domain.Serve;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,12 +40,12 @@ public class ServiceDao extends IJdbcTempBaseDao {
     }
 
 
-    public Service loadById(Integer serviceId){
+    public Serve loadById(Integer serviceId){
         Map<String,Object> map =  new HashMap<>();
         map.put("service_id",serviceId);
-        Service service = null;
+        Serve service = null;
         try {
-            service = load(Service.class,map);
+            service = load(Serve.class,map);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -54,7 +53,7 @@ public class ServiceDao extends IJdbcTempBaseDao {
     }
 
     String sql = "select * from service where state = 1 ";
-    public List<Service> listServiceByType(String serviceType,Integer expireStatus){
+    public List<Serve> listServiceByType(String serviceType,Integer expireStatus){
         StringBuffer sb = new StringBuffer(200);
         sb.append(sql);
         Map<String,Object> map =  new HashMap<>();
@@ -66,7 +65,7 @@ public class ServiceDao extends IJdbcTempBaseDao {
             sb.append(" and expire_status = :expireStatus ");
             map.put("expireStatus",expireStatus);
         }
-        return queryForList(sb.toString(),map,Service.class);
+        return queryForList(sb.toString(),map,Serve.class);
     }
 
 

@@ -14,7 +14,7 @@ import java.util.Date;
  * 1.
  */
 @Entity
-public class Service {
+public class Serve {
     private Integer serviceId;
     private Date startTime;
     private Date endTime;

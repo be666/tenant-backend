@@ -56,7 +56,7 @@
         <activemq.version>5.12.1</activemq.version>
 
         <!--# timer -->
-        <quartz.version>2.2.1</quartz.version>
+        <quartz.version>2.2.2</quartz.version>
 
         <!--# cache -->
         <jedis.version>2.7.3</jedis.version>
@@ -249,7 +249,7 @@
 
             <!-- TIMER -->
             <dependency>
-                <groupId>org.matz-scheduler</groupId>
+                <groupId>org.quartz-scheduler</groupId>
                 <artifactId>quartz</artifactId>
                 <version>${quartz.version}</version>
             </dependency>
