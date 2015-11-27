@@ -1,5 +1,5 @@
 /**
- * auth : bqxu
+ * auth : iMethod
  * create_at: 15/10/23.
  * desc:
  * note:
@@ -10,7 +10,7 @@ define('service/class_service', function (require, exports, module) {
     exports.queryClass = function (callback, query) {
 
         iMethod._.ajax({
-            url: "/class/query",
+            url: "/class.ajax",
             data: {
                 pageIndex: query['pageIndex'],
                 pageSize: query['pageSize'],

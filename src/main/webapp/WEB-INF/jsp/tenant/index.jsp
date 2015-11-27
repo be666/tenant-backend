@@ -13,8 +13,8 @@
     </div>
 </div>
 <script>
-    var pageMaker=${iMethod:toJSONlLine(pageMaker)}
-    seajs.use(["controller/tenant"], function (tenantCtl) {
-        tenantCtl.table('tenantTab',pageMaker);
-    })
+    var pageMaker = ${iMethod:toJSONlLine(pageMaker)}
+            seajs.use(["controller/tenant"], function (tenantCtl) {
+                tenantCtl.table('tenantTab', pageMaker);
+            })
 </script>

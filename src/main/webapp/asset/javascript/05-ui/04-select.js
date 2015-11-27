@@ -11,43 +11,86 @@
     $w.iMethod.select = [];
 
     var def = {
-        dateList: null,
-        title: "text",
+        template: template("select"),
+        dataList: null,
+        text: "text",
         id: "id",
         beforeSelect: null,
         onChange: null,
         onClick: null,
-        selected: null
+        selected: null,
+        ulHeight:160,
+        unSelected: {
+            id: "",
+            text: "请选择"
+        }
     };
     var iMethodSelect = function (targetId, args) {
         var params = utils.extend(def, args);
         var $target = $("#" + targetId);
-
+        if (!$target.hasClass("iMethod-select")) {
+            $target.addClass("iMethod-select");
+        }
+        var select = function () {
+            var dataList = params["dataList"];
+            var template = params["template"];
+            var id = params['id'];
+            var text = params['text'];
+            var selected = params['selected'] || {};
+            var unSelected = params['unSelected'] || {};
+            var selectEl = utils.arrFind(dataList, function (el, i, arr) {
+                    if (el[id] == selected[id]) {
+                        return el;
+                    }
+                }) || [];
+            selected = selectEl[0] || unSelected;
+            $target.html(template({
+                id: id,
+                text: text,
+                dataList: dataList,
+                selected: selected
+            }));
+            params['selected'] = selected;
+            $(".")
+        };
         var pub = {
             setConfig: function (opts) {
-                params = utils.extend(def, opts);
-                page();
+                params = utils.extend(params, opts);
+                select();
             },
             destroy: function () {
 
             }
         };
 
-        $target.on("click.pageClick", "[data-page]", function () {
+        $target.on("click.pageClick", "[data-id]", function () {
             var $this = $(this);
-            var page = $this.attr("data-page");
-            var pageClick = params['pageClick'];
-            var pageSize = params['pageSize'];
-            pageClick && pageClick(page, pageSize);
-        });
-        $target.on("click.pageClick", "[data-size]", function () {
-            var $this = $(this);
-            var page = params['curPage'];
-            var pageClick = params['pageClick'];
-            var pageSize = $this.attr("data-size");
-            pageClick && pageClick(page, pageSize);
+            var dataId = $this.attr("data-id");
+            var id = params['id'];
+            var text = params['text'];
+            var beforeSelect = params['beforeSelect'];
+            var onChange = params['onChange'];
+            var onClick = params['onClick'];
+            if (beforeSelect && !!beforeSelect(id)) {
+                return;
+            }
+            var selected = {};
+            selected[id] = dataId;
+            params['selected'] = selected;
+            select();
+            selected = params['selected'];
+            onChange && onChange(selected);
         });
 
+        $target.on("click.pageClick", "[data-select-id]", function () {
+            $target.find("ul").addClass("active");
+        });
+
+        $target.on("mouseleave", function () {
+            $target.find("ul").removeClass("active");
+        });
+
+        select();
         $target.data("iMethodSelect", "complete");
         return pub;
 
@@ -60,17 +103,17 @@
             $Target.attr("id", $TargetId)
         }
         if ($Target.data("iMethodSelect") !== "complete") {
-            if (typeof $w.iMethod.page[$TargetId] != "undefined") {
-                $w.iMethod.page[$TargetId].destroy()
+            if (typeof $w.iMethod.select[$TargetId] != "undefined") {
+                $w.iMethod.select[$TargetId].destroy()
             }
-            $w.iMethod.page[$TargetId] = null
+            $w.iMethod.select[$TargetId] = null
         }
-        if (typeof $w.iMethod.page[$TargetId] == "undefined" || $w.iMethod.btn[$TargetId] == null) {
-            $w.iMethod.page[$TargetId] = new iMethodSelect($TargetId, args)
+        if (typeof $w.iMethod.select[$TargetId] == "undefined" || $w.iMethod.select[$TargetId] == null) {
+            $w.iMethod.select[$TargetId] = new iMethodSelect($TargetId, args)
         } else {
-            $w.iMethod.page[$TargetId].setConfig(args)
+            $w.iMethod.select[$TargetId].setConfig(args)
         }
-        return $w.iMethod.page[$TargetId];
+        return $w.iMethod.select[$TargetId];
     }
 
 })(window, jQuery);

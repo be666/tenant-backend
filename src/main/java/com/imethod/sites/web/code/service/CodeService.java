@@ -49,17 +49,18 @@ public class CodeService {
     }
 
     public List<Code> listCodeByType(String codeType, Integer levelType, Integer parentId) {
-        return codeDao.listCodeByType(codeType,levelType,parentId);
-    }
-    public List<Code> listCodeByType(String codeType) {
-        return codeDao.listCodeByType(codeType,null,null);
+        return codeDao.listCodeByType(codeType, levelType, parentId);
     }
 
-    public Map<Integer,Code> listCodeMap(String codeType) {
+    public List<Code> listCodeByType(String codeType) {
+        return codeDao.listCodeByType(codeType, null, null);
+    }
+
+    public Map<Integer, Code> listCodeMap(String codeType) {
         List<Code> list = listCodeByType(codeType);
-        Map<Integer,Code> map = new HashMap<>();
-        for(Code code :list) {
-            map.put(code.getCode(),code);
+        Map<Integer, Code> map = new HashMap<>();
+        for (Code code : list) {
+            map.put(code.getCode(), code);
         }
         return map;
     }

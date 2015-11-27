@@ -39,28 +39,38 @@ public class CourseCtl {
     private CodeService codeService;
 
     @RequestMapping(value = "/course", method = RequestMethod.GET)
-    public String list(@RequestParam(required = false) String query,
+    public String index() {
+        Map<String, Object> map = new HashMap<>();
+        try {
+            List<Course> courseList = courseService.listCourseAll();
+            List<Tenant> tenantList = tenantService.listTenantAll();
+            map.put("courseList", courseList);
+            map.put("tenantList", tenantList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error(e.getMessage());
+        }
+        return "course";
+    }
+
+    @RequestMapping(value = "/course.ajax", method = RequestMethod.GET)
+    @ResponseBody
+    public ReturnBean ajax(@RequestParam(required = false) String query,
                        @RequestParam(required = false) Integer courseType,
                        @RequestParam(required = false) Long courseId,
                        @RequestParam(required = false) Long tenantId,
                        @RequestParam(required = false) Long pageIndex,
                        @RequestParam(required = false) Long pageSize) {
 
-        Map<String,Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         try {
-            PageMaker pageMaker = courseService.pageCourseRelation(query,courseType,courseId,tenantId ,pageIndex, pageSize);
-            List<Course> courseList = courseService.listCourseAll();
-            List<Tenant> tenantList = tenantService.listTenantAll();
-            //Map<Integer,Code> typeCodeMap = codeService.listCodeMap("courseType");
-            map.put("pageMaker",pageMaker);
-            map.put("courseList",courseList);
-            map.put("tenantList",tenantList);
-           //map.put("typeCodeMap",typeCodeMap);
+            PageMaker pageMaker = courseService.pageCourseRelation(query, courseType, courseId, tenantId, pageIndex, pageSize);
+            map.put("pageMaker", pageMaker);
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());
         }
-        return "course";
+        return new ReturnBean(map);
     }
 
 

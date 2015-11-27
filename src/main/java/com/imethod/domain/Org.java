@@ -18,6 +18,7 @@ public class Org {
     private Integer orgId;
     private String orgName;
     private String orgType;
+    private String orgCode;
     private Integer orgPid;
     private Integer schoolType;
     private String city;
@@ -56,6 +57,16 @@ public class Org {
 
     public void setOrgType(String orgType) {
         this.orgType = orgType;
+    }
+
+    @Basic
+    @Column(name = "org_code", nullable = true, insertable = true, updatable = true, length = 50)
+    public String getOrgCode() {
+        return orgCode;
+    }
+
+    public void setOrgCode(String orgCode) {
+        this.orgCode = orgCode;
     }
 
     @Basic

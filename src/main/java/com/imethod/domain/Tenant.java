@@ -30,6 +30,7 @@ public class Tenant {
     private Integer updaterId;
     private Date updateAt;
     private Integer serviceId;
+
     @Id
     @Column(name = "tenant_id", nullable = false, insertable = true, updatable = true)
     public Integer getTenantId() {

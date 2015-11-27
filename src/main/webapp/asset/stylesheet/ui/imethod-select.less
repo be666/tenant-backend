@@ -1,0 +1,27 @@
+.iMethod-select {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  line-height: 32px;
+  border: 1px solid #ececec;
+  h5 {
+    width: 100%;
+    line-height: 32px;
+  }
+  ul {
+    background: #ffffff;
+    display: none;
+    width: 100%;
+    li {
+      width: 100%;
+      line-height: 32px;
+      border: 1px solid #ececec;
+      border-top-width: 0;
+    }
+    &.active {
+      display: block;
+      position: absolute;
+      z-index: 900;
+    }
+  }
+}

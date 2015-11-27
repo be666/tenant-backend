@@ -30,7 +30,7 @@ public class PermissionDao extends IJdbcTempBaseDao {
             "  join rule r on r.menu_id = m.menu_id\n" +
             "where r.user_id=1 and m.menu_type=1";
 
-    public List<Map<String,Object>> getUserRule(Integer userId, Integer menuType) {
+    public List<Map<String, Object>> getUserRule(Integer userId, Integer menuType) {
         Map<String, Object> map = new HashMap<>();
         map.put("userId", userId);
         map.put("menuType", menuType);

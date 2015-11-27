@@ -1,5 +1,5 @@
 /**
- * auth : bqxu
+ * auth : iMethod
  * create_at: 15/11/14.
  * desc:
  * note:
@@ -19,7 +19,7 @@ define('controller/course', ['service/course_service', "template"], function (re
             dataList: pageMaker['items'],
             titles: null,
             page: {
-                curPage: pageMaker['pageIndex'],
+                pageIndex: pageMaker['pageIndex'],
                 pageSize: pageMaker['pageSize'],
                 totalPage: pageMaker['totalPage'],
                 rowCount: pageMaker['items'].length,
@@ -42,9 +42,10 @@ define('controller/course', ['service/course_service', "template"], function (re
         });
     };
 
-    exports.table = function (tenantTabId, pageMaker) {
+    exports.table = function (tenantTabId, courseList, tenantList) {
         _tenantTabId = tenantTabId;
-        tableInit(pageMaker);
+        queryCourse();
+
     };
     iMethod.controller.tenant = module.exports;
 });

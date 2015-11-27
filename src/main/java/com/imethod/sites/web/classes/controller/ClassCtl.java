@@ -38,16 +38,16 @@ public class ClassCtl {
                        @RequestParam(required = false) Long pageIndex,
                        @RequestParam(required = false) Long pageSize) {
 
-        Map<String,Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         try {
             PageMaker pageMaker = classService.pageClassesRelation(query, finishStatus, courseId, tenantId, pageIndex, pageSize);
             List<Course> courseList = courseService.listCourseAll();
             List<Tenant> tenantList = tenantService.listTenantAll();
-            Map<Integer,Code> finishStatusMap = codeService.listCodeMap("finishStatus");
-            map.put("pageMaker",pageMaker);
-            map.put("courseList",courseList);
-            map.put("tenantList",tenantList);
-           map.put("finishStatusMap",finishStatusMap);
+            Map<Integer, Code> finishStatusMap = codeService.listCodeMap("finishStatus");
+            map.put("pageMaker", pageMaker);
+            map.put("courseList", courseList);
+            map.put("tenantList", tenantList);
+            map.put("finishStatusMap", finishStatusMap);
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());

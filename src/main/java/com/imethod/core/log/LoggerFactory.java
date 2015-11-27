@@ -1,7 +1,7 @@
 package com.imethod.core.log;
 
 /**
- * Created by Bcaring on 15/6/12.
+ * Created by iMethod on 15/6/12.
  * 日志工厂类，返回日志类
  */
 public class LoggerFactory {

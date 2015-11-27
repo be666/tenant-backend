@@ -19,7 +19,7 @@ import java.util.Map;
  * 1.
  */
 @Repository
-public class RegionDaO  extends IJdbcTempBaseDao {
+public class RegionDaO extends IJdbcTempBaseDao {
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -39,10 +39,14 @@ public class RegionDaO  extends IJdbcTempBaseDao {
     }
 
     String sql = "select * from region where region_type >1 ";
-    public List<Region> listRegion(){
-        Map<String,Object> map =  new HashMap<>();
-        List<Region> regionList = queryForList(sql,map,Region.class);
-        return regionList;
 
+    public List<Region> listRegion() {
+        Map<String, Object> map = new HashMap<>();
+        return queryForList(sql, map, Region.class);
+    }
+
+    public List<Map<String, Object>> listRegionMap() {
+        Map<String, Object> map = new HashMap<>();
+        return queryForList(sql, map);
     }
 }

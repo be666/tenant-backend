@@ -33,14 +33,14 @@ public class UserCtl {
     @Autowired
     private CodeService codeService;
 
-    @RequestMapping(value="/user/{userId}",method = RequestMethod.GET)
+    @RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
     @ResponseBody
     public User load(@PathVariable Integer userId) {
         User user = null;
         try {
 
             user = userService.loadById(userId);
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error(e);
 
         }
@@ -49,55 +49,57 @@ public class UserCtl {
 
     /**
      * add user
+     *
      * @param user
      * @return
      */
-    @RequestMapping(value="/user",method = RequestMethod.POST)
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
     @ResponseBody
-    public ReturnBean insert (User user) {
+    public ReturnBean insert(User user) {
 
-        ReturnBean  returnBean = new ReturnBean();
+        ReturnBean returnBean = new ReturnBean();
         try {
             userService.insert(user);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             returnBean.setStatus(ReturnBean.FALSE);
-            returnBean.setMsg("保存失败， "+e.getMessage());
+            returnBean.setMsg("保存失败， " + e.getMessage());
         }
         return returnBean;
     }
 
     /**
      * update user
+     *
      * @param user
      * @return
      */
-    @RequestMapping(value="/user/{userId}",method = RequestMethod.POST)
+    @RequestMapping(value = "/user/{userId}", method = RequestMethod.POST)
     @ResponseBody
-    public ReturnBean update(@PathVariable Integer userId,User user) {
+    public ReturnBean update(@PathVariable Integer userId, User user) {
 
-        ReturnBean  returnBean = new ReturnBean();
+        ReturnBean returnBean = new ReturnBean();
         try {
             user.setUserId(userId);
             userService.update(user);
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error(e);
             returnBean.setStatus(ReturnBean.FALSE);
-            returnBean.setMsg("更新失败， "+e.getMessage());
+            returnBean.setMsg("更新失败， " + e.getMessage());
         }
         return returnBean;
     }
 
-    @RequestMapping(value="/user",method = RequestMethod.GET)
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
     @ResponseBody
     public PageMaker list(@RequestParam(required = false) String query,
-                        @RequestParam(required = false) Long pageIndex,
-                        @RequestParam(required = false) Long pageSize) {
+                          @RequestParam(required = false) Long pageIndex,
+                          @RequestParam(required = false) Long pageSize) {
 
         PageMaker pageMaker = null;
         try {
-            pageMaker = userService.listUser(query,pageIndex, pageSize);
-        }catch (Exception e){
+            pageMaker = userService.listUser(query, pageIndex, pageSize);
+        } catch (Exception e) {
             logger.error(e);
 
         }

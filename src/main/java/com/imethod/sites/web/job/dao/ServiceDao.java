@@ -40,32 +40,33 @@ public class ServiceDao extends IJdbcTempBaseDao {
     }
 
 
-    public Serve loadById(Integer serviceId){
-        Map<String,Object> map =  new HashMap<>();
-        map.put("service_id",serviceId);
+    public Serve loadById(Integer serviceId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("service_id", serviceId);
         Serve service = null;
         try {
-            service = load(Serve.class,map);
+            service = load(Serve.class, map);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return service;
     }
 
-    String sql = "select * from service where state = 1 ";
-    public List<Serve> listServiceByType(String serviceType,Integer expireStatus){
+    String sql = "select * from serve where state = 1 ";
+
+    public List<Serve> listServiceByType(String serviceType, Integer expireStatus) {
         StringBuffer sb = new StringBuffer(200);
         sb.append(sql);
-        Map<String,Object> map =  new HashMap<>();
-        if(StringTools.isNotEmpty(serviceType)){
+        Map<String, Object> map = new HashMap<>();
+        if (StringTools.isNotEmpty(serviceType)) {
             sb.append(" and service_type = :serviceType ");
-            map.put("serviceType",serviceType);
+            map.put("serviceType", serviceType);
         }
-        if(StringTools.isNotEmpty(expireStatus)){
+        if (StringTools.isNotEmpty(expireStatus)) {
             sb.append(" and expire_status = :expireStatus ");
-            map.put("expireStatus",expireStatus);
+            map.put("expireStatus", expireStatus);
         }
-        return queryForList(sb.toString(),map,Serve.class);
+        return queryForList(sb.toString(), map, Serve.class);
     }
 
 

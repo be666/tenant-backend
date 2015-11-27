@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.imethod</groupId>
@@ -11,7 +10,6 @@
     <prerequisites>
         <maven>3.0.2</maven>
     </prerequisites>
-
 
     <properties>
         <imethod.version>1.0.0-SNAPSHOT</imethod.version>
@@ -103,7 +101,6 @@
         <mysql.version>5.1.35</mysql.version>
     </properties>
 
-
     <!-- 预定义依赖项的version,scope与exclusions,子项目中只需定义groupId 与  artifactId 即可 -->
     <dependencyManagement>
         <dependencies>
@@ -155,7 +152,6 @@
                 <scope>runtime</scope>
             </dependency>
 
-
             <!-- connection pool -->
             <dependency>
                 <groupId>org.apache.tomcat</groupId>
@@ -164,7 +160,6 @@
                 <scope>provided</scope>
             </dependency>
             <!-- PERSISTENCE end -->
-
 
             <!-- JSON begin -->
             <dependency>
@@ -537,7 +532,6 @@
                 </exclusions>
             </dependency>
 
-
             <!-- redis simulator -->
             <dependency>
                 <groupId>com.lordofthejars</groupId>
@@ -546,13 +540,11 @@
 
             </dependency>
 
-
             <dependency>
                 <groupId>org.springframework.data</groupId>
                 <artifactId>spring-data-redis</artifactId>
                 <version>${spring.redis.version}</version>
             </dependency>
-
 
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -571,7 +563,6 @@
                 <artifactId>activemq-all</artifactId>
                 <version>${activemq.version}</version>
             </dependency>
-
 
             <dependency>
                 <groupId>mysql</groupId>
@@ -623,7 +614,6 @@
             <scope>runtime</scope>
         </dependency>
 
-
         <!-- connection pool -->
         <dependency>
             <groupId>org.apache.tomcat</groupId>
@@ -631,7 +621,6 @@
             <scope>runtime</scope>
         </dependency>
         <!-- PERSISTENCE end -->
-
 
         <!-- JSON begin -->
         <dependency>
@@ -789,7 +778,6 @@
             <artifactId>commons-pool2</artifactId>
         </dependency>
 
-
         <!-- joda -->
         <dependency>
             <groupId>joda-time</groupId>
@@ -875,7 +863,6 @@
             <scope>test</scope>
         </dependency>
 
-
         <!-- spring -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -919,37 +906,18 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>tomcat-maven-plugin</artifactId>
+                <version>1.1</version>
+                <configuration>
+                    <url>http://127.0.0.1:8080/manager/text</url>
+                    <server>tomcat</server>
+                    <username>bcaring</username>
+                    <password>bcaring</password>
+                    <path>/tenant</path>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-    <!--项目开发者列表-->
-    <developers>
-        <!--某个项目开发者的信息-->
-        <developer>
-            <!--SCM里项目开发者的唯一标识符-->
-            <id>admin</id>
-            <!--项目开发者的全名-->
-            <name>bqxu</name>
-            <!--项目开发者的email-->
-            <email>bcaring@163.com</email>
-            <!--项目开发者的主页的URL-->
-            <url/>
-            <!--项目开发者在项目中扮演的角色，角色元素描述了各种角色-->
-            <roles>
-                <role>Project Manager</role>
-                <role>Architect</role>
-            </roles>
-            <!--项目开发者所属组织-->
-            <organization>iMethod</organization>
-            <!--项目开发者所属组织的URL-->
-            <organizationUrl>http://hi.baidu.com/banseon</organizationUrl>
-            <!--项目开发者属性，如即时消息如何处理等-->
-            <properties>
-                <dept>No</dept>
-            </properties>
-            <!--项目开发者所在时区， -11到12范围内的整数。-->
-            <timezone>8</timezone>
-        </developer>
-    </developers>
-
-
 </project>

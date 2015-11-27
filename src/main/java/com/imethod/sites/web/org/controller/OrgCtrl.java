@@ -5,10 +5,13 @@ import com.imethod.core.log.Logger;
 import com.imethod.core.log.LoggerFactory;
 import com.imethod.domain.Org;
 import com.imethod.domain.ReturnBean;
+import com.imethod.sites.web.code.service.CodeService;
 import com.imethod.sites.web.org.service.OrgService;
+import com.imethod.sites.web.region.service.RegionService;
 import com.imethod.sites.web.sys.auth.UserContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -30,24 +33,35 @@ public class OrgCtrl {
     @Autowired
     private OrgService orgService;
 
+    @Autowired
+    private CodeService codeService;
+
+    @Autowired
+    private RegionService regionService;
+
     @RequestMapping(value = "/org", method = RequestMethod.GET)
-    public String index() {
+    public String index(ModelMap modelMap) {
+        modelMap.put("orgType", codeService.listCodeByType("orgType"));
+        modelMap.put("schoolType", codeService.listCodeByType("schoolType"));
+        modelMap.put("region", regionService.getRegionTree());
         return "org";
     }
 
-    @RequestMapping(value = "/org/query", method = RequestMethod.GET)
+    @RequestMapping(value = "/org.ajax", method = RequestMethod.GET)
     @ResponseBody
-    public PageMaker query(@RequestParam(required = false) String query,
-                           @RequestParam(required = false) Long pageIndex,
-                           @RequestParam(required = false) Long pageSize) {
+    public ReturnBean query(@RequestParam(required = false) String query,
+                            @RequestParam(required = false) Long pageIndex,
+                            @RequestParam(required = false) Long pageSize) {
+        Map<String, Object> map = new HashMap<>();
         PageMaker pageMaker = null;
         try {
             pageMaker = orgService.listOrg(query, pageIndex, pageSize);
+            map.put("pageMaker", pageMaker);
         } catch (Exception e) {
             logger.error(e);
 
         }
-        return pageMaker;
+        return new ReturnBean(map);
     }
 
     /**

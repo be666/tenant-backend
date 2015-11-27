@@ -39,8 +39,8 @@ public class ClassService {
         }
     }
 
-    public PageMaker pageClassesRelation(String query, Integer classesType, Long classId,Long tenantId, Long pageIndex, Long pageSize) {
-        PageMaker pageMaker =  classDao.pageClassRelation(query, classesType, classId, tenantId, pageIndex, pageSize);
+    public PageMaker pageClassesRelation(String query, Integer classesType, Long classId, Long tenantId, Long pageIndex, Long pageSize) {
+        PageMaker pageMaker = classDao.pageClassRelation(query, classesType, classId, tenantId, pageIndex, pageSize);
         return pageMaker;
     }
 
@@ -49,7 +49,7 @@ public class ClassService {
 
         ReturnBean returnBean = new ReturnBean();
         Classes classes = classDao.loadById(classId);
-        if(classes!=null){
+        if (classes != null) {
             classes.setState(Constants.STATE_FALSE);
             try {
                 classDao.update(classes);

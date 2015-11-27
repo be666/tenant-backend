@@ -36,7 +36,7 @@ public class TenantService {
     private CodeService codeService;
 
     public Tenant insert(Tenant tenant) {
-        Date now =  DateTools.getCurrentDateTime();
+        Date now = DateTools.getCurrentDateTime();
         tenant.setCreateAt(now);
         tenant.setUpdateAt(now);
         tenant.setState(Constants.STATE_TRUE);
@@ -46,8 +46,8 @@ public class TenantService {
     }
 
     public void update(Tenant tenant) {
-        Date now =  DateTools.getCurrentDateTime();
-        Tenant tenantDB =  tenantDao.loadById(tenant.getTenantId());
+        Date now = DateTools.getCurrentDateTime();
+        Tenant tenantDB = tenantDao.loadById(tenant.getTenantId());
 
         tenantDB.setPlatformTenantId(tenant.getPlatformTenantId());
         tenantDB.setTenantName(tenant.getTenantName());
@@ -64,7 +64,7 @@ public class TenantService {
         }
     }
 
-    public PageMaker pageTenant(String query,Integer currentStatus,Integer serviceType, Long pageIndex, Long pageSize) {
+    public PageMaker pageTenant(String query, Integer currentStatus, Integer serviceType, Long pageIndex, Long pageSize) {
         PageMaker pageMaker = tenantDao.pageTenant(query, currentStatus, serviceType, pageIndex, pageSize);
 
         return pageMaker;
@@ -81,6 +81,6 @@ public class TenantService {
 
     public List<Tenant> listTenantAll() {
 
-        return  tenantDao.listTenantAll();
+        return tenantDao.listTenantAll();
     }
 }

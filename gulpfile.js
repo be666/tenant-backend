@@ -104,11 +104,11 @@ gulp.task('clean_lib', function () {
 
 gulp.task('make_lib', function () {
     return gulp.src([
-        'src/main/webapp/asset/javascript/00-lib/jquery/jquery.js',
-        'src/main/webapp/asset/javascript/00-lib/art/template-native.js',
-        'src/main/webapp/asset/javascript/00-lib/seajs/sea.js',
-        'src/main/webapp/asset/javascript/00-lib/jquery-ui/position.js'
-    ])
+            'src/main/webapp/asset/javascript/00-lib/jquery/jquery.js',
+            'src/main/webapp/asset/javascript/00-lib/art/template-native.js',
+            'src/main/webapp/asset/javascript/00-lib/seajs/sea.js',
+            'src/main/webapp/asset/javascript/00-lib/jquery-ui/position.js'
+        ])
         .pipe(concat("lib.js"))
         .pipe(gulp.dest('src/main/webapp/asset/out/js'))
         .pipe(rename({suffix: '.min'}))
@@ -161,20 +161,20 @@ gulp.task('clean_ui', function () {
 
 gulp.task('make_ui', function () {
     return gulp.src([
-        'src/main/webapp/asset/javascript/04-template/help.js',
-        'src/main/webapp/asset/out/tpl/ui/.cache/*.js',
-        'src/main/webapp/asset/javascript/05-ui/01-dialog.impl.js',
-        'src/main/webapp/asset/javascript/05-ui/02-pagination.js',
-        'src/main/webapp/asset/javascript/05-ui/03-nav.js',
-        'src/main/webapp/asset/javascript/05-ui/03-http.js',
-        'src/main/webapp/asset/javascript/05-ui/04-select.js',
-        'src/main/webapp/asset/javascript/05-ui/05-page.js',
-        'src/main/webapp/asset/javascript/05-ui/06-tab.js',
-        'src/main/webapp/asset/javascript/05-ui/06-pagination.js',
-        'src/main/webapp/asset/javascript/05-ui/07-tree.js',
-        'src/main/webapp/asset/javascript/05-ui/08-btn.js',
-        'src/main/webapp/asset/javascript/05-ui/09-table.js'
-    ])
+            'src/main/webapp/asset/javascript/04-template/help.js',
+            'src/main/webapp/asset/out/tpl/ui/.cache/*.js',
+            'src/main/webapp/asset/javascript/05-ui/01-dialog.impl.js',
+            'src/main/webapp/asset/javascript/05-ui/02-pagination.js',
+            'src/main/webapp/asset/javascript/05-ui/03-nav.js',
+            'src/main/webapp/asset/javascript/05-ui/03-http.js',
+            'src/main/webapp/asset/javascript/05-ui/04-select.js',
+            'src/main/webapp/asset/javascript/05-ui/05-page.js',
+            'src/main/webapp/asset/javascript/05-ui/06-tab.js',
+            'src/main/webapp/asset/javascript/05-ui/06-pagination.js',
+            'src/main/webapp/asset/javascript/05-ui/07-tree.js',
+            'src/main/webapp/asset/javascript/05-ui/08-btn.js',
+            'src/main/webapp/asset/javascript/05-ui/09-table.js'
+        ])
         .pipe(concat("ui.js"))
         .pipe(gulp.dest('src/main/webapp/asset/out/js'))
         .pipe(rename({suffix: '.min'}))

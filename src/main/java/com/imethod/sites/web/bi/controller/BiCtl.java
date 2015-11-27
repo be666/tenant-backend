@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class BiCtl {
     @RequestMapping("/bi")
-    public String bi(){
+    public String bi() {
         return "bi";
     }
 }

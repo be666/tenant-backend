@@ -1,5 +1,5 @@
 /**
- * auth : bqxu
+ * auth : iMethod
  * create_at: 15/11/14.
  * desc:
  * note:
@@ -22,7 +22,7 @@ define('controller/class', [
             dataList: pageMaker['items'],
             titles: null,
             page: {
-                curPage: pageMaker['pageIndex'],
+                pageIndex: pageMaker['pageIndex'],
                 pageSize: pageMaker['pageSize'],
                 totalPage: pageMaker['totalPage'],
                 rowCount: pageMaker['items'].length,

@@ -19,7 +19,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 /**
- * Created by Bcaring on 2015/6/2.
+ * Created by iMethod on 2015/6/2.
  */
 public abstract class IJdbcTempBaseDao {
 
@@ -284,7 +284,7 @@ public abstract class IJdbcTempBaseDao {
 
             }
         }
-        updates.setLength(updates.length()==0?0:updates.length() - 1);
+        updates.setLength(updates.length() == 0 ? 0 : updates.length() - 1);
         String sql = updateTemplate.replace("tableName", getTableName(clazz, tableName))
                 .replace("{updates}", updates)
                 .replace("{wheres}", wheres);
@@ -358,6 +358,10 @@ public abstract class IJdbcTempBaseDao {
         if (pageIndex > 1) {
             pageStart = (pageIndex - 1) * pageSize;
         }
+        if(pageIndex==0||pageSize==0){
+            pageIndex=1l;
+            pageSize=rowCount;
+        }
 
         String sSql = getISqlHelp().getPageSql(sql, pageStart, pageSize);
         return new PageMaker(rowCount, pageIndex, pageSize, pageStart,
@@ -406,9 +410,9 @@ public abstract class IJdbcTempBaseDao {
         return rt.toString();
     }
 
-    public int queryForInt(String sql,Map<String,Object> map){
-        Integer integer =  getNamedParameterJdbcTemplate().queryForObject(sql, map, Integer.class);
-        return integer==null?0:integer;
+    public int queryForInt(String sql, Map<String, Object> map) {
+        Integer integer = getNamedParameterJdbcTemplate().queryForObject(sql, map, Integer.class);
+        return integer == null ? 0 : integer;
     }
 
 
@@ -427,5 +431,6 @@ public abstract class IJdbcTempBaseDao {
     public abstract NamedParameterJdbcTemplate getNamedParameterJdbcTemplate();
 
     protected abstract ISqlHelp getISqlHelp();
+
 
 }

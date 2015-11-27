@@ -7,7 +7,7 @@ import java.io.ObjectOutputStream;
 
 /**
  * serialize object
- * 
+ *
  * @author vitem
  * @date 2015年10月21日
  */
@@ -48,5 +48,5 @@ public class SerializeTools {
         }
         return null;
     }
-    
+
 }

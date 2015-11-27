@@ -1,5 +1,5 @@
 /**
- * auth : bqxu
+ * auth : iMethod
  * create_at: 15/11/14.
  * desc:
  * note:
@@ -41,14 +41,14 @@ define('controller/user', [
     var userTable = function (index, size) {
         userService.queryUserList(function (pageMarker) {
             var dateList = pageMarker['items'] || [];
-            var curPage = pageMarker['curPage'];
+            var pageIndex = pageMarker['pageIndex'];
             var pageSize = pageMarker['pageSize'];
             var totalPage = pageMarker['totalPage'];
             selectUserDialog.target.find(".iMethod-userTable").iMethodTable({
                 dataList: dateList,
                 titles: null,
                 page: {
-                    curPage: curPage,
+                    pageIndex: pageIndex,
                     pageSize: pageSize,
                     totalPage: totalPage,
                     rowCount: dateList.length || 0,

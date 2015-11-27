@@ -6,9 +6,9 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import java.util.HashMap;
 
 /**
- *  auth : bqxu
- *  time : 15/7/11
- *  desc :
+ * auth : iMethod
+ * time : 15/7/11
+ * desc :
  */
 public class ISqlHelper extends ISqlHelp {
 

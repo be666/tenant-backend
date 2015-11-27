@@ -17,7 +17,7 @@
     "gulp-sequence": "*",
     "gulp-tmod": "*",
     "gulp-uglify": "*",
-    "gulp-notify":"*",
-    "mkdirp":"*"
+    "gulp-notify": "*",
+    "mkdirp": "*"
   }
 }

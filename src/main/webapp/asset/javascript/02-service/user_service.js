@@ -1,5 +1,5 @@
 /**
- * auth : bqxu
+ * auth : iMethod
  * create_at: 15/10/23.
  * desc:
  * note:
@@ -9,7 +9,7 @@ define('service/user_service', function (require, exports, module) {
 
     exports.queryUserList = function (callback, obj) {
         iMethod._.ajax({
-            url: "/user",
+            url: "/user.ajax",
             data: {
                 query: obj['query'],
                 pageIndex: obj['pageIndex'],

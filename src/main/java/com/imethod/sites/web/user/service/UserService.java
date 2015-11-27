@@ -30,7 +30,7 @@ public class UserService {
 
     public void insert(User user) {
         Integer userId = UserContent.getLUser().getUser().getUserId();
-        Date now =  DateTools.getCurrentDateTime();
+        Date now = DateTools.getCurrentDateTime();
         user.setUpdateAt(now);
         user.setCreateAt(now);
         user.setCreaterId(userId);
@@ -48,7 +48,7 @@ public class UserService {
         userDB.setEmail(user.getEmail());
         userDB.setMobile(user.getMobile());
         String gender = user.getGender();
-        gender = ("男".equals(gender)||"女".equals(gender))?gender:null;
+        gender = ("男".equals(gender) || "女".equals(gender)) ? gender : null;
         userDB.setGender(gender);
         try {
             userDao.update(user);
@@ -59,7 +59,7 @@ public class UserService {
     }
 
     public PageMaker listUser(String query, Long pageIndex, Long pageSize) {
-        return userDao.listUser(query,pageIndex, pageSize);
+        return userDao.listUser(query, pageIndex, pageSize);
     }
 
     public User loadById(Integer userId) {

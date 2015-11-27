@@ -41,30 +41,30 @@ public class UserDao extends IJdbcTempBaseDao {
     }
 
 
-    public User loadById(Integer userId){
-        Map<String,Object> map =  new HashMap<>();
-        map.put("user_id",userId);
+    public User loadById(Integer userId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("user_id", userId);
         User user = null;
         try {
-            user = load(User.class,map);
+            user = load(User.class, map);
         } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return user;
     }
 
-    String SQL_LIST_USER =  "select * from user where state = 1  ";
+    String SQL_LIST_USER = "select * from user where state = 1  ";
 
-    public PageMaker listUser(String query,  Long pageIndex, Long pageSize) {
-        Map<String,Object> map =  new HashMap<>();
+    public PageMaker listUser(String query, Long pageIndex, Long pageSize) {
+        Map<String, Object> map = new HashMap<>();
         StringBuffer buffer = new StringBuffer();
         buffer.append(SQL_LIST_USER);
-        if(StringTools.isNotEmpty(query)){
+        if (StringTools.isNotEmpty(query)) {
             buffer.append(" and ( user_name like :query or mobile like :query or email like :query) ");
-            map.put("query",iSqlHelp.like(query));
+            map.put("query", iSqlHelp.like(query));
         }
 
-        PageMaker page = this.queryPageList(buffer.toString(),pageIndex,pageSize,map);
+        PageMaker page = this.queryPageList(buffer.toString(), pageIndex, pageSize, map);
         return page;
     }
 }
