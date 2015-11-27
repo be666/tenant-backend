@@ -1,7 +1,7 @@
 /**
  * Copyright (c)  2014-2020 Gaoxiaobang, Inc.
  * All rights reserved.
- * <p>
+ * <p/>
  * This software is the confidential and proprietary information of Gaoxiaobang,
  * Inc. ("Confidential Information"). You shall not
  * disclose such Confidential Information and shall use it only in
@@ -19,11 +19,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-/**
- *
- * @author lh
- * @date 2015年10月29日
- */
 public class BeanTools {
 
     static {
@@ -75,27 +70,27 @@ public class BeanTools {
     public static boolean equalProperty(Object obj, String name, Object value) {
         return StringTools.getString(value).equals(getProperty(obj, name));
     }
-    
+
     public static void copyNotNullProperties(Object to, Object from) {
-		
-    	PropertyDescriptor[] propertyDescriptors = PropertyUtils.getPropertyDescriptors(to);
-		try {
-			for (PropertyDescriptor descriptor : propertyDescriptors) {
-				
-				Method write = PropertyUtils.getWriteMethod(descriptor);
-				Method read = PropertyUtils.getReadMethod(descriptor);
-				if(write == null || read == null){
-					continue;
-				}
-				String property = descriptor.getName();
-				Object value = PropertyUtils.getProperty(from, property);
-				if (value != null) {
-					PropertyUtils.setProperty(to, property, value);
-				}
-			}
-		} catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
-			ExceptionTools.unchecked(e);
-		}
-	}
+
+        PropertyDescriptor[] propertyDescriptors = PropertyUtils.getPropertyDescriptors(to);
+        try {
+            for (PropertyDescriptor descriptor : propertyDescriptors) {
+
+                Method write = PropertyUtils.getWriteMethod(descriptor);
+                Method read = PropertyUtils.getReadMethod(descriptor);
+                if (write == null || read == null) {
+                    continue;
+                }
+                String property = descriptor.getName();
+                Object value = PropertyUtils.getProperty(from, property);
+                if (value != null) {
+                    PropertyUtils.setProperty(to, property, value);
+                }
+            }
+        } catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
+            ExceptionTools.unchecked(e);
+        }
+    }
 
 }

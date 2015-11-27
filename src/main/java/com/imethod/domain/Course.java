@@ -27,7 +27,8 @@ public class Course {
     private Date createAt;
     private Integer updaterId;
     private Date updateAt;
-    private Integer  serviceId;
+    private Integer serviceId;
+
     @Id
     @Column(name = "course_id", nullable = false, insertable = true, updatable = true)
     public Integer getCourseId() {

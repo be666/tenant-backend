@@ -53,9 +53,8 @@ public class CourseService {
         }
     }
 
-    public PageMaker pageCourseRelation(String query, Integer courseType, Long courseId,Long tenantId, Long pageIndex, Long pageSize) {
-        PageMaker pageMaker =  courseDao.pageCourseRelation(query,courseType,courseId,tenantId, pageIndex, pageSize);
-        return pageMaker;
+    public PageMaker pageCourseRelation(String query, Integer courseType, Long courseId, Long tenantId, Long pageIndex, Long pageSize) {
+        return courseDao.pageCourseRelation(query, courseType, courseId, tenantId, pageIndex, pageSize);
     }
 
 
@@ -76,7 +75,7 @@ public class CourseService {
     }
 
     public List<Course> listCourseAll() {
-        List<Course> courseList  = courseDao.listCourseAll();
+        List<Course> courseList = courseDao.listCourseAll();
         return courseList;
     }
 }

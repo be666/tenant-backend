@@ -5,7 +5,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Created by Bcaring on 15/6/12.
+ * Created by iMethod on 15/6/12.
  * 日志类
  */
 public class Logger {

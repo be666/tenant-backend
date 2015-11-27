@@ -1,14 +1,13 @@
-package com.imethod.sites.web.service.dao;
+package com.imethod.sites.web.job.dao;
 
 import com.imethod.core.jdbc.mine.IJdbcTempBaseDao;
 import com.imethod.core.jdbc.mine.ISqlHelp;
 import com.imethod.core.util.StringTools;
-import com.imethod.domain.Service;
+import com.imethod.domain.Serve;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,32 +40,33 @@ public class ServiceDao extends IJdbcTempBaseDao {
     }
 
 
-    public Service loadById(Integer serviceId){
-        Map<String,Object> map =  new HashMap<>();
-        map.put("service_id",serviceId);
-        Service service = null;
+    public Serve loadById(Integer serviceId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("service_id", serviceId);
+        Serve service = null;
         try {
-            service = load(Service.class,map);
+            service = load(Serve.class, map);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return service;
     }
 
-    String sql = "select * from service where state = 1 ";
-    public List<Service> listServiceByType(String serviceType,Integer expireStatus){
+    String sql = "select * from serve where state = 1 ";
+
+    public List<Serve> listServiceByType(String serviceType, Integer expireStatus) {
         StringBuffer sb = new StringBuffer(200);
         sb.append(sql);
-        Map<String,Object> map =  new HashMap<>();
-        if(StringTools.isNotEmpty(serviceType)){
+        Map<String, Object> map = new HashMap<>();
+        if (StringTools.isNotEmpty(serviceType)) {
             sb.append(" and service_type = :serviceType ");
-            map.put("serviceType",serviceType);
+            map.put("serviceType", serviceType);
         }
-        if(StringTools.isNotEmpty(expireStatus)){
+        if (StringTools.isNotEmpty(expireStatus)) {
             sb.append(" and expire_status = :expireStatus ");
-            map.put("expireStatus",expireStatus);
+            map.put("expireStatus", expireStatus);
         }
-        return queryForList(sb.toString(),map,Service.class);
+        return queryForList(sb.toString(), map, Serve.class);
     }
 
 

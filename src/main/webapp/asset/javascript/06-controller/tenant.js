@@ -27,7 +27,7 @@ define('controller/tenant', [
             dataList: pageMaker['items'],
             titles: null,
             page: {
-                curPage: pageMaker['pageIndex'],
+                pageIndex: pageMaker['pageIndex'],
                 pageSize: pageMaker['pageSize'],
                 totalPage: pageMaker['totalPage'],
                 rowCount: pageMaker['items'].length,

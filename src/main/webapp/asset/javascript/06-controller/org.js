@@ -1,5 +1,5 @@
 /**
- * auth : bqxu
+ * auth : iMethod
  * create_at: 15/11/20.
  * desc:
  * note:
@@ -15,72 +15,51 @@ define('controller/org', [
     var orgList = require("view/org/list");
     var orgInfo = require("view/org/info");
     var _orgTabId = null;
+    var _orgType = null;
+    var _schoolType = null;
+    var _province = null;
 
-    var utils=iMethod.utils;
-    /**
-     * 机构列表
-     * @param pageMaker
-     */
-    var table = function (pageMaker) {
-        var orgTab = $("#" + _orgTabId);
-        pageMaker = pageMaker || {};
-        pageMaker['items'] = pageMaker['items'] || [];
-        orgTab.iMethodTable({
-            dataList: pageMaker['items'],
-            titles: null,
-            page: {
-                curPage: pageMaker['pageIndex'],
-                pageSize: pageMaker['pageSize'],
-                totalPage: pageMaker['totalPage'],
-                rowCount: pageMaker['items'].length,
-                pageClick: function (index, size) {
-                    queryCourse(index, size);
-                }
-            }
-        })
-    };
+    var utils = iMethod.utils;
 
     var selectCallback;
     var selectDialog;
 
-    /**
-     * 选择弹出层
-     */
-    exports.dialogOrg = function (callback) {
-        selectCallback = callback;
-        selectDialog = iMethod.dialog({
-            className: "iMethod-dialog-org",
-            title: "选择机构",
-            content: orgList(),
-            buttons: []
-        });
-        dialogTable();
-        selectDialog.target.on("click.iMethod-orgAdd", ".iMethod-orgAdd", function () {
-            dialogInfo()
-        })
-        selectDialog.target.on("click.iMethod-orgSelect", ".iMethod-orgSelect", function () {
-            var user = {};
-            selectCallback(user)
-        })
-
-    };
-
-    var dialogTable = function (index, size) {
-        orgService.queryOrgList(function (pageMarker) {
-            var dateList = pageMarker['items'] || [];
-            var curPage = pageMarker['curPage'];
-            var pageSize = pageMarker['pageSize'];
-            var totalPage = pageMarker['totalPage'];
-            selectDialog.target.find(".iMethod-orgTable").iMethodTable({
+    var queryOrg = function (index, size) {
+        var $orgTab = $("#" + _orgTabId);
+        orgService.queryOrgList(function (dataMap) {
+            var pageMaker = dataMap['pageMaker'];
+            var dateList = pageMaker['items'] || [];
+            var pageIndex = pageMaker['pageIndex'];
+            var pageSize = pageMaker['pageSize'];
+            var totalPage = pageMaker['totalPage'];
+            $orgTab.find(".iMethod-orgTable").iMethodTable({
                 dataList: dateList,
-                titles: null,
+                titles: [{
+                    key: "orgCode",
+                    name: '机构代码'
+                }, {
+                    key: "orgName",
+                    name: '机构名称'
+                }, {
+                    key: "orgType",
+                    name: '机构类型'
+                }, {
+                    key: "schoolType",
+                    name: '学校类型'
+                }, {
+                    key: "province",
+                    name: '省'
+                }, {
+                    key: "city",
+                    name: '市'
+                }],
                 page: {
-                    curPage: curPage,
+                    pageIndex: pageIndex,
                     pageSize: pageSize,
                     totalPage: totalPage,
                     rowCount: dateList.length || 0,
                     pageClick: function (index, size) {
-                        dialogTable(index, size)
+                        queryOrg(index, size)
                     }
                 }
             });
@@ -89,7 +68,6 @@ define('controller/org', [
             pageSize: size
         });
     };
-
 
     var addDialog;
     /**
@@ -111,10 +89,102 @@ define('controller/org', [
                 }
             }]
         });
+        orgService.queryOrgList(function (dataMap) {
+            var pageMaker = dataMap['pageMaker'];
+            var items = pageMaker['items'];
+            addDialog.target.find(".iMethod-org").iMethodSelect({
+                id: "orgId",
+                text: "orgName",
+                dataList: items,
+                unSelected: {
+                    orgId: "",
+                    orgName: "请选择"
+                }
+            });
+        }, {
+            pageIndex: 0,
+            pageSize: 999
+        });
+
+        addDialog.target.find(".iMethod-orgType").iMethodSelect({
+            id: "code",
+            text: "codeName",
+            dataList: _orgType,
+            unSelected: {
+                code: "",
+                codeName: "请选择"
+            },
+            onChange: function (obj) {
+                var _city = [];
+                if (obj['code'] == "10") {
+                    addDialog.target.find(".iMethod-schoolType").iMethodSelect({
+                        dataList: _schoolType
+                    })
+                } else {
+                    addDialog.target.find(".iMethod-schoolType").iMethodSelect({
+                        dataList: []
+                    })
+                }
+            }
+        });
+
+        addDialog.target.find(".iMethod-schoolType").iMethodSelect({
+            id: "code",
+            text: "codeName",
+            dataList: [],
+            unSelected: {
+                code: "",
+                codeName: "请选择"
+            }
+        });
+
+        addDialog.target.find(".iMethod-schoolType").iMethodSelect({
+            id: "code",
+            text: "codeName",
+            dataList: _schoolType,
+            unSelected: {
+                code: "",
+                codeName: "请选择"
+            }
+        });
+
+        addDialog.target.find(".iMethod-province").iMethodSelect({
+            id: "regionCode",
+            text: "regionName",
+            dataList: _province,
+            unSelected: {
+                regionCode: "",
+                regionName: "请选择"
+            },
+            onChange: function (obj) {
+                var _city = [];
+                if (obj['regionCode'] != "") {
+                    obj = utils.arrFind(_province, function (el, i, arr) {
+                        return el['regionCode'] == obj['regionCode'] ? el : null;
+                    });
+                    _city = obj[0]['childRegion'];
+                }
+                addDialog.target.find(".iMethod-city").iMethodSelect({
+                    dataList: _city
+                })
+            }
+        });
+
+        addDialog.target.find(".iMethod-city").iMethodSelect({
+            id: "regionCode",
+            text: "regionName",
+            dataList: [],
+            unSelected: {
+                regionCode: "",
+                regionName: "请选择"
+            }
+        });
+
+
         addDialog.target.on("click.iMethod-sure", ".iMethod-sure", function () {
             var org = $(".form-org", addDialog.target).serializeArray();
             orgService.saveOrg(utils.Array2Obj(org), function (org) {
-                selectCallback(org);
+
             })
         })
     };
@@ -126,5 +196,20 @@ define('controller/org', [
 
     };
 
+    exports.table = function (orgTabId, orgType, schoolType, province) {
+        _orgTabId = orgTabId;
+        _orgType = orgType;
+        _schoolType = schoolType;
+        _province = province;
+        var $orgTab = $("#" + orgTabId);
+        queryOrg();
+        $orgTab.on("click.iMethod-orgAdd", ".iMethod-orgAdd", function () {
+            dialogInfo()
+        })
+        $orgTab.on("click.iMethod-orgSelect", ".iMethod-orgSelect", function () {
+            var user = {};
+            selectCallback(user)
+        })
+    }
     iMethod.controller.org = module.exports;
 });

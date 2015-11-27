@@ -2,6 +2,7 @@ package com.imethod.sites.web.region.service;
 
 import com.imethod.core.log.Logger;
 import com.imethod.core.log.LoggerFactory;
+import com.imethod.core.util.ListTools;
 import com.imethod.domain.Region;
 import com.imethod.sites.web.region.dao.RegionDaO;
 import com.imethod.sites.web.user.service.UserService;
@@ -27,19 +28,27 @@ public class RegionService {
     @Autowired
     private RegionDaO regionDao;
 
-    public Map<String,Region> getRegionMap(){
+    public Map<String, Region> getRegionMap() {
         List<Region> regionList = regionDao.listRegion();
-        Map<String,Region> regionMap = new LinkedHashMap<>();
-        for(Region region : regionList){
+        Map<String, Region> regionMap = new LinkedHashMap<>();
+        for (Region region : regionList) {
             String regionCode = region.getRegionCode();
             Integer regionType = region.getRegionType();
-            if(regionType==2){
-                regionMap.put(regionCode,region);
-            }else{
-                region.getRegionMap().put(regionCode,region);
+            if (regionType == 2) {
+                regionMap.put(regionCode, region);
+            } else {
+                region.getRegionMap().put(regionCode, region);
             }
-
         }
         return regionMap;
+    }
+
+    public List<Map<String, Object>> listRegion() {
+        return regionDao.listRegionMap();
+    }
+
+    public List<Map<String, Object>> getRegionTree() {
+        List<Map<String, Object>> regionList = listRegion();
+        return ListTools.buildTree(regionList, "regionCode", "parentCode", "childRegion");
     }
 }

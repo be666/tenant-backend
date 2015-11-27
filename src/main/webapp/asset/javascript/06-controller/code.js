@@ -1,5 +1,5 @@
 /**
- * Created by bcaring on 15/11/18.
+ * Created by iMethod on 15/11/18.
  */
 define('controller/code', ['service/code_service', "template"], function (require, exports, module) {
 

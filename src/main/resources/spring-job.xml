@@ -5,31 +5,28 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-       <bean id="ServiceTimeJob" class="com.imethod.module.schedule.Job" />
+    <bean id="serviceTimeJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="serveService">
+        </property>
+        <property name="targetMethod">
+            <value>executeServiceJob</value>
+        </property>
+    </bean>
 
-       <bean id="serviceTimeJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-              <property name="targetObject">
-                     <ref bean="ServiceTimeJob"/>
-              </property>
-              <property name="targetMethod">
-                     <value>executeServiceJob</value>
-              </property>
-       </bean>
+    <bean id="ServiceTaskCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="serviceTimeJobMethod"/>
+        </property>
+        <property name="cronExpression">
+            <value>0 0/1 * * * ?</value>
+        </property>
+    </bean>
 
-       <bean id="ServiceTaskCronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-              <property name="jobDetail">
-                     <ref bean="serviceTimeJobMethod"/>
-              </property>
-              <property name="cronExpression">
-                     <value>0 0/1 * * * ?</value>
-              </property>
-       </bean>
-
-       <bean id="SpringJobSchedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-              <property name="triggers">
-                     <list>
-                            <ref bean="ServiceTaskCronTriggerBean"/>
-                     </list>
-              </property>
-       </bean>
+    <bean id="SpringJobSchedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="ServiceTaskCronTriggerBean"/>
+            </list>
+        </property>
+    </bean>
 </beans>

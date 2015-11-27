@@ -1,5 +1,5 @@
 /**
- * auth : bqxu
+ * auth : iMethod
  * create_at: 15/11/20.
  * desc:
  * note:
@@ -9,14 +9,18 @@ define('service/org_service', function (require, exports, module) {
 
     exports.queryOrgList = function (callback, obj) {
         iMethod._.ajax({
-            url: "/org/query",
+            url: "/org.ajax",
             data: {
                 query: obj['query'],
                 pageIndex: obj['pageIndex'],
                 pageSize: obj['pageSize']
             },
             success: function (res) {
-                callback && callback(res);
+                if (res.status == 1) {
+                    callback && callback(res['dataMap'] || {});
+                } else if (res['msg']) {
+                    iMethod.alert(res['msg']);
+                }
             }
         })
     };

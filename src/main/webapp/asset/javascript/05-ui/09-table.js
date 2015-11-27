@@ -31,7 +31,7 @@
                 params = utils.extend(params, opts);
                 pub.buildHead(params['titles']);
                 pub.buildBody(params['titles'], params['dataList']);
-                pub.buildFoot(params['titles'],params['page']);
+                pub.buildFoot(params['titles'], params['page']);
             },
             destroy: function () {
 
@@ -49,15 +49,15 @@
                     dataList: dataList
                 }));
             },
-            buildFoot: function (title,page) {
+            buildFoot: function (title, page) {
                 if (utils.nothing(page)) {
                     var templateFoot = params['templateFoot'];
                     $(".iMethod-foot", $target).html(templateFoot({
-                            titles:titles
+                        titles: titles
                     }));
                 } else {
                     $(".iMethod-foot td.page", $target).iMethodPage({
-                        curPage: page['curPage'],
+                        pageIndex: page['pageIndex'],
                         totalPage: page['totalPage'],
                         rowCount: page['rowCount'],
                         pageClick: page['pageClick']
@@ -90,7 +90,7 @@
         }
         var templateFoot = params['templateFoot'];
         $(".iMethod-foot", $target).html(templateFoot({
-            titles:params['titles']
+            titles: params['titles']
         }));
         pub.setConfig();
         return pub;

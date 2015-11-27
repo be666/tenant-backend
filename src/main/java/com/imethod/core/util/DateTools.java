@@ -6,9 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
-/**
- * @author lh
- */
 public class DateTools {
     private static final String DATE = "yyyy-MM-dd";
     private static final String DATE_TIME = "yyyy-MM-dd HH:mm:ss";
@@ -18,7 +15,7 @@ public class DateTools {
 
     public static Date getCurrentDateTime() {
         Date date = new Date();
-        return  date;
+        return date;
     }
 
     public enum DateType {

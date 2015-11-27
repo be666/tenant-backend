@@ -1,5 +1,5 @@
 /**
- * auth : bqxu
+ * auth : iMethod
  * create_at: 15/10/30.
  * desc:
  * 封装按钮事件 提交 ,取消

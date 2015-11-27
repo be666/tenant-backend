@@ -27,7 +27,7 @@ public class Region {
     private Integer updaterId;
     private Date updateAt;
 
-    private Map<String,Region> regionMap;
+    private Map<String, Region> regionMap;
 
     @Id
     @Column(name = "region_id", nullable = false, insertable = true, updatable = true)

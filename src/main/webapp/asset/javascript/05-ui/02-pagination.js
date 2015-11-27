@@ -11,7 +11,7 @@
     $w.iMethod.page = [];
 
     var def = {
-        curPage: 1,
+        pageIndex: 1,
         pageSize: 10,
         totalPage: 1,
         rowCount: 0,
@@ -30,16 +30,16 @@
 
                 var i = 0;
                 var pages = [];
-                var curPage = params['curPage'];
+                var pageIndex = params['pageIndex'];
                 var totalPage = params['totalPage'];
-                if (curPage > 3 && curPage < totalPage - 2) {
+                if (pageIndex > 3 && pageIndex < totalPage - 2) {
                     for (i = -2; i <= 2; i++) {
-                        var _c = curPage + i;
+                        var _c = pageIndex + i;
                         if (_c >= 0 && _c <= totalPage) {
                             pages.push(_c);
                         }
                     }
-                } else if (curPage >= totalPage - 4) {
+                } else if (pageIndex >= totalPage - 4) {
                     for (i = -4; i <= 0; i++) {
                         var _c = totalPage + i;
                         if (_c >= 1 && _c <= totalPage) {
@@ -54,9 +54,9 @@
                     }
                 }
                 $target.html(params.template({
-                    curPage: curPage,
+                    pageIndex: pageIndex,
                     pages: pages,
-                    rowCount:rowCount,
+                    rowCount: rowCount,
                     pageSize: pageSize,
                     totalPage: totalPage
                 }));
@@ -87,7 +87,7 @@
         });
         $target.on("click.pageClick", "[data-size]", function () {
             var $this = $(this);
-            var page = params['curPage'];
+            var page = params['pageIndex'];
             var pageClick = params['pageClick'];
             var pageSize = $this.attr("data-size");
             pageClick && pageClick(page, pageSize);
@@ -110,7 +110,7 @@
             }
             $w.iMethod.page[$TargetId] = null
         }
-        if (typeof $w.iMethod.page[$TargetId] == "undefined" || $w.iMethod.btn[$TargetId] == null) {
+        if (typeof $w.iMethod.page[$TargetId] == "undefined" || $w.iMethod.page[$TargetId] == null) {
             $w.iMethod.page[$TargetId] = new iMethodPage($TargetId, args)
         } else {
             $w.iMethod.page[$TargetId].setConfig(args)

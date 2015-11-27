@@ -5,8 +5,37 @@
         <div class="panel-heading">
             组织机构
         </div>
-        <div class="panel-body">
+        <div class="panel-body" id="orgPanel">
+            <div class="row">
+                <div class="col-md-8">
+                    <input type="text" name="search"/>
+                    <i class="search">
+                        查询
+                    </i>
+                </div>
+                <div class="col-md-4">
+                    <i class="btn iMethod-orgAdd">
+                        添加机构
+                    </i>
+                </div>
+            </div>
+            <div class="row">
+                <div class="iMethod-orgTable">
 
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+
+    var orgType =${iMethod:toJSONlLine(orgType)};
+    var schoolType =${iMethod:toJSONlLine(schoolType)};
+    var region =${iMethod:toJSONlLine(region)};
+    seajs.use(['controller/org'], function (orgCtl) {
+        $(function () {
+            orgCtl.table("orgPanel", orgType, schoolType,region);
+        })
+    })
+
+</script>

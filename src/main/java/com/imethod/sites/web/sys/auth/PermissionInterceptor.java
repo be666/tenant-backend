@@ -33,8 +33,8 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        if(handler instanceof ResourceHttpRequestHandler){
-            return  true;
+        if (handler instanceof ResourceHttpRequestHandler) {
+            return true;
         }
         //获取用户
         Integer userId = 0;
@@ -48,7 +48,7 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
         UserContent.setLUser(null);
         UserContent.setRequest(request);
         UserContent.setResponse(response);
-        LUser lUser=new LUser(user);
+        LUser lUser = new LUser(user);
         UserContent.saveLUser(lUser);
         // 自动获取权限
         PermissionCheck permissionCheck;

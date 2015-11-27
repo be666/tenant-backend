@@ -1,5 +1,5 @@
 /**
- * auth : bqxu
+ * auth : iMethod
  * create_at: 15/10/23.
  * desc:
  * note:
@@ -13,7 +13,7 @@ define('service/permission_service', function (require, exports, module) {
             type: "post",
             success: function (res) {
                 if (res.status == 1) {
-                    callback && callback(res['dataMap']||{});
+                    callback && callback(res['dataMap'] || {});
                 } else if (res['msg']) {
                     iMethod.alert(res['msg']);
                 }

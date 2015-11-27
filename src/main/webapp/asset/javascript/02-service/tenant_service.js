@@ -1,5 +1,5 @@
 /**
- * auth : bqxu
+ * auth : iMethod
  * create_at: 15/10/23.
  * desc:
  * note:
@@ -9,7 +9,7 @@ define('service/tenant_service', function (require, exports, module) {
 
     exports.queryTenant = function (callback, query) {
         iMethod._.ajax({
-            url: "/tenant/query",
+            url: "/tenant.ajax",
             data: {
                 pageIndex: query['pageIndex'],
                 pageSize: query['pageSize'],

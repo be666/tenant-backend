@@ -14,7 +14,7 @@ import java.util.Date;
  * 1.
  */
 @Entity
-public class Service {
+public class Serve {
     private Integer serviceId;
     private Date startTime;
     private Date endTime;
@@ -25,6 +25,7 @@ public class Service {
     private Integer updaterId;
     private Date updateAt;
     private Integer expireStatus;
+
     @Id
     @Column(name = "service_id", nullable = false, insertable = true, updatable = true)
     public Integer getServiceId() {
@@ -74,6 +75,7 @@ public class Service {
     public void setState(Integer state) {
         this.state = state;
     }
+
     @Basic
     @Column(name = "expire_status", nullable = true, insertable = true, updatable = true)
     public Integer getExpireStatus() {

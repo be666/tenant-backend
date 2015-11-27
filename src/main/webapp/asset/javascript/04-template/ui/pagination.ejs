@@ -1,5 +1,5 @@
 <%
-var curPage = curPage || 1;
+var pageIndex = pageIndex || 1;
 var pages = pages || [1];
 var pLenght = pages.length;
 var totalPage = totalPage || 1;
@@ -11,9 +11,9 @@ var sLenght = sizes.length;
 
     <div class="iMethod-page-index">
         <ul class="clearfix">
-            <% if (curPage != 1) { %>
+            <% if (pageIndex != 1) { %>
             <li>
-                <a href="javascript:void(0)" data-page="<%= curPage - 1 %>">
+                <a href="javascript:void(0)" data-page="<%= pageIndex - 1 %>">
                     上一页
                 </a>
             </li>
@@ -21,15 +21,15 @@ var sLenght = sizes.length;
             <% for (var i = 0;i < pLenght;i++){
                 var pg = pages[i];
             %>
-            <li class="<% if(curPage == pg){ %>active<% } %>">
+            <li class="<% if(pageIndex == pg){ %>active<% } %>">
                 <a href="javascript:void(0)" data-page="<%= pg %>">
                     <%= pg %>
                 </a>
             </li>
             <% } %>
-            <% if (curPage != totalPage) { %>
+            <% if (pageIndex != totalPage) { %>
             <li>
-                <a href="javascript:void(0)" data-page="<%= curPage + 1 %>">
+                <a href="javascript:void(0)" data-page="<%= pageIndex + 1 %>">
                     下一页
                 </a>
             </li>

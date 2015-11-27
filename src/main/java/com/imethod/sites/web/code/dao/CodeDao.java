@@ -43,33 +43,33 @@ public class CodeDao extends IJdbcTempBaseDao {
     }
 
 
-    public Code loadById(Integer codeId){
-        Map<String,Object> map =  new HashMap<>();
-        map.put("code_id",codeId);
+    public Code loadById(Integer codeId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("code_id", codeId);
         Code code = null;
         try {
-            code = load(Code.class,map);
+            code = load(Code.class, map);
         } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
             ExceptionTools.unchecked(e);
         }
         return code;
     }
 
-    String SQL_LIST_CODE =  "select * from code where code_type =:codeType and state = 1  ";
+    String SQL_LIST_CODE = "select * from code where code_type =:codeType and state = 1  ";
 
-    public List<Code> listCodeByType(String codeType,Integer levelType,Integer parentId) {
-        Map<String,Object> paramMap =  new HashMap<>();
-        paramMap.put("codeType",codeType);
+    public List<Code> listCodeByType(String codeType, Integer levelType, Integer parentId) {
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("codeType", codeType);
         StringBuffer sb = new StringBuffer();
         sb.append(SQL_LIST_CODE);
-        if(StringTools.isNotEmpty(levelType)){
+        if (StringTools.isNotEmpty(levelType)) {
             sb.append(" and level_type =:levelType ");
         }
 
-        if(StringTools.isNotEmpty(parentId)){
+        if (StringTools.isNotEmpty(parentId)) {
             sb.append(" and parent_id =:parentId ");
         }
-        List<Code> list = this.queryForList(sb.toString(),paramMap,Code.class);
+        List<Code> list = this.queryForList(sb.toString(), paramMap, Code.class);
         return list;
     }
 }
