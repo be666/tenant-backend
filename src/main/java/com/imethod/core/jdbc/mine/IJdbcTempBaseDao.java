@@ -358,9 +358,9 @@ public abstract class IJdbcTempBaseDao {
         if (pageIndex > 1) {
             pageStart = (pageIndex - 1) * pageSize;
         }
-        if(pageIndex==0||pageSize==0){
-            pageIndex=1l;
-            pageSize=rowCount;
+        if (pageIndex == 0 || pageSize == 0) {
+            pageIndex = 1l;
+            pageSize = rowCount;
         }
 
         String sSql = getISqlHelp().getPageSql(sql, pageStart, pageSize);

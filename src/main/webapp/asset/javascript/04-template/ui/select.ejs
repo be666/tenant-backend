@@ -6,12 +6,14 @@ var id = id || "id";
 var dl = dataList.length;
 %>
 <h5 data-select-id="<%= selected[id] %>"><%= selected[text] %></h5>
-<ul>
-    <% for(var i = 0;i < dl;i++ ){
-        var data = dataList[i] || {};
-    %>
-    <li data-id="<%= data[id] %>">
-        <%= data[text] %>
-    </li>
-    <% } %>
-</ul>
+<div class="ul-warp">
+    <ul>
+        <% for(var i = 0;i < dl;i++ ){
+            var data = dataList[i] || {};
+        %>
+        <li data-id="<%= data[id] %>">
+            <%= data[text] %>
+        </li>
+        <% } %>
+    </ul>
+</div>

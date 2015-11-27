@@ -19,7 +19,7 @@
         onChange: null,
         onClick: null,
         selected: null,
-        ulHeight:160,
+        ulHeight: 160,
         unSelected: {
             id: "",
             text: "请选择"
@@ -51,7 +51,14 @@
                 selected: selected
             }));
             params['selected'] = selected;
-            $(".")
+            if (dataList.length > 5) {
+                $(".ul-warp", $target).css({
+                    "height": params["ulHeight"] + "px"
+                });
+                $(".ul-warp", $target).jScrollPane({
+                    autoReinitialise: true
+                });
+            }
         };
         var pub = {
             setConfig: function (opts) {
@@ -60,6 +67,9 @@
             },
             destroy: function () {
 
+            },
+            getSelected: function () {
+                return params['selected'];
             }
         };
 
@@ -83,11 +93,11 @@
         });
 
         $target.on("click.pageClick", "[data-select-id]", function () {
-            $target.find("ul").addClass("active");
+            $(".ul-warp", $target).addClass("active");
         });
 
         $target.on("mouseleave", function () {
-            $target.find("ul").removeClass("active");
+            $(".ul-warp", $target).removeClass("active");
         });
 
         select();

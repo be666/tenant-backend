@@ -30,6 +30,7 @@ define('service/org_service', function (require, exports, module) {
         var orgName = org['orgName'];
         var orgType = org['orgType'];
         var orgPid = org['orgPid'];
+        var orgCode = org['orgCode'];
         var schoolType = org['schoolType'];
         var city = org['city'];
         var province = org['province'];
@@ -40,6 +41,7 @@ define('service/org_service', function (require, exports, module) {
                 schoolType: schoolType,
                 province: province,
                 orgType: orgType,
+                orgCode: orgCode,
                 orgName: orgName,
                 orgPid: orgPid,
                 city: city

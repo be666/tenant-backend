@@ -34,7 +34,7 @@
     var region =${iMethod:toJSONlLine(region)};
     seajs.use(['controller/org'], function (orgCtl) {
         $(function () {
-            orgCtl.table("orgPanel", orgType, schoolType,region);
+            orgCtl.orgTable("orgPanel", orgType, schoolType,region);
         })
     })
 

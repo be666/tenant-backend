@@ -25,40 +25,17 @@
 
         var page = function () {
             var rowCount = params['rowCount'];
-            var pageSize = params['pageSize'];
             if (rowCount > 0) {
-
-                var i = 0;
-                var pages = [];
                 var pageIndex = params['pageIndex'];
+                var pageSize = params['pageSize'];
                 var totalPage = params['totalPage'];
-                if (pageIndex > 3 && pageIndex < totalPage - 2) {
-                    for (i = -2; i <= 2; i++) {
-                        var _c = pageIndex + i;
-                        if (_c >= 0 && _c <= totalPage) {
-                            pages.push(_c);
-                        }
-                    }
-                } else if (pageIndex >= totalPage - 4) {
-                    for (i = -4; i <= 0; i++) {
-                        var _c = totalPage + i;
-                        if (_c >= 1 && _c <= totalPage) {
-                            pages.push(_c);
-                        }
-                    }
-                } else {
-                    for (i = 1; i <= 5; i++) {
-                        if (i >= 1 && i <= totalPage) {
-                            pages.push(i);
-                        }
-                    }
-                }
+                var pages = params['pages'];
                 $target.html(params.template({
                     pageIndex: pageIndex,
-                    pages: pages,
-                    rowCount: rowCount,
                     pageSize: pageSize,
-                    totalPage: totalPage
+                    totalPage: totalPage,
+                    pages: pages,
+                    rowCount: rowCount
                 }));
             } else {
                 $target.html(params.templateEmpty({
