@@ -31,7 +31,9 @@ define('controller/org', [
             var dateList = pageMaker['items'] || [];
             var pageIndex = pageMaker['pageIndex'];
             var pageSize = pageMaker['pageSize'];
-            var totalPage = pageMaker['totalPage'];
+            var totalPage = pageMaker['pageMax'];
+            var rowCount = pageMaker['rowCount'];
+            var pages = pageMaker['pageArr'];
             $orgTab.find(".iMethod-orgTable").iMethodTable({
                 dataList: dateList,
                 titles: [{
@@ -57,6 +59,7 @@ define('controller/org', [
                     pageIndex: pageIndex,
                     pageSize: pageSize,
                     totalPage: totalPage,
+                    pages:pages,
                     rowCount: dateList.length || 0,
                     pageClick: function (index, size) {
                         queryOrg(index, size)
@@ -92,6 +95,7 @@ define('controller/org', [
         orgService.queryOrgList(function (dataMap) {
             var pageMaker = dataMap['pageMaker'];
             var items = pageMaker['items'];
+            items = [{orgId: "-1", orgName: "无"}].concat(items);
             addDialog.target.find(".iMethod-org").iMethodSelect({
                 id: "orgId",
                 text: "orgName",
@@ -182,9 +186,16 @@ define('controller/org', [
 
 
         addDialog.target.on("click.iMethod-sure", ".iMethod-sure", function () {
-            var org = $(".form-org", addDialog.target).serializeArray();
-            orgService.saveOrg(utils.Array2Obj(org), function (org) {
-
+            var org = {};
+            org['orgCode'] = addDialog.target.find(".orgCode").eq(0).val();
+            org['orgName'] = addDialog.target.find(".orgName").eq(0).val();
+            org['orgPid'] = addDialog.target.find(".iMethod-org").iMethodSelect().getSelected()['orgId'] || "-1";
+            org['orgType'] = addDialog.target.find(".iMethod-orgType").iMethodSelect().getSelected()['code'] || "";
+            org['schoolType'] = addDialog.target.find(".iMethod-schoolType").iMethodSelect().getSelected()['code'] || "";
+            org['province'] = addDialog.target.find(".iMethod-province").iMethodSelect().getSelected()['regionCode'] || "";
+            org['city'] = addDialog.target.find(".iMethod-city").iMethodSelect().getSelected()['regionCode'] || "";
+            orgService.saveOrg(org, function (org) {
+                queryOrg();
             })
         })
     };
@@ -196,7 +207,7 @@ define('controller/org', [
 
     };
 
-    exports.table = function (orgTabId, orgType, schoolType, province) {
+    exports.orgTable = function (orgTabId, orgType, schoolType, province) {
         _orgTabId = orgTabId;
         _orgType = orgType;
         _schoolType = schoolType;

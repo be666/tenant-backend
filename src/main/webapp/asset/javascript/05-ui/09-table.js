@@ -60,7 +60,8 @@
                         pageIndex: page['pageIndex'],
                         totalPage: page['totalPage'],
                         rowCount: page['rowCount'],
-                        pageClick: page['pageClick']
+                        pageClick: page['pageClick'],
+                        pages:page['pages']
                     });
                 }
             }

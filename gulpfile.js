@@ -116,6 +116,26 @@ gulp.task('make_lib', function () {
         .pipe(gulp.dest('src/main/webapp/asset/dist/js'))
 });
 
+gulp.task('plugin_js', function () {
+    return gulp.src([
+            'src/main/webapp/asset/javascript/00-lib/jscrollpane/jquery.mousewheel.js',
+            'src/main/webapp/asset/javascript/08-plugin/jscrollpane/jquery.jscrollpane.js'
+        ])
+        .pipe(concat("plugin.js"))
+        .pipe(gulp.dest('src/main/webapp/asset/out/js'))
+        .pipe(rename({suffix: '.min'}))
+        //.pipe(uglify())
+        .pipe(gulp.dest('src/main/webapp/asset/dist/js'))
+});
+
+
+gulp.task('plugin_css', function () {
+    return gulp.src(['src/main/webapp/asset/stylesheet/plugin/jscrollpane/jquery.jscrollpane.css'])
+        .pipe(minifycss())   //执行压缩
+        .pipe(rename({suffix: '.min', basename: "plugin"}))
+        .pipe(gulp.dest('src/main/webapp/asset/dist/css'))
+});
+
 
 gulp.task('clean_core', function () {
     if (!cleanOff) {
@@ -249,6 +269,7 @@ gulp.task('bootstrap', gulpSequence('clean_bootstrap', 'less_bootstrap'));
 gulp.task('ui', gulpSequence('clean_ui', 'ui_template_pre', 'ui_template_compile', 'make_ui'));
 gulp.task('view', gulpSequence('view_template_pre', 'view_template_compile', 'build_view'));
 gulp.task('lib', gulpSequence('clean_lib', 'make_lib'));
+gulp.task('plugin', gulpSequence('plugin_js', 'plugin_css'));
 gulp.task('core', gulpSequence('clean_core', 'make_core'));
 var outDir = [
     'src/main/webapp/asset/out/js',
@@ -293,6 +314,7 @@ gulp.task('default', gulpSequence(
     'clean',
     'bootstrap',
     'lib',
+    'plugin',
     'player',
     'uEdit',
     'core',

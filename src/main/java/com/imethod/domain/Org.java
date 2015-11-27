@@ -50,7 +50,7 @@ public class Org {
     }
 
     @Basic
-    @Column(name = "org_type", nullable = true, insertable = true, updatable = true, length = 50)
+    @Column(name = "org_type", nullable = true, insertable = true, updatable = true)
     public String getOrgType() {
         return orgType;
     }
@@ -60,7 +60,7 @@ public class Org {
     }
 
     @Basic
-    @Column(name = "org_code", nullable = true, insertable = true, updatable = true, length = 50)
+    @Column(name = "org_code", nullable = true, insertable = true, updatable = true)
     public String getOrgCode() {
         return orgCode;
     }
