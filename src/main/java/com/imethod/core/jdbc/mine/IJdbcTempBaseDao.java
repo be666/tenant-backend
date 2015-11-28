@@ -433,4 +433,5 @@ public abstract class IJdbcTempBaseDao {
     protected abstract ISqlHelp getISqlHelp();
 
 
+
 }

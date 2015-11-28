@@ -53,7 +53,7 @@ public class UserDao extends IJdbcTempBaseDao {
         return user;
     }
 
-    String SQL_LIST_USER = "select * from user where state = 1  ";
+    String SQL_LIST_USER = "select * from user where state = 1 ";
 
     public PageMaker listUser(String query, Long pageIndex, Long pageSize) {
         Map<String, Object> map = new HashMap<>();
@@ -66,5 +66,17 @@ public class UserDao extends IJdbcTempBaseDao {
 
         PageMaker page = this.queryPageList(buffer.toString(), pageIndex, pageSize, map);
         return page;
+    }
+
+    public PageMaker listOrgUser(String orgId, String query, Long pageIndex, Long pageSize) {
+        Map<String, Object> map = new HashMap<>();
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(SQL_LIST_USER).append(" and org_id=:orgId ");
+        map.put("orgId", orgId);
+        if (StringTools.isNotEmpty(query)) {
+            buffer.append(" and ( user_name like :query or mobile like :query or email like :query) ");
+            map.put("query", iSqlHelp.like(query));
+        }
+        return this.queryPageList(buffer.toString(), pageIndex, pageSize, map);
     }
 }

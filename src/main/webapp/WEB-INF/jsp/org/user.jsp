@@ -28,10 +28,11 @@
     </div>
 </div>
 <script type="text/javascript">
-
-    seajs.use(['controller/org_user'], function (orgCtl) {
+    var orgId =${orgId};
+    var org =${iMethod:toJSONlLine(org)};
+    seajs.use(['controller/user'], function (userCtl) {
         $(function () {
-            orgCtl.orgTable("orgUserPanel", orgType, schoolType, region);
+            userCtl.orgUserTable("orgUserPanel", orgId, org);
         })
     })
 

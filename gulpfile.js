@@ -194,7 +194,8 @@ gulp.task('make_ui', function () {
             'src/main/webapp/asset/javascript/05-ui/07-tree.js',
             'src/main/webapp/asset/javascript/05-ui/08-btn.js',
             'src/main/webapp/asset/javascript/05-ui/09-table.js',
-            'src/main/webapp/asset/javascript/05-ui/10-checkbox.js'
+            'src/main/webapp/asset/javascript/05-ui/10-checkbox.js',
+            'src/main/webapp/asset/javascript/05-ui/11-radio.js'
         ])
         .pipe(concat("ui.js"))
         .pipe(gulp.dest('src/main/webapp/asset/out/js'))

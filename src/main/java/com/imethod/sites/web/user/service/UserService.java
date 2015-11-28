@@ -34,6 +34,8 @@ public class UserService {
         user.setUpdateAt(now);
         user.setCreateAt(now);
         user.setCreaterId(userId);
+        user.setPassword("123456");
+        user.setState(1);
         userDao.insert(user);
     }
 
@@ -64,5 +66,9 @@ public class UserService {
 
     public User loadById(Integer userId) {
         return userDao.loadById(userId);
+    }
+
+    public PageMaker listOrgUser(String orgId, String query, Long pageIndex, Long pageSize) {
+        return userDao.listOrgUser(orgId, query, pageIndex, pageSize);
     }
 }

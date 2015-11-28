@@ -34,7 +34,7 @@ public class OrgService {
 
     public Org loadOrg(String orgId) {
         Map<String, Object> objectMap = new HashMap<>();
-        objectMap.put("orgId", orgId);
+        objectMap.put("org_id", orgId);
         try {
             return orgDao.load(Org.class, objectMap);
         } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
