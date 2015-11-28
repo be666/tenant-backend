@@ -374,7 +374,7 @@ public abstract class IJdbcTempBaseDao {
         List<String> keyList;
         for (Map<String, Object> result : resultList) {
             Set<String> keySet = result.keySet();
-            keyList = new ArrayList<String>();
+            keyList = new ArrayList<>();
             for (String key : keySet) {
                 if (!getMapKey(key).equals(key)) {
                     keyList.add(key);

@@ -157,7 +157,7 @@ var coreFile = [
     'src/main/webapp/asset/javascript/01-core/08-hash.js',
     'src/main/webapp/asset/javascript/01-core/09-script.js',
     'src/main/webapp/asset/javascript/01-core/10-resize.js',
-    'src/main/webapp/asset/javascript/01-core/11-video-log.js',
+    'src/main/webapp/asset/javascript/01-core/11-scroll.js',
     'src/main/webapp/asset/javascript/01-core/99-debug.js'
 ];
 
