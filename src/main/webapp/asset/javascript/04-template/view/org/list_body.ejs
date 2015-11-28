@@ -3,11 +3,14 @@ var titles = titles || [];
 var tLength = titles.length;
 var dataList = dataList || [];
 var dLength = dataList.length;
-var pk = pk || 'id';
+var pk = pk || "";
 for(var i = 0;i < dLength;i++){
     var data = dataList[i];
 %>
 <tr data-pk="<%= data[pk] || "" %>">
+    <td>
+        <i class="iMethod-check select-item"></i>
+    </td>
     <% for(var j = 0;j < tLength;j++){
         var title = titles[j];
         var key = title['key'];
@@ -16,5 +19,9 @@ for(var i = 0;i < dLength;i++){
         <%= data[key] %>
     </td>
     <% } %>
+    <td>
+        <i class="iMethod-btn iMethod-btn-pri user-manager">用户管理</i>
+        <i class="iMethod-btn iMethod-btn-pri org-edit">编辑</i>
+    </td>
 </tr>
 <% } %>

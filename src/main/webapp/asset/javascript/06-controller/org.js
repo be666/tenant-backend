@@ -7,18 +7,19 @@
  */
 define('controller/org', [
     "view/org/info",
-    "view/org/list",
+    "view/org/list_head",
+    "view/org/list_body",
     'service/org_service',
     "template"
 ], function (require, exports, module) {
     var orgService = require("service/org_service");
-    var orgList = require("view/org/list");
+    var orgListHead = require("view/org/list_head");
+    var orgListBody = require("view/org/list_body");
     var orgInfo = require("view/org/info");
     var _orgTabId = null;
     var _orgType = null;
     var _schoolType = null;
     var _province = null;
-
     var utils = iMethod.utils;
 
     var selectCallback;
@@ -35,6 +36,9 @@ define('controller/org', [
             var rowCount = pageMaker['rowCount'];
             var pages = pageMaker['pageArr'];
             $orgTab.find(".iMethod-orgTable").iMethodTable({
+                pk: "orgId",
+                templateHead: orgListHead,
+                templateBody: orgListBody,
                 dataList: dateList,
                 titles: [{
                     key: "orgCode",
@@ -59,7 +63,7 @@ define('controller/org', [
                     pageIndex: pageIndex,
                     pageSize: pageSize,
                     totalPage: totalPage,
-                    pages:pages,
+                    pages: pages,
                     rowCount: dateList.length || 0,
                     pageClick: function (index, size) {
                         queryOrg(index, size)
@@ -70,6 +74,11 @@ define('controller/org', [
             pageIndex: index,
             pageSize: size
         });
+        iMethod.checkBox({
+            root: $orgTab,
+            all: ".select-all",
+            item: ".select-item"
+        })
     };
 
     var addDialog;
@@ -216,11 +225,15 @@ define('controller/org', [
         queryOrg();
         $orgTab.on("click.iMethod-orgAdd", ".iMethod-orgAdd", function () {
             dialogInfo()
-        })
-        $orgTab.on("click.iMethod-orgSelect", ".iMethod-orgSelect", function () {
-            var user = {};
-            selectCallback(user)
-        })
+        });
+        $orgTab.on("click.iMethod-orgSelect", ".user-manager", function () {
+            var $this = $(this);
+            var pk = $this.closest("tr").attr("data-pk");
+            window.location.href = iMethod.contextPath + "/org/" + pk + "/user";
+        });
+        $orgTab.on("click.iMethod-orgSelect", ".org-edit", function () {
+
+        });
     }
     iMethod.controller.org = module.exports;
 });

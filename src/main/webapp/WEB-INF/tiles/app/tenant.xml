@@ -93,6 +93,14 @@
         </put-attribute>
     </definition>
 
+    <definition name="org.user" extends="template">
+        <put-attribute name="content">
+            <definition extends="main.lr">
+                <put-attribute name="content_r" value="/WEB-INF/jsp/org/user.jsp"/>
+            </definition>
+        </put-attribute>
+    </definition>
+
     <definition name="code" extends="template">
         <put-attribute name="content">
             <definition extends="main.lr">

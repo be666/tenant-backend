@@ -89,4 +89,13 @@ public class OrgCtrl {
             return new ReturnBean("保存失败， " + e.getMessage());
         }
     }
+
+
+    @RequestMapping(value = "/org/{orgId}/user", method = RequestMethod.GET)
+    public String orgUser(@PathVariable String orgId,
+                          ModelMap modelMap) {
+        modelMap.put("orgId", orgId);
+        modelMap.put("org", orgService.loadOrg(orgId));
+        return "org.user";
+    }
 }
