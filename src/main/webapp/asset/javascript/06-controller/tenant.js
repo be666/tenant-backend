@@ -452,7 +452,7 @@ define('controller/tenant', [
             tenant['managerOrg'] = $tenantInfo.find(".iMethod-managerOrg").attr("data-orgId");
             tenant['managerUser'] = $tenantInfo.find(".iMethod-managerUser").attr("data-userId");
             tenant['managerSell'] = $tenantInfo.find(".iMethod-managerSell").attr("data-userId");
-            tenant['service'] = $tenantInfo.find(".iMethod-service").attr("data-userId");
+            tenant['serviceUser'] = $tenantInfo.find(".iMethod-service").attr("data-userId");
             tenant['resourceService'] = $tenantInfo.find(".resource-service").is("check") ? 1 : 0;
             tenant['scoreService'] = $tenantInfo.find(".score-service").is("check") ? 1 : 0;
             tenant['tenantTime'] = $tenantInfo.find(".tenantTime").val();

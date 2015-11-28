@@ -38,7 +38,7 @@ define('service/tenant_service', function (require, exports, module) {
         var managerOrg = tenant['managerOrg'];
         var managerUser = tenant['managerUser'];
         var managerSell = tenant['managerSell'];
-        var service = tenant['service'];
+        var serviceUser = tenant['serviceUser'];
         var resourceService = tenant['resourceService'];
         var scoreService = tenant['scoreService'];
         var tenantTime = tenant['tenantTime'];
@@ -55,7 +55,7 @@ define('service/tenant_service', function (require, exports, module) {
                 managerOrg: managerOrg,
                 managerUser: managerUser,
                 managerSell: managerSell,
-                service: service,
+                serviceUser: serviceUser,
                 resourceService: resourceService,
                 scoreService: scoreService,
                 tenantTime: tenantTime
