@@ -6,6 +6,10 @@ import com.imethod.sites.web.org.dao.OrgDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * time : 15/11/20.
  * auth :
@@ -26,5 +30,16 @@ public class OrgService {
 
     public Org insert(Org org) {
         return orgDao.insert(org);
+    }
+
+    public Org loadOrg(String orgId) {
+        Map<String, Object> objectMap = new HashMap<>();
+        objectMap.put("orgId", orgId);
+        try {
+            return orgDao.load(Org.class, objectMap);
+        } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
