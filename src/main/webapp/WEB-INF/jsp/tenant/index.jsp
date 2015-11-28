@@ -16,6 +16,11 @@
                 <div class="col-md-2">
                     <div class="iMethod-serviceType"></div>
                 </div>
+                <div class="col-md-2">
+                    <i class="iMethod-btn iMethod-tenantAdd">
+                        新建租户
+                    </i>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-6">总租户数${totalTenant!=null?totalTenant:0}，

@@ -88,6 +88,36 @@ public class TenantCtl {
     }
 
     /**
+     * add tenant
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/tenant/save", method = RequestMethod.POST)
+    public ReturnBean insert(@RequestParam  String shortName,
+                             @RequestParam  String serviceType,
+                             @RequestParam  String schoolOrg,
+                             @RequestParam  String schoolUser,
+                             @RequestParam  String sellOrg,
+                             @RequestParam  String sellUser,
+                             @RequestParam  String managerOrg,
+                             @RequestParam  String managerUser,
+                             @RequestParam  String managerSell,
+                             @RequestParam  String service,
+                             @RequestParam  String resourceService,
+                             @RequestParam  String tenantTime) {
+        Tenant tenant=new Tenant();
+        ReturnBean returnBean = new ReturnBean();
+        try {
+//            tenantService.insert(tenant);
+        } catch (Exception e) {
+            returnBean.setStatus(ReturnBean.FALSE);
+            returnBean.setMsg("保存失败， " + e.getMessage());
+        }
+        return returnBean;
+    }
+
+    /**
      * update tenant
      *
      * @param tenant
