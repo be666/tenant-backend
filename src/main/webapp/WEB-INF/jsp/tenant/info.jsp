@@ -14,6 +14,6 @@
     var schoolType =${iMethod:toJSONlLine(schoolType)};
     var region =${iMethod:toJSONlLine(region)};
     seajs.use(['controller/tenant'], function (tenantCtl) {
-        tenantCtl.info("tenant_info", "course_info", currentStatus, serviceType, orgType, schoolType, region)
+        tenantCtl.tenantInfo("tenant_info", currentStatus, serviceType)
     })
 </script>

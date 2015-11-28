@@ -16,7 +16,11 @@ define('service/user_service', function (require, exports, module) {
                 pageSize: obj['pageSize']
             },
             success: function (res) {
-                callback && callback(res);
+                if (res.status == 1) {
+                    callback && callback(res['dataMap'] || {});
+                } else if (res['msg']) {
+                    iMethod.alert(res['msg']);
+                }
             }
         })
     };
