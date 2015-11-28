@@ -76,10 +76,16 @@
             close: function () {
                 if (params['mask']) {
                     $target.parent().remove();
+                    if ($("body").hasClass("no-scroll")) {
+                        if ($(".iMethod-dialog-wap").length == 0) {
+                            $("body").removeClass("no-scroll")
+                        }
+                    }
                 } else {
                     $target.remove();
                 }
                 $w.iMethod.dialogFactory[$targetId] == null;
+
             },
             hide: function () {
                 if (params['mask']) {
@@ -109,6 +115,9 @@
                     });
                     params['pos']['of'] = $target.closest(".iMethod-dialog-wap");
                     $target.position(params['pos']);
+                    if (!$("body").hasClass("no-scroll")) {
+                        $("body").addClass("no-scroll")
+                    }
                 } else {
                     $target.position(params['pos']);
                 }
@@ -118,6 +127,17 @@
             }
         };
         pub.position();
+        iMethod.scroll.push("dialog_" + $targetId, function () {
+            var $target = $("#" + $targetId);
+            if ($target.length == 0) {
+                iMethod.scroll.pop("dialog_" + $targetId);
+                return;
+            }
+            pub.position();
+        });
+        iMethod.resize.push("dialog_" + $targetId, function () {
+            pub.position();
+        });
         $w.iMethod.dialogFactory[$targetId] = pub;
         return pub;
     };
