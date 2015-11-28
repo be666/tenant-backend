@@ -103,7 +103,8 @@ public class TenantCtl {
                              @RequestParam  String managerOrg,
                              @RequestParam  String managerUser,
                              @RequestParam  String managerSell,
-                             @RequestParam  String service,
+                             @RequestParam  String serviceUser,
+                             @RequestParam  String scoreService,
                              @RequestParam  String resourceService,
                              @RequestParam  String tenantTime) {
         Tenant tenant=new Tenant();
