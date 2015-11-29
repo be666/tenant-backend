@@ -3,9 +3,7 @@ package com.imethod.sites.web.tenant.controller;
 import com.imethod.core.jdbc.PageMaker;
 import com.imethod.core.log.Logger;
 import com.imethod.core.log.LoggerFactory;
-import com.imethod.domain.Code;
-import com.imethod.domain.ReturnBean;
-import com.imethod.domain.Tenant;
+import com.imethod.domain.*;
 import com.imethod.sites.web.code.service.CodeService;
 import com.imethod.sites.web.region.service.RegionService;
 import com.imethod.sites.web.tenant.service.TenantService;
@@ -106,11 +104,44 @@ public class TenantCtl {
                              @RequestParam  String serviceUser,  //本地服务负责任
                              @RequestParam  String scoreService, //学习报道是否要
                              @RequestParam  String resourceService,  //是否开启本地部署
-                             @RequestParam  String tenantTime) {   //交付日期
+                             @RequestParam  String tenantTime,  //交付日期
+                             @RequestParam  String tenantName,
+                             @RequestParam  String orgName,
+                             @RequestParam  String currentStatus
+    ) {
+
 
         Tenant tenant=new Tenant();
         ReturnBean returnBean = new ReturnBean();
         try {
+            tenant.setCourseNum(0);
+            if("10".equals(serviceType)){
+                tenant.setServiceType(10);
+            }else if("20".equals(serviceType)){
+                tenant.setServiceType(20);
+            }
+            if("10".equals(currentStatus)){
+                tenant.setCurrentStatus(10);
+            }else if("20".equals(currentStatus)){
+                tenant.setCurrentStatus(20);
+            }
+            tenant.setTenantName(tenantName);
+            tenant.setDomain(shortName);
+            tenant.setOrgName(orgName);
+            tenant.setOrgId(Integer.valueOf(schoolOrg==null?"0":schoolOrg));
+            Seller seller = null;
+            if(sellUser!=null){
+                seller = new Seller();
+                seller.setUserId(Integer.valueOf(sellUser));
+                seller.setOrgId(Integer.valueOf(sellOrg));
+            }
+            Manager manager = null;
+            if(managerUser!=null){
+                manager = new Manager();
+                manager.setOrgId(managerOrg==null?null:Integer.valueOf(managerOrg));
+                manager.setUserId(Integer.valueOf(managerUser));
+            }
+
             tenantService.insert(tenant);
         } catch (Exception e) {
             returnBean.setStatus(ReturnBean.FALSE);

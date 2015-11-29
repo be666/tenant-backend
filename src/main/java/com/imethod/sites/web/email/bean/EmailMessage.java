@@ -2,33 +2,27 @@ package com.imethod.sites.web.email.bean;
 
 import java.util.List;
 
-public class EmailMessage
-{
+public class EmailMessage {
 
-//	发件人邮箱
+	//发件人邮箱
 	private   String fromEmail = "gxb_backend@sina.com";
-	private   String fromName = "高校邦后台预警";
-//	邮件的类型
-	//private   String emailContent = "text/plain";
+	private   String fromName = "高校邦后台";
+	//邮件的类型
 	private   String htmlContentType = "text/html; charset=utf-8";
-	private   String emailContent ="您好";
-//	邮件标题
-    private  String emailSubject = "高校邦后台预警2";
-	//	邮件头
+	private   String emailContent ;
+	//邮件标题
+    private  String emailSubject = "高校邦后台预警";
+	//邮件头
 	private   String emailHeader = "this is header";
-//	内容
-	private  String emailBody ;
-
+	//内容
 	private List<String> emailToList;
-
-	//public static String Email_Host = "smtp.exmail.qq.com";
-	private  String emailHost = "smtp.sina.com";
-//	是否需要验证用户名和密码
+	//stmp
+	private  String emailHost = "smtp.sina.com";  //"smtp.exmail.qq.com";
+	//是否需要验证用户名和密码
 	private  boolean validate = true;
 
-	public EmailMessage(  String emailBody, List<String> emailToList){
-
-		this.emailBody = emailBody;
+	public EmailMessage(String emailContent, List<String> emailToList){
+		this.emailContent = emailContent;
 		this.emailToList = emailToList;
 	}
 
@@ -73,15 +67,6 @@ public class EmailMessage
 		this.emailHeader = emailHeader;
 	}
 
-	public String getEmailBody() {
-		return emailBody;
-	}
-
-	public void setEmailBody(String emailBody) {
-		this.emailBody = emailBody;
-	}
-
-
 	public List<String> getEmailToList() {
 		return emailToList;
 	}
@@ -89,7 +74,6 @@ public class EmailMessage
 	public void setEmailToList(List<String> emailToList) {
 		this.emailToList = emailToList;
 	}
-
 
 	public String getHtmlContentType() {
 		return htmlContentType;
