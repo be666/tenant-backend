@@ -54,20 +54,15 @@ public class TenantService {
         tenantDB.setState(Constants.STATE_TRUE);
         tenantDB.setUpdateAt(now);
         tenantDB.setUpdaterId(tenant.getUpdaterId());
-
         try {
             tenantDao.update(tenant);
-        } catch (IllegalAccessException e) {
-            logger.error(e.getMessage());
-        } catch (InvocationTargetException e) {
+        } catch (IllegalAccessException | InvocationTargetException e) {
             logger.error(e.getMessage());
         }
     }
 
     public PageMaker pageTenant(String query, Integer currentStatus, Integer serviceType, Long pageIndex, Long pageSize) {
-        PageMaker pageMaker = tenantDao.pageTenant(query, currentStatus, serviceType, pageIndex, pageSize);
-
-        return pageMaker;
+        return tenantDao.pageTenant(query, currentStatus, serviceType, pageIndex, pageSize);
     }
 
     public int countTenant(Integer currentStatus) {

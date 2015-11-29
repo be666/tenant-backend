@@ -27,5 +27,44 @@ define('service/tenant_service', function (require, exports, module) {
         })
     };
 
+
+    exports.saveTenant = function (tenant, callback) {
+        var shortName = tenant['shortName'];
+        var serviceType = tenant['serviceType'];
+        var schoolOrg = tenant['schoolOrg'];
+        var schoolUser = tenant['schoolUser'];
+        var sellOrg = tenant['sellOrg'];
+        var sellUser = tenant['sellUser'];
+        var managerOrg = tenant['managerOrg'];
+        var managerUser = tenant['managerUser'];
+        var managerSell = tenant['managerSell'];
+        var serviceUser = tenant['serviceUser'];
+        var resourceService = tenant['resourceService'];
+        var scoreService = tenant['scoreService'];
+        var tenantTime = tenant['tenantTime'];
+        iMethod._.ajax({
+            url: "/tenant/save",
+            type: "post",
+            data: {
+                shortName: shortName,
+                serviceType: serviceType,
+                schoolOrg: schoolOrg,
+                schoolUser: schoolUser,
+                sellOrg: sellOrg,
+                sellUser: sellUser,
+                managerOrg: managerOrg,
+                managerUser: managerUser,
+                managerSell: managerSell,
+                serviceUser: serviceUser,
+                resourceService: resourceService,
+                scoreService: scoreService,
+                tenantTime: tenantTime
+            },
+            success: function (res) {
+                callback && callback(res);
+            }
+        })
+    };
+
     iMethod.service.tenant_service = module.exports
 });

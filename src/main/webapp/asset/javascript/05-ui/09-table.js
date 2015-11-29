@@ -20,6 +20,7 @@
         templateFoot: template("table.foot"),
         dataList: null,
         titles: null,
+        pk:null,
         page: null
     };
     var iMethodTable = function (targetId, args) {
@@ -45,6 +46,7 @@
             buildBody: function (titles, dataList) {
                 var templateBody = params['templateBody'];
                 $(".iMethod-body", $target).html(templateBody({
+                    pk:params['pk'],
                     titles: titles,
                     dataList: dataList
                 }));
@@ -61,7 +63,7 @@
                         totalPage: page['totalPage'],
                         rowCount: page['rowCount'],
                         pageClick: page['pageClick'],
-                        pages:page['pages']
+                        pages: page['pages']
                     });
                 }
             }

@@ -16,6 +16,7 @@ import java.util.Date;
 @Entity
 public class User {
     private Integer userId;
+    private String userCode;
     private String userName;
     private Integer orgId;
     private String mobile;
@@ -36,6 +37,16 @@ public class User {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    @Basic
+    @Column(name = "user_code", nullable = true, insertable = true, updatable = true)
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
     }
 
     @Basic

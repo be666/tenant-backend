@@ -9,6 +9,7 @@ import com.imethod.sites.web.code.service.CodeService;
 import com.imethod.sites.web.org.service.OrgService;
 import com.imethod.sites.web.region.service.RegionService;
 import com.imethod.sites.web.sys.auth.UserContent;
+import com.imethod.sites.web.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -38,6 +39,9 @@ public class OrgCtrl {
 
     @Autowired
     private RegionService regionService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/org", method = RequestMethod.GET)
     public String index(ModelMap modelMap) {
@@ -88,5 +92,31 @@ public class OrgCtrl {
             e.printStackTrace();
             return new ReturnBean("保存失败， " + e.getMessage());
         }
+    }
+
+
+    @RequestMapping(value = "/org/{orgId}/user", method = RequestMethod.GET)
+    public String orgUser(@PathVariable String orgId,
+                          ModelMap modelMap) {
+        modelMap.put("orgId", orgId);
+        modelMap.put("org", orgService.loadOrg(orgId));
+        return "org.user";
+    }
+
+    @RequestMapping(value = "/org/{orgId}/user.ajax", method = RequestMethod.GET)
+    @ResponseBody
+    public ReturnBean orgUser(@PathVariable String orgId,
+                              @RequestParam(required = false) String query,
+                              @RequestParam(required = false) Long pageIndex,
+                              @RequestParam(required = false) Long pageSize) {
+        Map<String, Object> map = new HashMap<>();
+        PageMaker pageMaker = null;
+        try {
+            pageMaker = userService.listOrgUser(orgId,query, pageIndex, pageSize);
+            map.put("pageMaker", pageMaker);
+        } catch (Exception e) {
+            logger.error(e);
+        }
+        return new ReturnBean(map);
     }
 }

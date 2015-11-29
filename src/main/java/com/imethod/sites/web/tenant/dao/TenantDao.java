@@ -49,11 +49,7 @@ public class TenantDao extends IJdbcTempBaseDao {
         Tenant tenant = null;
         try {
             tenant = load(Tenant.class, map);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return tenant;
@@ -61,7 +57,7 @@ public class TenantDao extends IJdbcTempBaseDao {
 
     String SQL_LIST_TENANT = " select t.tenant_id,t.tenant_name ,ifnull(tcr.course_count,0) as course_count," +
             "           ifnull(c.class_count,0) as class_count,s.start_time,s.end_time,\n" +
-            "            s.expire_statue ,t.current_status,c1.code_name as current_status_name ,t.service_type,c2.code_name as service_type_name  \n" +
+            "            s.expire_status ,t.current_status,c1.code_name as current_status_name ,t.service_type,c2.code_name as service_type_name  \n" +
             "            from tenant t \n" +
             "            left join (select tenant_id,count(1) as course_count from tenant_course_rp where state = 1  group by tenant_id) tcr on tcr.tenant_id = t.tenant_id \n" +
             "            left join serve s on s.service_id = t.service_id\n" +
@@ -86,8 +82,7 @@ public class TenantDao extends IJdbcTempBaseDao {
             sb.append(" and  t.service_type =:serviceType ");
             map.put("serviceType", serviceType);
         }
-        PageMaker page = this.queryPageList(sb.toString(), pageIndex, pageSize, map);
-        return page;
+        return this.queryPageList(sb.toString(), pageIndex, pageSize, map);
     }
 
     String COUNT_SQL = " select count(1) from tenant where state = 1  ";

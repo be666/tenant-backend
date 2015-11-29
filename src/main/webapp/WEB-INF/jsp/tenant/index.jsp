@@ -6,15 +6,38 @@
             租户
         </div>
         <div class="panel-body">
-            <div class="table" id="tenantTab">
+            <div class="row">
+                <div class="col-md-2">
+                    <input type="text" class="iMethod-queryTenant">
+                </div>
+                <div class="col-md-2">
+                    <div class="iMethod-currentStatus"></div>
+                </div>
+                <div class="col-md-2">
+                    <div class="iMethod-serviceType"></div>
+                </div>
+                <div class="col-md-2">
+                    <i class="iMethod-btn iMethod-tenantAdd">
+                        新建租户
+                    </i>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">总租户数${totalTenant!=null?totalTenant:0}，
+                    未交付${currentStatus10Count!=null?currentStatus10Count:0} </div>
+            </div>
+            <div class="row">
+                <div id="tenantTab">
 
+                </div>
             </div>
         </div>
     </div>
 </div>
 <script>
-    var pageMaker = ${iMethod:toJSONlLine(pageMaker)}
-            seajs.use(["controller/tenant"], function (tenantCtl) {
-                tenantCtl.table('tenantTab', pageMaker);
-            })
+    var currentStatus =${iMethod:toJSONlLine(currentStatus)};
+    var serviceType =${iMethod:toJSONlLine(serviceType)};
+    seajs.use(["controller/tenant"], function (tenantCtl) {
+        tenantCtl.tenantTable('tenantTab', currentStatus, serviceType);
+    })
 </script>

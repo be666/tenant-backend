@@ -1,0 +1,21 @@
+<%
+var titles = titles || [];
+var tLength = titles.length;
+var datas = datas || [];
+var dLength = datas.length;
+%>
+<tr>
+    <td>
+        <i class="iMethod-check select-all"></i>
+    </td>
+    <% for(var i = 0;i < tLength;i++){
+        var title = titles[i];
+    %>
+    <td>
+        <%= title['name'] %>
+    </td>
+    <% } %>
+    <td>
+        操作
+    </td>
+</tr>
