@@ -1,12 +1,12 @@
-package com.imethod.module.schedule;
+package com.imethod.sites.web.email.bean;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 
 
 public class MailAuthenticator extends Authenticator{
-	private  String username="jqwang@gaoxiaobang.com";
-	private  String password="zxc156778";
+	private  String username="gxb_backend@sina.com";
+	private  String password="aaabbbccc";
 	
 	public MailAuthenticator() {
 		super();
