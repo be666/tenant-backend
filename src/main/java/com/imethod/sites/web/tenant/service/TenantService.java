@@ -78,4 +78,8 @@ public class TenantService {
 
         return tenantDao.listTenantAll();
     }
+
+    public Tenant getById(Integer tenantId) {
+        return tenantDao.loadById(tenantId);
+    }
 }
