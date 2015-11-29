@@ -8,6 +8,7 @@ import com.imethod.core.util.DateTools;
 import com.imethod.domain.Code;
 import com.imethod.domain.Tenant;
 import com.imethod.sites.web.code.service.CodeService;
+import com.imethod.sites.web.sys.auth.UserContent;
 import com.imethod.sites.web.tenant.dao.TenantDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,14 +37,16 @@ public class TenantService {
     private CodeService codeService;
 
     public Tenant insert(Tenant tenant) {
+        Integer loginUserId = UserContent.getLUser().getUserId();
         Date now = DateTools.getCurrentDateTime();
         tenant.setCreateAt(now);
         tenant.setUpdateAt(now);
         tenant.setState(Constants.STATE_TRUE);
-        tenant.setCreaterId(1);
-        tenant.setUpdaterId(1);
+        tenant.setCreaterId(loginUserId);
+        tenant.setUpdaterId(loginUserId);
         return tenantDao.insert(tenant);
     }
+
 
     public void update(Tenant tenant) {
         Date now = DateTools.getCurrentDateTime();
