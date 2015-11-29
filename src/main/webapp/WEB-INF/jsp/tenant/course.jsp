@@ -16,6 +16,11 @@
                 <div class="col-md-2">
                     <div class="iMethod-serviceType"></div>
                 </div>
+                <div class="col-md-2">
+                    <i class="iMethod-btn iMethod-courseAdd">
+                        新建课程
+                    </i>
+                </div>
             </div>
             <div class="row">
                 <div id="courseTab">
@@ -26,11 +31,11 @@
     </div>
 </div>
 <script>
-    var courseList = ${iMethod:toJSONlLine(courseList)};
-    var tenantList = ${iMethod:toJSONlLine(tenantList)};
+    var courseType =${iMethod:toJSONlLine(courseType)};
+    var serviceType =${iMethod:toJSONlLine(serviceType)};
     seajs.use(["controller/course"], function (courseCtl) {
         $(function () {
-            courseCtl.courseTab('courseTab', courseList, tenantList);
+            courseCtl.orgCourseTab('courseTab', "${tenantId}",courseType,serviceType);
         })
     })
 </script>

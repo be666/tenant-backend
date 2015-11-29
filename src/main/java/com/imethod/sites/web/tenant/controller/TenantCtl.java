@@ -67,6 +67,14 @@ public class TenantCtl {
         return "tenant.info";
     }
 
+    @RequestMapping(value = "/tenant/{tenantId}/course", method = RequestMethod.GET)
+    public String course(@PathVariable String tenantId, ModelMap modelMap) {
+        modelMap.put("courseType", codeService.listCodeByType("courseType"));
+        modelMap.put("serviceType", codeService.listCodeByType("serviceType"));
+        modelMap.put("tenantId", tenantId);
+        return "tenant.course";
+    }
+
     /**
      * add tenant
      *
@@ -94,21 +102,21 @@ public class TenantCtl {
      */
     @ResponseBody
     @RequestMapping(value = "/tenant/save", method = RequestMethod.POST)
-    public ReturnBean insert(@RequestParam  String shortName,
-                             @RequestParam  String serviceType,  //fuwuleixing
-                             @RequestParam  String schoolOrg,   //orgId
-                             @RequestParam  String schoolUser,  //练习人
-                             @RequestParam  String sellOrg,    //xiaoshouguishu
-                             @RequestParam  String sellUser,    //
-                             @RequestParam  String managerOrg,  //guanliyuansuoshujihou
-                             @RequestParam  String managerUser,  //managerId
-                             @RequestParam  String managerSell,  //xiaoshou人Id
-                             @RequestParam  String serviceUser,  //本地服务负责任
-                             @RequestParam  String scoreService, //学习报道是否要
-                             @RequestParam  String resourceService,  //是否开启本地部署
-                             @RequestParam  String tenantTime) {   //交付日期
+    public ReturnBean insert(@RequestParam String shortName,
+                             @RequestParam String serviceType,  //fuwuleixing
+                             @RequestParam String schoolOrg,   //orgId
+                             @RequestParam String schoolUser,  //练习人
+                             @RequestParam String sellOrg,    //xiaoshouguishu
+                             @RequestParam String sellUser,    //
+                             @RequestParam String managerOrg,  //guanliyuansuoshujihou
+                             @RequestParam String managerUser,  //managerId
+                             @RequestParam String managerSell,  //xiaoshou人Id
+                             @RequestParam String serviceUser,  //本地服务负责任
+                             @RequestParam String scoreService, //学习报道是否要
+                             @RequestParam String resourceService,  //是否开启本地部署
+                             @RequestParam String tenantTime) {   //交付日期
 
-        Tenant tenant=new Tenant();
+        Tenant tenant = new Tenant();
         ReturnBean returnBean = new ReturnBean();
         try {
             tenantService.insert(tenant);
