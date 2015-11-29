@@ -95,22 +95,23 @@ public class TenantCtl {
     @ResponseBody
     @RequestMapping(value = "/tenant/save", method = RequestMethod.POST)
     public ReturnBean insert(@RequestParam  String shortName,
-                             @RequestParam  String serviceType,
-                             @RequestParam  String schoolOrg,
-                             @RequestParam  String schoolUser,
-                             @RequestParam  String sellOrg,
-                             @RequestParam  String sellUser,
-                             @RequestParam  String managerOrg,
-                             @RequestParam  String managerUser,
-                             @RequestParam  String managerSell,
-                             @RequestParam  String serviceUser,
-                             @RequestParam  String scoreService,
-                             @RequestParam  String resourceService,
-                             @RequestParam  String tenantTime) {
+                             @RequestParam  String serviceType,  //fuwuleixing
+                             @RequestParam  String schoolOrg,   //orgId
+                             @RequestParam  String schoolUser,  //练习人
+                             @RequestParam  String sellOrg,    //xiaoshouguishu
+                             @RequestParam  String sellUser,    //
+                             @RequestParam  String managerOrg,  //guanliyuansuoshujihou
+                             @RequestParam  String managerUser,  //managerId
+                             @RequestParam  String managerSell,  //xiaoshou人Id
+                             @RequestParam  String serviceUser,  //本地服务负责任
+                             @RequestParam  String scoreService, //学习报道是否要
+                             @RequestParam  String resourceService,  //是否开启本地部署
+                             @RequestParam  String tenantTime) {   //交付日期
+
         Tenant tenant=new Tenant();
         ReturnBean returnBean = new ReturnBean();
         try {
-//            tenantService.insert(tenant);
+            tenantService.insert(tenant);
         } catch (Exception e) {
             returnBean.setStatus(ReturnBean.FALSE);
             returnBean.setMsg("保存失败， " + e.getMessage());
