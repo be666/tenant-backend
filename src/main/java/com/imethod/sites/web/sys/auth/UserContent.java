@@ -3,6 +3,7 @@ package com.imethod.sites.web.sys.auth;
 import com.imethod.core.util.IdentitieTools;
 import com.imethod.core.util.StringTools;
 import com.imethod.domain.User;
+import com.sun.org.apache.bcel.internal.generic.LUSHR;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

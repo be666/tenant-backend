@@ -98,7 +98,7 @@ public class TenantDao extends IJdbcTempBaseDao {
         return this.queryForInt(sb.toString(), map);
     }
 
-    String LIST_TENANT = " select * from course where state = 1 ";
+    String LIST_TENANT = " select * from tenant where state = 1 ";
 
     public List<Tenant> listTenantAll() {
         return queryForList(LIST_TENANT, null, Tenant.class);

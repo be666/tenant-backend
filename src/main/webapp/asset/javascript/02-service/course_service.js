@@ -62,7 +62,7 @@ define('service/course_service', function (require, exports, module) {
         var peopleNum = course['peopleNum'];
         var peopleAll = course['peopleAll'];
         iMethod._.ajax({
-            url: "/course/save",
+            url: "/tenant/"+_tenantId+"/course/save",
             data: {
                 name: name,
                 courseType: courseType,

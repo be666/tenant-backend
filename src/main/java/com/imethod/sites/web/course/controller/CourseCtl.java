@@ -1,14 +1,15 @@
 package com.imethod.sites.web.course.controller;
 
+import com.imethod.constant.Constants;
 import com.imethod.core.jdbc.PageMaker;
 import com.imethod.core.log.Logger;
 import com.imethod.core.log.LoggerFactory;
-import com.imethod.domain.Code;
-import com.imethod.domain.Course;
-import com.imethod.domain.ReturnBean;
-import com.imethod.domain.Tenant;
+import com.imethod.core.util.DateTools;
+import com.imethod.core.util.StringTools;
+import com.imethod.domain.*;
 import com.imethod.sites.web.code.service.CodeService;
 import com.imethod.sites.web.course.service.CourseService;
+import com.imethod.sites.web.job.service.ServeService;
 import com.imethod.sites.web.sys.auth.UserContent;
 import com.imethod.sites.web.tenant.service.TenantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,8 @@ public class CourseCtl {
     private TenantService tenantService;
     @Autowired
     private CodeService codeService;
+    @Autowired
+    private ServeService serveService;
 
     @RequestMapping(value = "/course", method = RequestMethod.GET)
     public String index(ModelMap modelMap) {
@@ -119,9 +122,10 @@ public class CourseCtl {
      *
      * @return
      */
-    @RequestMapping(value = "/course/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/tenant/{tenantId}/course/save", method = RequestMethod.POST)
     @ResponseBody
     public ReturnBean save(
+            @PathVariable String tenantId,
             @RequestParam String name,
             @RequestParam String courseType,
             @RequestParam String serviceType,
@@ -140,7 +144,28 @@ public class CourseCtl {
         ReturnBean ret = new ReturnBean();
         try {
             Course course = new Course();
-            courseService.insert(course);
+            course.setCourseName(name);
+            course.setCourseType(StringTools.getInteger(courseType));
+            course.setTenantId(StringTools.getInteger(tenantId));
+            course.setChapterNum(StringTools.getInteger(chapterNum));
+            course.setChapterMoney(StringTools.getInteger(chapterMoney));
+            course.setChapterAll(StringTools.getInteger(chapterAll));
+            course.setPeopleAll(StringTools.getInteger(peopleAll));
+            course.setPeopleNum(StringTools.getInteger(peopleNum));
+            course.setPeopleMoney(StringTools.getInteger(peopleMoney));
+            course.setState(1);
+            course.setScore(StringTools.getInteger(courseScore));
+            course.setVideoLength(StringTools.getInteger(videoTime));
+            course = courseService.insert(course);
+            Tenant tenant = tenantService.getById(StringTools.getInteger(tenantId));
+            Serve serve = new Serve();
+            serve.setOrgId(tenant.getOrgId());
+            serve.setContextId(course.getCourseId());
+            serve.setServiceType(Constants.ServiceType.Course.toString());
+            serve.setEndTime(DateTools.getDateTime(serviceTime));
+            serve.setExpireStatus(10);
+            serve.setState(1);
+            serveService.insert(serve);
         } catch (Exception e) {
             ret.setMsg("保存出错");
             ret.setStatus(ReturnBean.FALSE);

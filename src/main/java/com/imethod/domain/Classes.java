@@ -14,7 +14,7 @@ import java.util.Date;
 @Entity
 public class Classes extends BasicEntity {
 
-    private int classId;
+    private Integer classId;
 
     private String className;
 
@@ -23,8 +23,6 @@ public class Classes extends BasicEntity {
     private Integer tenantId;
 
     private Integer templateCourse;
-
-    private Integer serviceId;
 
     private Integer state;
 
@@ -48,11 +46,11 @@ public class Classes extends BasicEntity {
 
     @Id
     @Column(name = "class_id", nullable = false)
-    public int getClassId() {
+    public Integer getClassId() {
         return classId;
     }
 
-    public void setClassId(int classId) {
+    public void setClassId(Integer classId) {
         this.classId = classId;
     }
 
@@ -94,16 +92,6 @@ public class Classes extends BasicEntity {
 
     public void setTemplateCourse(Integer templateCourse) {
         this.templateCourse = templateCourse;
-    }
-
-    @Basic
-    @Column(name = "service_id", nullable = true)
-    public Integer getServiceId() {
-        return serviceId;
-    }
-
-    public void setServiceId(Integer serviceId) {
-        this.serviceId = serviceId;
     }
 
     @Basic

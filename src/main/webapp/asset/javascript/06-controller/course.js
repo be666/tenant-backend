@@ -72,8 +72,29 @@ define('controller/course', [
         pageMaker = pageMaker || {};
         pageMaker['items'] = pageMaker['items'] || [];
         tenantTab.iMethodTable({
+            templateHead: courseListHead,
+            templateBody: courseListBody,
+            pk: "courseId",
             dataList: pageMaker['items'],
-            titles: null,
+            titles: [{
+                key: 'courseName',
+                name: "课程名称"
+            }, {
+                key: 'tenantName',
+                name: "租户名称"
+            }, {
+                key: 'courseTypeName',
+                name: "课程类型"
+            }, {
+                key: 'startTime',
+                name: "开始时间"
+            }, {
+                key: 'endTime',
+                name: "结束时间"
+            }, {
+                key: 'expireStatusName',
+                name: "使用状态"
+            }],
             page: {
                 pageIndex: pageMaker['pageIndex'],
                 pageSize: pageMaker['pageSize'],
@@ -198,6 +219,11 @@ define('controller/course', [
             //window.location.href = iMethod.contextPath + "/tenant/" + tenantId + "/course/new";
             dialogCourse();
         });
+        $("#" + _tenantTabId).on("click.class-manager", ".class-manager", function () {
+            var $this = $(this);
+            var pk = $this.closest("tr").attr("data-pk");
+            window.location.href = iMethod.contextPath + "/course/" + pk + "/class";
+        })
     };
 
     exports.courseInfo = function () {

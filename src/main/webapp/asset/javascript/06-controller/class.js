@@ -90,29 +90,31 @@ define('controller/class', [
             }
         });
         courseList = [{
-            code: "",
-            codeName: "请选择"
+            courseId: "",
+            courseName: "请选择"
         }].concat(courseList);
+
         $(".iMethod-course").iMethodSelect({
-            id: "code",
-            text: "codeName",
+            id: "courseId",
+            text: "courseName",
             dataList: courseList || [],
             unSelected: {
-                code: "",
-                codeName: "请选择"
+                courseId: "",
+                courseName: "请选择"
             }
         });
+
         tenantList = [{
-            code: "",
-            codeName: "请选择"
+            tenantId: "",
+            tenantName: "请选择"
         }].concat(tenantList);
         $(".iMethod-tenant").iMethodSelect({
-            id: "code",
-            text: "codeName",
+            id: "tenantId",
+            text: "tenantName",
             dataList: tenantList || [],
             unSelected: {
-                code: "",
-                codeName: "请选择"
+                tenantId: "",
+                tenantName: "请选择"
             }
         })
     };
@@ -123,7 +125,31 @@ define('controller/class', [
         pageMaker['items'] = pageMaker['items'] || [];
         courseClassTab.iMethodTable({
             dataList: pageMaker['items'],
-            titles: null,
+            titles: [{
+                key: "classId",
+                name: "班次id"
+            }, {
+                key: "className",
+                name: "班次名称"
+            }, {
+                key: "courseName",
+                name: "课程名称"
+            }, {
+                key: "tenantName",
+                name: "租户"
+            }, {
+                key: "classStartTime",
+                name: "班次开始时间"
+            }, {
+                key: "classEndTime",
+                name: "班次结束时间"
+            }, {
+                key: "isWeight",
+                name: "是否开启权重"
+            }, {
+                key: "finishStatusName",
+                name: "使用状态"
+            }],
             page: {
                 pageIndex: pageMaker['pageIndex'],
                 pageSize: pageMaker['pageSize'],
@@ -187,23 +213,25 @@ define('controller/class', [
             }]
         });
         var scoreRadio = iMethod.radio({
-            root: addDialog,
+            root: addDialog.target,
             item: ".score-class"
         })
         var templateRadio = iMethod.radio({
-            root: addDialog,
+            root: addDialog.target,
             item: ".template-class"
         })
         addDialog.target.on("click.iMethod-sure", ".iMethod-sure", function () {
             var classes = {};
-            classes['openTime'] = addDialog.target.find(".openTime").val();
-            classes['endTime'] = addDialog.target.find(".endTime").val();
+            classes['openTime'] = addDialog.target.find(".iMethod-openTime").val();
+            classes['endTime'] = addDialog.target.find(".iMethod-endTime").val();
             classes['template'] = templateRadio.getChecked("data-template");
             classes['score'] = scoreRadio.getChecked("data-score");
             classes['video'] = addDialog.target.find(".iMethod-video").val();
             classes['topic'] = addDialog.target.find(".iMethod-topic").val();
             classes['quiz'] = addDialog.target.find(".iMethod-quiz").val();
             classes['task'] = addDialog.target.find(".iMethod-task").val();
+            classes['className'] = addDialog.target.find(".className").val();
+            classes['exam'] = addDialog.target.find(".iMethod-exam").val();
             classService.saveClass(_courseId, classes, function () {
 
             })
