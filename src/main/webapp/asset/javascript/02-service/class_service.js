@@ -58,17 +58,21 @@ define('service/class_service', function (require, exports, module) {
         var topic = classes['topic'];
         var quiz = classes['quiz'];
         var task = classes['task'];
+        var exam = classes['exam'];
+        var className = classes['className'];
         iMethod._.ajax({
-            url: "/classes/save",
+            url: "/course/" + courseId + "/class",
             data: {
                 openTime: openTime,
                 endTime: endTime,
                 template: template,
+                className: className,
                 score: score,
                 video: video,
                 topic: topic,
                 quiz: quiz,
-                task: task
+                task: task,
+                exam: exam
             },
             type: "post",
             success: function (res) {

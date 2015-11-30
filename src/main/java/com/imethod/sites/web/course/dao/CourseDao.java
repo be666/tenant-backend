@@ -66,6 +66,15 @@ public class CourseDao extends IJdbcTempBaseDao {
             "left join code c2 on c2.code = s.expire_status \n" +
             " where tcr.state = 1 and c1.code_type = 'courseType' and c2.code_type = 'expireStatue'";
 
+    private static String SQL_LIST_COURSE2 = "select c.course_id,c.course_name,c.tenant_id,t.tenant_name,c.course_type,c1.code_name as course_type_name\n" +
+            ",s.start_time,s.end_time,s.expire_status,c2.code_name as expire_status_name\n" +
+            " from course c \n" +
+            " join tenant t on c.tenant_id = t.tenant_id \n" +
+            "left join serve s on c.course_id = s.context_id and s.service_type='Course'  \n" +
+            "left join code c1 on c1.code = c.course_type \n" +
+            "left join code c2 on c2.code = s.expire_status \n" +
+            " where c.state = 1 and c1.code_type = 'courseType' and c2.code_type = 'expireStatue'";
+
     /**
      * @param query
      * @param courseType
@@ -78,7 +87,7 @@ public class CourseDao extends IJdbcTempBaseDao {
     public PageMaker pageCourseRelation(String query, Integer courseType, Long courseId, Long tenantId, Long pageIndex, Long pageSize) {
         Map<String, Object> map = new HashMap<>();
         StringBuffer buffer = new StringBuffer();
-        buffer.append(SQL_LIST_COURSE);
+        buffer.append(SQL_LIST_COURSE2);
         if (StringTools.isNotEmpty(query)) {
             buffer.append(" and ( c.course_name like :query or t.tenant_name like :query )  ");
             map.put("query", iSqlHelp.like(query));
@@ -92,7 +101,7 @@ public class CourseDao extends IJdbcTempBaseDao {
             map.put("courseType", courseType);
         }
         if (StringTools.isNotEmpty(tenantId)) {
-            buffer.append(" and tcr.tenant_id =:tenantId ");
+            buffer.append(" and t.tenant_id =:tenantId ");
             map.put("tenantId", tenantId);
         }
         return this.queryPageList(buffer.toString(), pageIndex, pageSize, map);

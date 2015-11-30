@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * time : 15/11/13.
@@ -70,7 +72,17 @@ public class CourseService {
     }
 
     public List<Course> listCourseAll() {
-        List<Course> courseList = courseDao.listCourseAll();
-        return courseList;
+        return courseDao.listCourseAll();
+    }
+
+    public Course getById(Integer courseId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("course_id", courseId);
+        try {
+            return courseDao.load(Course.class, map);
+        } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -6,6 +6,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 /**
  * time : 15/11/14.
@@ -24,6 +25,16 @@ public class Course extends BasicEntity {
     private Integer score;
     private Integer videoLength;
     private Integer state;
+    private Integer chapterMoney;
+    private Integer chapterNum;
+    private Integer chapterAll;
+    private Integer peopleMoney;
+    private Integer peopleNum;
+    private Integer peopleAll;
+
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
+    }
 
     @Id
     @Column(name = "course_id", nullable = false, insertable = true, updatable = true)
@@ -103,6 +114,66 @@ public class Course extends BasicEntity {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    @Basic
+    @Column(name = "chapter_money", nullable = true)
+    public Integer getChapterMoney() {
+        return chapterMoney;
+    }
+
+    public void setChapterMoney(Integer chapterMoney) {
+        this.chapterMoney = chapterMoney;
+    }
+
+    @Basic
+    @Column(name = "chapter_num", nullable = true)
+    public Integer getChapterNum() {
+        return chapterNum;
+    }
+
+    public void setChapterNum(Integer chapterNum) {
+        this.chapterNum = chapterNum;
+    }
+
+    @Basic
+    @Column(name = "chapter_all", nullable = true)
+    public Integer getChapterAll() {
+        return chapterAll;
+    }
+
+    public void setChapterAll(Integer chapterAll) {
+        this.chapterAll = chapterAll;
+    }
+
+    @Basic
+    @Column(name = "people_money", nullable = true)
+    public Integer getPeopleMoney() {
+        return peopleMoney;
+    }
+
+    public void setPeopleMoney(Integer peopleMoney) {
+        this.peopleMoney = peopleMoney;
+    }
+
+    @Basic
+    @Column(name = "people_num", nullable = true)
+    public Integer getPeopleNum() {
+        return peopleNum;
+    }
+
+    public void setPeopleNum(Integer peopleNum) {
+        this.peopleNum = peopleNum;
+    }
+
+    @Basic
+    @Column(name = "people_all", nullable = true)
+    public Integer getPeopleAll() {
+        return peopleAll;
+    }
+
+    public void setPeopleAll(Integer peopleAll) {
+        this.peopleAll = peopleAll;
     }
 
 }

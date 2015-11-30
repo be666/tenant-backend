@@ -40,8 +40,7 @@ public class ClassService {
     }
 
     public PageMaker pageClassesRelation(String query, Integer classesType, Long classId, Long tenantId, Long pageIndex, Long pageSize) {
-        PageMaker pageMaker = classDao.pageClassRelation(query, classesType, classId, tenantId, pageIndex, pageSize);
-        return pageMaker;
+        return classDao.pageClassRelation(query, classesType, classId, tenantId, pageIndex, pageSize);
     }
 
 

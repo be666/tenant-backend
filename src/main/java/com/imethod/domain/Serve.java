@@ -25,6 +25,7 @@ public class Serve extends BasicEntity {
     private String serviceType;
     private Integer state;
     private Integer expireStatus;
+    private Integer serviceMoney;
 
     @Id
     @Column(name = "service_id", nullable = false, insertable = true, updatable = true)
@@ -106,4 +107,13 @@ public class Serve extends BasicEntity {
         this.expireStatus = expireStatus;
     }
 
+    @Basic
+    @Column(name = "service_money", nullable = true, insertable = true, updatable = true)
+    public Integer getServiceMoney() {
+        return serviceMoney;
+    }
+
+    public void setServiceMoney(Integer serviceMoney) {
+        this.serviceMoney = serviceMoney;
+    }
 }

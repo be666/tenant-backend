@@ -19,11 +19,6 @@
                 <div class="col-md-2">
                     <div class="iMethod-course"></div>
                 </div>
-                <div class="col-md-2">
-                    <i class="iMethod-btn iMethod-classAdd">
-                        新建班次
-                    </i>
-                </div>
             </div>
             <div class="row">
                 <div id="classTab">

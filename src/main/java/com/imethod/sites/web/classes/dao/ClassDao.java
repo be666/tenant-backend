@@ -60,8 +60,8 @@ public class ClassDao extends IJdbcTempBaseDao {
             "from classes c \n" +
             "join tenant t on c.tenant_id = t.tenant_id \n" +
             "join course c1 on c1.course_id = c.course_id \n" +
-            "left join serve s on s.service_id = c.service_id \n" +
-            "left join code co on co.code = c.finish_status and co.code_type = 'finishStatus' \n" +
+            "join serve s on s.context_id = c.class_id and s.service_type='Class' \n" +
+            "join code co on co.code = c.finish_status and co.code_type='finishStatus'\n" +
             "where c.state = 1 and t.state =1 and c1.state = 1 ";
 
 
