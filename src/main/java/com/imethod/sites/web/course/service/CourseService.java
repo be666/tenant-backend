@@ -32,19 +32,14 @@ public class CourseService {
 
     public Course insert(Course course) {
         Date now = DateTools.getCurrentDateTime();
-        course.setCreateAt(now);
-        course.setUpdateAt(now);
         return courseDao.insert(course);
     }
 
     public void update(Course course) {
-        Date now = DateTools.getCurrentDateTime();
         Course courseDB = courseDao.loadById(course.getCourseId());
 
         courseDB.setCourseName(course.getCourseName());
         courseDB.setState(course.getState());
-        courseDB.setUpdateAt(now);
-        courseDB.setUpdaterId(course.getUpdaterId());
 
         try {
             courseDao.update(course);

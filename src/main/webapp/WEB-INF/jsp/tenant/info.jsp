@@ -10,9 +10,6 @@
 <script>
     var currentStatus =${iMethod:toJSONlLine(currentStatus)};
     var serviceType =${iMethod:toJSONlLine(serviceType)};
-    var orgType =${iMethod:toJSONlLine(orgType)};
-    var schoolType =${iMethod:toJSONlLine(schoolType)};
-    var region =${iMethod:toJSONlLine(region)};
     seajs.use(['controller/tenant'], function (tenantCtl) {
         tenantCtl.tenantInfo("tenant_info", currentStatus, serviceType)
     })

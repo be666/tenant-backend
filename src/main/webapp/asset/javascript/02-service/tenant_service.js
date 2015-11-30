@@ -42,6 +42,9 @@ define('service/tenant_service', function (require, exports, module) {
         var resourceService = tenant['resourceService'];
         var scoreService = tenant['scoreService'];
         var tenantTime = tenant['tenantTime'];
+        var tenantName = tenant['tenantName'];
+        var currentStatus = tenant['currentStatus'];
+        var orgName = tenant['orgName'];
         iMethod._.ajax({
             url: "/tenant/save",
             type: "post",
@@ -58,7 +61,10 @@ define('service/tenant_service', function (require, exports, module) {
                 serviceUser: serviceUser,
                 resourceService: resourceService,
                 scoreService: scoreService,
-                tenantTime: tenantTime
+                tenantName: tenantName,
+                tenantTime: tenantTime,
+                currentStatus: currentStatus,
+                orgName: orgName
             },
             success: function (res) {
                 callback && callback(res);

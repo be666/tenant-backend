@@ -78,11 +78,6 @@ public class OrgCtrl {
     @ResponseBody
     public ReturnBean insert(Org org) {
         try {
-
-            org.setCreaterId(UserContent.getLUser().getUserId());
-            org.setCreateAt(new Date());
-            org.setUpdaterId(UserContent.getLUser().getUserId());
-            org.setUpdateAt(new Date());
             org.setState(1);
             org = orgService.insert(org);
             Map<String, Object> map = new HashMap<>();

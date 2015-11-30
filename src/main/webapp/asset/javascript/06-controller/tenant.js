@@ -292,11 +292,13 @@ define('controller/tenant', [
         selectDialog.target.on("click.iMethod-orgTable", ".iMethod-orgTable tr", function () {
             var $this = $(this);
             var orgId = $this.attr("data-pk");
-            var org = utils.arrFind(dateList, function (el, i, arr) {
-                    return el['orgId'] == orgId ? el : null;
-                })[0] || {orgId: orgId};
-            callback(org);
-            selectDialog.close();
+            if (!utils.isEmptyStr(orgId)) {
+                var org = utils.arrFind(dateList, function (el, i, arr) {
+                        return el['orgId'] == orgId ? el : null;
+                    })[0] || {orgId: orgId};
+                callback(org);
+                selectDialog.close();
+            }
         });
         queryOrg();
     };
@@ -360,16 +362,19 @@ define('controller/tenant', [
         selectDialog.target.on("click.iMethod-userTable", ".iMethod-userTable tr", function () {
             var $this = $(this);
             var userId = $this.attr("data-pk");
-            var user = utils.arrFind(dateList, function (el, i, arr) {
-                    return el['userId'] == userId ? el : null;
-                })[0] || {userId: userId};
-            callback(user);
-            selectDialog.close();
+            if (!utils.isEmptyStr(userId)) {
+                var user = utils.arrFind(dateList, function (el, i, arr) {
+                        return el['userId'] == userId ? el : null;
+                    })[0] || {userId: userId};
+                callback(user);
+                selectDialog.close();
+            }
         });
+
         queryUser();
     };
 
-    exports.tenantInfo = function (tenant_info) {
+    exports.tenantInfo = function (tenant_info, currentStatus, serviceType) {
         var $tenantInfo = $("#" + tenant_info);
 
         $tenantInfo.html(tenantInfo());
@@ -450,12 +455,24 @@ define('controller/tenant', [
             }
         });
 
+        $tenantInfo.find(".iMethod-currentStatus").iMethodSelect({
+            id: "code",
+            text: "codeName",
+            dataList: currentStatus || [],
+            unSelected: {
+                code: "",
+                codeName: "请选择"
+            }
+        });
+
         $tenantInfo.on("click.cancel-tenant", ".cancel-tenant", function () {
 
         });
         $tenantInfo.on("click.save-tenant", ".save-tenant", function () {
             var tenant = {};
             tenant['shortName'] = $tenantInfo.find(".iMethod-shortName").val();
+            tenant['tenantName'] = $tenantInfo.find(".iMethod-schoolOrg").val();
+            tenant['orgName'] = $tenantInfo.find(".iMethod-shortName").val();
             tenant['serviceType'] = $tenantInfo.find(".iMethod-serviceType").iMethodSelect().getSelected()['code'];
             tenant['schoolOrg'] = $tenantInfo.find(".iMethod-schoolOrg").attr("data-orgId");
             tenant['schoolUser'] = $tenantInfo.find(".iMethod-schoolUser").attr("data-userId");
@@ -468,8 +485,13 @@ define('controller/tenant', [
             tenant['resourceService'] = $tenantInfo.find(".resource-service").is("check") ? 1 : 0;
             tenant['scoreService'] = $tenantInfo.find(".score-service").is("check") ? 1 : 0;
             tenant['tenantTime'] = $tenantInfo.find(".tenantTime").val();
-            tenantService.saveTenant(tenant, function () {
-                window.location.href = iMethod.contextPath + "/tenant";
+            tenant['currentStatus'] = $tenantInfo.find(".iMethod-currentStatus").iMethodSelect().getSelected()['code'];
+            tenantService.saveTenant(tenant, function (res) {
+                if (res.status == 1) {
+                    window.location.href = iMethod.contextPath + "/tenant";
+                } else {
+                    alert(res['msg'])
+                }
             })
         });
 
