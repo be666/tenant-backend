@@ -19,6 +19,7 @@ public class TenantCourseRp extends BasicEntity {
     private Date startTime;
     private Date endTime;
     private Integer state;
+    private Integer isOwner;
 
     @Id
     @Column(name = "tc_id", nullable = false)
@@ -78,5 +79,15 @@ public class TenantCourseRp extends BasicEntity {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    @Basic
+    @Column(name = "is_owner", nullable = true)
+    public Integer getIsOwner() {
+        return isOwner;
+    }
+
+    public void setIsOwner(Integer isOwner) {
+        this.isOwner = isOwner;
     }
 }

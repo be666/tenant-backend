@@ -24,6 +24,7 @@ public class Serve extends BasicEntity {
     private Date endTime;
     private String serviceType;
     private Integer state;
+    private Integer forever;
     private Integer expireStatus;
     private Integer serviceMoney;
 
@@ -95,6 +96,16 @@ public class Serve extends BasicEntity {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    @Basic
+    @Column(name = "forever", nullable = true, insertable = true, updatable = true)
+    public Integer getForever() {
+        return forever;
+    }
+
+    public void setForever(Integer forever) {
+        this.forever = forever;
     }
 
     @Basic

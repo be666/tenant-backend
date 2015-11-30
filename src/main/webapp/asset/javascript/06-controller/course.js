@@ -8,19 +8,25 @@
 define('controller/course', [
     'service/course_service',
     'view/course/info',
+    'view/course/buy',
     'view/course/list_body',
     'view/course/list_head',
+    'view/course/buy_body',
     "template"
 ], function (require, exports, module) {
 
     var courseService = require("service/course_service");
     var courseInfo = require("view/course/info");
+    var courseBuy = require("view/course/buy");
     var courseListHead = require('view/course/list_head');
     var courseListBody = require('view/course/list_body');
+    var courseBuyBody = require('view/course/buy_body');
     var _tenantTabId = null;
     var _tenantId = null;
     var _courseType = null;
     var _serviceType = null;
+
+    var utils = iMethod.utils;
     var courseTab = function (pageMaker) {
         var tenantTab = $("#" + _tenantTabId);
         pageMaker = pageMaker || {};
@@ -204,6 +210,88 @@ define('controller/course', [
             });
         });
     };
+
+
+    var dialogCourseBuy = function () {
+        var queryCourseCanBuy = function (index, size) {
+            courseService.queryCourseCanBuy(_tenantId, function (dataMap) {
+                var pageMaker = dataMap['pageMaker'];
+                var dateList = pageMaker['items'] || [];
+                var pageIndex = pageMaker['pageIndex'];
+                var pageSize = pageMaker['pageSize'];
+                var totalPage = pageMaker['pageMax'];
+                var rowCount = pageMaker['rowCount'];
+                var pages = pageMaker['pageArr'];
+                addDialog.target.find(".iMethod-courseTable").iMethodTable({
+                    templateHead: courseListHead,
+                    templateBody: courseBuyBody,
+                    pk: "courseId",
+                    dataList: dateList,
+                    titles: [{
+                        key: 'courseName',
+                        name: "课程名称"
+                    }, {
+                        key: 'tenantName',
+                        name: "租户名称"
+                    }, {
+                        key: 'courseTypeName',
+                        name: "课程类型"
+                    }, {
+                        key: 'startTime',
+                        name: "开始时间"
+                    }, {
+                        key: 'endTime',
+                        name: "结束时间"
+                    }, {
+                        key: 'expireStatusName',
+                        name: "使用状态"
+                    }],
+                    page: {
+                        pageIndex: pageIndex,
+                        pageSize: pageSize,
+                        totalPage: totalPage,
+                        pages: pages,
+                        rowCount: dateList.length || 0,
+                        pageClick: function (index, size) {
+                            queryCourseCanBuy(index, size)
+                        }
+                    }
+                })
+            }, {
+                pageIndex: index,
+                pageSize: size,
+                currentStatus: null,
+                currentStage: null
+            });
+        };
+        var addDialog = iMethod.dialog({
+            className: "iMethod-dialog-addCourse",
+            title: "购买课程",
+            content: courseBuy(),
+            buttons: [{
+                className: "iMethod-cancel",
+                text: "取消",
+                click: function () {
+                    addDialog.close();
+                }
+            }]
+        });
+        addDialog.target.on("click.course-buy", ".course-buy", function () {
+            var $this = $(this);
+            var courseId = $this.closest("tr").attr("data-pk");
+            if (!utils.isEmptyStr(courseId)) {
+                courseService.courseBuy(_tenantId, courseId, function (res) {
+                    if (res.status == 1) {
+                        addDialog.close();
+                        queryOrgCourse();
+                    } else if (res['msg']) {
+                        iMethod.alert(res['msg']);
+                    }
+                });
+            }
+        });
+        queryCourseCanBuy();
+    };
     /**
      * 租户下课程管理
      * @param tenantTabId
@@ -218,6 +306,10 @@ define('controller/course', [
         $(".iMethod-courseAdd").on("click", function () {
             //window.location.href = iMethod.contextPath + "/tenant/" + tenantId + "/course/new";
             dialogCourse();
+        });
+        $(".iMethod-courseBuy").on("click", function () {
+            //window.location.href = iMethod.contextPath + "/tenant/" + tenantId + "/course/new";
+            dialogCourseBuy();
         });
         $("#" + _tenantTabId).on("click.class-manager", ".class-manager", function () {
             var $this = $(this);
