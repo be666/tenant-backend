@@ -47,6 +47,38 @@ define('service/course_service', function (require, exports, module) {
         })
     };
 
+    exports.queryCourseCanBuy = function (tenantId, callback,query) {
+        iMethod._.ajax({
+            url: "/tenant/" + tenantId + "/course/buy.ajax",
+            data: {
+                pageIndex: query['pageIndex'],
+                pageSize: query['pageSize'],
+                currentStatus: query['currentStatus'],
+                currentStage: query['currentStage']
+            },
+            type: "get",
+            success: function (res) {
+                if (res.status == 1) {
+                    callback && callback(res['dataMap'] || {});
+                } else if (res['msg']) {
+                    iMethod.alert(res['msg']);
+                }
+            }
+        })
+    };
+
+    exports.courseBuy = function (tenantId,courseId,callback) {
+        iMethod._.ajax({
+            url: "/tenant/" + tenantId + "/course/buy/"+courseId,
+            data: {},
+            type: "post",
+            success: function (res) {
+                callback && callback(res);
+
+            }
+        })
+    }
+
     exports.saveCourse = function (_tenantId, course, callback) {
         var name = course['name'];
         var courseType = course['courseType'];
@@ -62,7 +94,7 @@ define('service/course_service', function (require, exports, module) {
         var peopleNum = course['peopleNum'];
         var peopleAll = course['peopleAll'];
         iMethod._.ajax({
-            url: "/tenant/"+_tenantId+"/course/save",
+            url: "/tenant/" + _tenantId + "/course/save",
             data: {
                 name: name,
                 courseType: courseType,

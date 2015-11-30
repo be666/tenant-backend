@@ -85,4 +85,8 @@ public class CourseService {
         }
         return null;
     }
+
+    public PageMaker pageCourseUnRelation(String query, Integer courseType, Long courseId, Long tenantId, Long pageIndex, Long pageSize) {
+        return courseDao.pageCourseUnRelation(query, courseType, courseId, tenantId, pageIndex, pageSize);
+    }
 }
