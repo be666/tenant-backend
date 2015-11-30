@@ -157,12 +157,17 @@ public class CourseCtl {
             course.setScore(StringTools.getInteger(courseScore));
             course.setVideoLength(StringTools.getInteger(videoTime));
             course = courseService.insert(course);
+            TenantCourseRp tenantCourseRp = new TenantCourseRp();
+            tenantCourseRp.setCourseId(course.getCourseId());
+            tenantCourseRp.setEndTime();
+            tenantCourseRp.setState(1);
             Tenant tenant = tenantService.getById(StringTools.getInteger(tenantId));
             Serve serve = new Serve();
             serve.setOrgId(tenant.getOrgId());
             serve.setContextId(course.getCourseId());
             serve.setServiceType(Constants.ServiceType.Course.toString());
             serve.setEndTime(DateTools.getDateTime(serviceTime));
+            serve.setServiceMoney(StringTools.getInteger(courseMoney));
             serve.setExpireStatus(10);
             serve.setState(1);
             serveService.insert(serve);
