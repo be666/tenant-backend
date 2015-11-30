@@ -232,7 +232,13 @@ define('controller/class', [
             classes['task'] = addDialog.target.find(".iMethod-task").val();
             classes['className'] = addDialog.target.find(".className").val();
             classes['exam'] = addDialog.target.find(".iMethod-exam").val();
-            classService.saveClass(_courseId, classes, function () {
+            classService.saveClass(_courseId, classes, function (res) {
+                if (res.status == 1) {
+                    addDialog.close();
+                    queryCourseClass();
+                } else {
+                    alert(res['msg'])
+                }
 
             })
         });
