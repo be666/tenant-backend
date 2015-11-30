@@ -78,6 +78,15 @@
         </put-attribute>
     </definition>
 
+
+    <definition name="course.class" extends="template">
+        <put-attribute name="content">
+            <definition extends="main.lr">
+                <put-attribute name="content_r" value="/WEB-INF/jsp/course/class.jsp"/>
+            </definition>
+        </put-attribute>
+    </definition>
+
     <definition name="class" extends="template">
         <put-attribute name="content">
             <definition extends="main.lr">

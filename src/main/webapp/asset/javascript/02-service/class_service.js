@@ -28,5 +28,57 @@ define('service/class_service', function (require, exports, module) {
         })
     };
 
+    exports.queryCourseClass = function (courseId, callback, query) {
+
+        iMethod._.ajax({
+            url: "/course/" + courseId + "/class.ajax",
+            data: {
+                pageIndex: query['pageIndex'],
+                pageSize: query['pageSize'],
+                currentStatus: query['currentStatus'],
+                currentStage: query['currentStage']
+            },
+            type: "get",
+            success: function (res) {
+                if (res.status == 1) {
+                    callback && callback(res['dataMap'] || {});
+                } else if (res['msg']) {
+                    iMethod.alert(res['msg']);
+                }
+            }
+        })
+    };
+
+    exports.saveClass = function (courseId, classes, callback) {
+        var openTime = classes['openTime'];
+        var endTime = classes['endTime'];
+        var template = classes['template'];
+        var score = classes['score'];
+        var video = classes['video'];
+        var topic = classes['topic'];
+        var quiz = classes['quiz'];
+        var task = classes['task'];
+        iMethod._.ajax({
+            url: "/classes/save",
+            data: {
+                openTime: openTime,
+                endTime: endTime,
+                template: template,
+                score: score,
+                video: video,
+                topic: topic,
+                quiz: quiz,
+                task: task
+            },
+            type: "post",
+            success: function (res) {
+                if (res.status == 1) {
+                    callback && callback(res['dataMap'] || {});
+                } else if (res['msg']) {
+                    iMethod.alert(res['msg']);
+                }
+            }
+        })
+    };
     iMethod.service.course_service = module.exports
 });
