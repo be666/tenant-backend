@@ -14,19 +14,13 @@
                     <div class="iMethod-currentStatus"></div>
                 </div>
                 <div class="col-md-2">
-                    <div class="iMethod-tenant"></div>
-                </div>
-                <div class="col-md-2">
-                    <div class="iMethod-course"></div>
-                </div>
-                <div class="col-md-2">
-                    <i class="iMethod-btn iMethod-classAdd">
+                    <i class="iMethod-btn iMethod-courseClassAdd">
                         新建班次
                     </i>
                 </div>
             </div>
             <div class="row">
-                <div id="classTab">
+                <div id="courseClassTab">
 
                 </div>
             </div>
@@ -34,12 +28,10 @@
     </div>
 </div>
 <script>
-    var courseList =${iMethod:toJSONlLine(courseList)};
-    var tenantList =${iMethod:toJSONlLine(tenantList)};
     var finishStatus =${iMethod:toJSONlLine(finishStatus)};
     seajs.use(["controller/class"], function (classCtl) {
         $(function () {
-            classCtl.classTab('classTab', courseList, tenantList, finishStatus);
+            classCtl.courseClassTab('courseClassTab',"${courseId}", finishStatus);
         })
     })
 </script>

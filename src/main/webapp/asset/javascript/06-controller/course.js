@@ -21,7 +21,7 @@ define('controller/course', [
     var _tenantId = null;
     var _courseType = null;
     var _serviceType = null;
-    var tableInit = function (pageMaker) {
+    var courseTab = function (pageMaker) {
         var tenantTab = $("#" + _tenantTabId);
         pageMaker = pageMaker || {};
         pageMaker['items'] = pageMaker['items'] || [];
@@ -29,7 +29,32 @@ define('controller/course', [
             dataList: pageMaker['items'],
             templateHead: courseListHead,
             templateBody: courseListBody,
-            titles: null,
+            pk: "courseId",
+            titles: [{
+                key: "courseId",
+                name: "课程id"
+            }, {
+                key: "courseName",
+                name: "课程名称"
+            }, {
+                key: "tenantName",
+                name: "机构名称"
+            }, {
+                key: "courseTypeName",
+                name: "课程类型"
+            }, {
+                key: "courseTypeName",
+                name: "服务开始时间"
+            }, {
+                key: "startTime",
+                name: "服务开始时间"
+            }, {
+                key: "endTime",
+                name: "服务截止时间"
+            }, {
+                key: "expireStatusName",
+                name: "当前状态"
+            }],
             page: {
                 pageIndex: pageMaker['pageIndex'],
                 pageSize: pageMaker['pageSize'],
@@ -64,7 +89,7 @@ define('controller/course', [
     var queryCourse = function (index, size) {
         courseService.queryCourse(function (dataMap) {
             var pageMaker = dataMap['pageMaker'];
-            tableInit(pageMaker);
+            courseTab(pageMaker);
         }, {
             pageIndex: index,
             pageSize: size,
@@ -93,6 +118,12 @@ define('controller/course', [
     exports.courseTab = function (tenantTabId) {
         _tenantTabId = tenantTabId;
         queryCourse();
+        var tenantTab = $("#" + _tenantTabId);
+        tenantTab.on("click.class-manager", ".class-manager", function () {
+            var $this = $(this);
+            var pk = $this.closest("tr").attr("data-pk");
+            window.location.href = iMethod.contextPath + "/course/" + pk + "/class";
+        })
     };
 
 
