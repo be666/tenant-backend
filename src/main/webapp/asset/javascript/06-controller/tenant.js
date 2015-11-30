@@ -11,6 +11,8 @@ define('controller/tenant', [
     'service/org_service',
     'service/user_service',
     'view/tenant/info',
+    'view/tenant/list_head',
+    'view/tenant/list_body',
     'view/org/dialog',
     'view/user/dialog',
     "template"
@@ -24,6 +26,8 @@ define('controller/tenant', [
     var orgDialog = require("view/org/dialog");
     var userDialog = require("view/user/dialog");
 
+    var tenantListHead = require('view/tenant/list_head');
+    var tenantListBody = require('view/tenant/list_body');
     var utils = iMethod.utils;
     var _tenantTabId = null;
     var tableInit = function (pageMaker) {
@@ -31,7 +35,9 @@ define('controller/tenant', [
         pageMaker = pageMaker || {};
         pageMaker['items'] = pageMaker['items'] || [];
         tenantTab.iMethodTable({
-
+            pk: "tenantId",
+            templateHead: tenantListHead,
+            templateBody: tenantListBody,
             dataList: pageMaker['items'],
             titles: [{
                 key: "tenantId",
@@ -89,6 +95,7 @@ define('controller/tenant', [
             code: "",
             codeName: "请选择"
         }].concat(currentStatus);
+
         $(".iMethod-currentStatus").iMethodSelect({
             id: "code",
             text: "codeName",
@@ -114,6 +121,12 @@ define('controller/tenant', [
 
         $(".iMethod-tenantAdd").on("click.tenantAdd", function () {
             window.location.href = iMethod.contextPath + "/tenant/new";
+        });
+
+        $("#" + _tenantTabId).on("click.course-manager", ".course-manager", function () {
+            var $this = $(this);
+            var tenantId = $this.closest("tr").attr("data-pk");
+            window.location.href = iMethod.contextPath + "/tenant/" + tenantId + "/course";
         })
     };
 
@@ -220,7 +233,6 @@ define('controller/tenant', [
 
 
     var selectOrg = function (callback) {
-
 
         var selectDialog = iMethod.dialog({
             className: "iMethod-dialog-addOrg",

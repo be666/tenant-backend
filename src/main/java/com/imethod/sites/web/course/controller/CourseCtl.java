@@ -9,6 +9,7 @@ import com.imethod.domain.ReturnBean;
 import com.imethod.domain.Tenant;
 import com.imethod.sites.web.code.service.CodeService;
 import com.imethod.sites.web.course.service.CourseService;
+import com.imethod.sites.web.sys.auth.UserContent;
 import com.imethod.sites.web.tenant.service.TenantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,6 +53,13 @@ public class CourseCtl {
         return "course";
     }
 
+    @RequestMapping(value = "/tenant/{tenantId}/course/new", method = RequestMethod.GET)
+    public String info(@PathVariable String tenantId, ModelMap modelMap) {
+        modelMap.put("tenantId", tenantId);
+
+        return "course.info";
+    }
+
     @RequestMapping(value = "/course.ajax", method = RequestMethod.GET)
     @ResponseBody
     public ReturnBean ajax(@RequestParam(required = false) String query,
@@ -71,6 +79,20 @@ public class CourseCtl {
         return new ReturnBean(map);
     }
 
+    @RequestMapping(value = "/tenant/{tenantId}/course.ajax", method = RequestMethod.GET)
+    @ResponseBody
+    public ReturnBean course(@PathVariable Long tenantId,
+                             @RequestParam(required = false) String query,
+                             @RequestParam(required = false) Integer courseType,
+                             @RequestParam(required = false) Long courseId,
+                             @RequestParam(required = false) Long pageIndex,
+                             @RequestParam(required = false) Long pageSize) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("tenantId", tenantId);
+        PageMaker pageMaker = courseService.pageCourseRelation(query, courseType, courseId, tenantId, pageIndex, pageSize);
+        map.put("pageMaker", pageMaker);
+        return new ReturnBean(map);
+    }
 
     /**
      * add course
@@ -91,6 +113,41 @@ public class CourseCtl {
         }
         return ret;
     }
+
+    /**
+     * add course
+     *
+     * @return
+     */
+    @RequestMapping(value = "/course/save", method = RequestMethod.POST)
+    @ResponseBody
+    public ReturnBean save(
+            @RequestParam String name,
+            @RequestParam String courseType,
+            @RequestParam String serviceType,
+            @RequestParam String serviceTime,
+            @RequestParam String courseMoney,
+            @RequestParam String videoTime,
+            @RequestParam String courseScore,
+            @RequestParam String chapterMoney,
+            @RequestParam String chapterNum,
+            @RequestParam String chapterAll,
+            @RequestParam String peopleMoney,
+            @RequestParam String peopleNum,
+            @RequestParam String peopleAll
+    ) {
+
+        ReturnBean ret = new ReturnBean();
+        try {
+            Course course = new Course();
+            courseService.insert(course);
+        } catch (Exception e) {
+            ret.setMsg("保存出错");
+            ret.setStatus(ReturnBean.FALSE);
+        }
+        return ret;
+    }
+
 
     /**
      * update course

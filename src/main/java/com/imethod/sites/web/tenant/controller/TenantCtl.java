@@ -1,9 +1,11 @@
 package com.imethod.sites.web.tenant.controller;
 
-import com.imethod.core.jdbc.PageMaker;
 import com.imethod.core.log.Logger;
 import com.imethod.core.log.LoggerFactory;
-import com.imethod.domain.*;
+import com.imethod.domain.Manager;
+import com.imethod.domain.ReturnBean;
+import com.imethod.domain.Seller;
+import com.imethod.domain.Tenant;
 import com.imethod.sites.web.code.service.CodeService;
 import com.imethod.sites.web.region.service.RegionService;
 import com.imethod.sites.web.tenant.service.TenantService;
@@ -13,7 +15,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -63,6 +64,14 @@ public class TenantCtl {
         modelMap.put("schoolType", codeService.listCodeByType("schoolType"));
         modelMap.put("region", regionService.getRegionTree());
         return "tenant.info";
+    }
+
+    @RequestMapping(value = "/tenant/{tenantId}/course", method = RequestMethod.GET)
+    public String course(@PathVariable String tenantId, ModelMap modelMap) {
+        modelMap.put("courseType", codeService.listCodeByType("courseType"));
+        modelMap.put("serviceType", codeService.listCodeByType("serviceType"));
+        modelMap.put("tenantId", tenantId);
+        return "tenant.course";
     }
 
     /**

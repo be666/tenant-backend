@@ -53,10 +53,27 @@
     </definition>
 
 
+    <definition name="tenant.course" extends="template">
+        <put-attribute name="content">
+            <definition extends="main.lr">
+                <put-attribute name="content_r" value="/WEB-INF/jsp/tenant/course.jsp"/>
+            </definition>
+        </put-attribute>
+    </definition>
+
+
     <definition name="course" extends="template">
         <put-attribute name="content">
             <definition extends="main.lr">
                 <put-attribute name="content_r" value="/WEB-INF/jsp/course/index.jsp"/>
+            </definition>
+        </put-attribute>
+    </definition>
+
+    <definition name="course.info" extends="template">
+        <put-attribute name="content">
+            <definition extends="main.lr">
+                <put-attribute name="content_r" value="/WEB-INF/jsp/course/info.jsp"/>
             </definition>
         </put-attribute>
     </definition>
