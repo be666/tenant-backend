@@ -76,11 +76,7 @@ define('service/class_service', function (require, exports, module) {
             },
             type: "post",
             success: function (res) {
-                if (res.status == 1) {
-                    callback && callback(res['dataMap'] || {});
-                } else if (res['msg']) {
-                    iMethod.alert(res['msg']);
-                }
+                callback && callback(res);
             }
         })
     };
