@@ -37,26 +37,16 @@ public class TenantService {
     private CodeService codeService;
 
     public Tenant insert(Tenant tenant) {
-        Integer loginUserId = UserContent.getLUser().getUserId();
-        Date now = DateTools.getCurrentDateTime();
-        tenant.setCreateAt(now);
-        tenant.setUpdateAt(now);
         tenant.setState(Constants.STATE_TRUE);
-        tenant.setCreaterId(loginUserId);
-        tenant.setUpdaterId(loginUserId);
         return tenantDao.insert(tenant);
     }
 
 
     public void update(Tenant tenant) {
-        Date now = DateTools.getCurrentDateTime();
         Tenant tenantDB = tenantDao.loadById(tenant.getTenantId());
-
         tenantDB.setPlatformTenantId(tenant.getPlatformTenantId());
         tenantDB.setTenantName(tenant.getTenantName());
         tenantDB.setState(Constants.STATE_TRUE);
-        tenantDB.setUpdateAt(now);
-        tenantDB.setUpdaterId(tenant.getUpdaterId());
         try {
             tenantDao.update(tenant);
         } catch (IllegalAccessException | InvocationTargetException e) {

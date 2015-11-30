@@ -37,7 +37,7 @@ public class RegionService {
             if (regionType == 2) {
                 regionMap.put(regionCode, region);
             } else {
-                region.getRegionMap().put(regionCode, region);
+//                region.getRegionMap().put(regionCode, region);
             }
         }
         return regionMap;

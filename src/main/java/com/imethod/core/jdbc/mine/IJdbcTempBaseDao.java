@@ -5,10 +5,12 @@ import com.imethod.core.jdbc.PageMaker;
 import com.imethod.core.log.Logger;
 import com.imethod.core.log.LoggerFactory;
 import com.imethod.core.util.BeanTools;
+import com.imethod.core.util.DateTools;
 import com.imethod.core.util.ExceptionTools;
+import com.imethod.domain.base.BasicEntity;
+import com.imethod.sites.web.sys.auth.UserContent;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
@@ -92,12 +94,45 @@ public abstract class IJdbcTempBaseDao {
      */
     public <T> T insert(T object) {
         try {
+            insertWarp(object);
             return insert(object, null);
         } catch (IllegalAccessException | InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
             ExceptionTools.unchecked(e);
         }
         return null;
+    }
+
+    protected <T> void insertWarp(T object) {
+        Class clazz = object.getClass();
+        if (BasicEntity.class.isAssignableFrom(clazz)) {
+            try {
+                Method method = clazz.getMethod("setCreateAt", Date.class);
+                method.invoke(object, DateTools.getCurrentDateTime());
+                method = clazz.getMethod("setCreatorId", Integer.class);
+                method.invoke(object, UserContent.getLUser().getUserId());
+                method = clazz.getMethod("setUpdateAt", Date.class);
+                method.invoke(object, DateTools.getCurrentDateTime());
+                method = clazz.getMethod("setUpdaterId", Integer.class);
+                method.invoke(object, UserContent.getLUser().getUserId());
+            } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    protected <T> void updateWarp(T object) {
+        Class clazz = object.getClass();
+        if (BasicEntity.class.isAssignableFrom(clazz)) {
+            try {
+                Method method = clazz.getMethod("setUpdateAt", Date.class);
+                method.invoke(object, DateTools.getCurrentDateTime());
+                method = clazz.getMethod("setUpdaterId", Integer.class);
+                method.invoke(object, UserContent.getLUser().getUserId());
+            } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -183,7 +218,7 @@ public abstract class IJdbcTempBaseDao {
      * @throws InstantiationException
      * @throws InvocationTargetException
      */
-    public <T> T load(Class<T> clazz,
+    private  <T> T load(Class<T> clazz,
                       String tableName, Map<String, Object> idValue) throws IllegalAccessException, InstantiationException, InvocationTargetException {
         Method[] methods = clazz.getMethods();
         tableName = getTableName(clazz, tableName);
@@ -234,6 +269,7 @@ public abstract class IJdbcTempBaseDao {
      */
     public <T> void update(
             T object) throws IllegalAccessException, InvocationTargetException {
+        updateWarp(object);
         update(object, null, null);
     }
 
@@ -246,7 +282,7 @@ public abstract class IJdbcTempBaseDao {
      * @param <T>
      * @throws IllegalAccessException
      */
-    public <T> void update(
+    private <T> void update(
             T object, String tableName, List<String> whereCase) throws IllegalAccessException, InvocationTargetException {
         if (whereCase == null) {
             whereCase = new ArrayList<String>();
@@ -384,9 +420,9 @@ public abstract class IJdbcTempBaseDao {
                 BeanTools.setProperty(result, getMapKey(key), result.get(key));
             }
 
-            Iterator iterator = result.keySet().iterator();
+            Iterator<String> iterator = result.keySet().iterator();
             while (iterator.hasNext()) {
-                String key = (String) iterator.next();
+                String key = iterator.next();
                 if (keyList.contains(key)) {
                     iterator.remove();
                 }
@@ -431,7 +467,6 @@ public abstract class IJdbcTempBaseDao {
     public abstract NamedParameterJdbcTemplate getNamedParameterJdbcTemplate();
 
     protected abstract ISqlHelp getISqlHelp();
-
 
 
 }

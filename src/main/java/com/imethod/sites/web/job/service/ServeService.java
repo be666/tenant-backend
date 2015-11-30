@@ -46,13 +46,13 @@ public class ServeService {
     @Autowired
     private EmailService emailService;
 
-    public Service insert(Service service) {
+    public Serve insert(Serve service) {
         Date now = DateTools.getCurrentDateTime();
 
         return serviceDao.insert(service);
     }
 
-    public void update(Service service) throws InvocationTargetException, IllegalAccessException {
+    public void update(Serve service) throws InvocationTargetException, IllegalAccessException {
         serviceDao.update(service);
 
     }

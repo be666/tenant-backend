@@ -23,12 +23,20 @@ public class DateTools {
         DATE_TIME
     }
 
-    public static Timestamp getTime(String strTime) {
+    public static Date getDateTime(String strTime) {
+        return getTime(strTime, DateType.DATE_TIME);
+    }
+
+    public static Date getDate(String strTime) {
         return getTime(strTime, DateType.DATE);
     }
 
-    public static String format(Date date) {
+    public static String formatDate(Date date) {
         return format(date, DateType.DATE);
+    }
+
+    public static String formatDateTime(Date date) {
+        return format(date, DateType.DATE_TIME);
     }
 
     public static String format(Date date, DateType dateType) {

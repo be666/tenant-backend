@@ -1,10 +1,12 @@
 package com.imethod.domain;
 
+import com.imethod.domain.base.BasicEntity;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * time : 15/11/29.
@@ -14,18 +16,15 @@ import java.sql.Timestamp;
  * 1.
  */
 @Entity
-public class Serve {
+public class Serve extends BasicEntity {
     private Integer serviceId;
+    private Integer orgId;
     private Integer contextId;
-    private Timestamp startTime;
-    private Timestamp endTime;
+    private Date startTime;
+    private Date endTime;
     private String serviceType;
     private Integer state;
     private Integer expireStatus;
-    private Integer createrId;
-    private Timestamp createAt;
-    private Integer updaterId;
-    private Timestamp updateAt;
 
     @Id
     @Column(name = "service_id", nullable = false, insertable = true, updatable = true)
@@ -35,6 +34,16 @@ public class Serve {
 
     public void setServiceId(Integer serviceId) {
         this.serviceId = serviceId;
+    }
+
+    @Basic
+    @Column(name = "org_id", nullable = true, insertable = true, updatable = true)
+    public Integer getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Integer orgId) {
+        this.orgId = orgId;
     }
 
     @Basic
@@ -49,21 +58,21 @@ public class Serve {
 
     @Basic
     @Column(name = "start_time", nullable = true, insertable = true, updatable = true)
-    public Timestamp getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Timestamp startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
     @Basic
     @Column(name = "end_time", nullable = true, insertable = true, updatable = true)
-    public Timestamp getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Timestamp endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 
@@ -97,81 +106,4 @@ public class Serve {
         this.expireStatus = expireStatus;
     }
 
-    @Basic
-    @Column(name = "creater_id", nullable = true, insertable = true, updatable = true)
-    public Integer getCreaterId() {
-        return createrId;
-    }
-
-    public void setCreaterId(Integer createrId) {
-        this.createrId = createrId;
-    }
-
-    @Basic
-    @Column(name = "create_at", nullable = true, insertable = true, updatable = true)
-    public Timestamp getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(Timestamp createAt) {
-        this.createAt = createAt;
-    }
-
-    @Basic
-    @Column(name = "updater_id", nullable = true, insertable = true, updatable = true)
-    public Integer getUpdaterId() {
-        return updaterId;
-    }
-
-    public void setUpdaterId(Integer updaterId) {
-        this.updaterId = updaterId;
-    }
-
-    @Basic
-    @Column(name = "update_at", nullable = true, insertable = true, updatable = true)
-    public Timestamp getUpdateAt() {
-        return updateAt;
-    }
-
-    public void setUpdateAt(Timestamp updateAt) {
-        this.updateAt = updateAt;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Serve serve = (Serve) o;
-
-        if (serviceId != null ? !serviceId.equals(serve.serviceId) : serve.serviceId != null) return false;
-        if (contextId != null ? !contextId.equals(serve.contextId) : serve.contextId != null) return false;
-        if (startTime != null ? !startTime.equals(serve.startTime) : serve.startTime != null) return false;
-        if (endTime != null ? !endTime.equals(serve.endTime) : serve.endTime != null) return false;
-        if (serviceType != null ? !serviceType.equals(serve.serviceType) : serve.serviceType != null) return false;
-        if (state != null ? !state.equals(serve.state) : serve.state != null) return false;
-        if (expireStatus != null ? !expireStatus.equals(serve.expireStatus) : serve.expireStatus != null) return false;
-        if (createrId != null ? !createrId.equals(serve.createrId) : serve.createrId != null) return false;
-        if (createAt != null ? !createAt.equals(serve.createAt) : serve.createAt != null) return false;
-        if (updaterId != null ? !updaterId.equals(serve.updaterId) : serve.updaterId != null) return false;
-        if (updateAt != null ? !updateAt.equals(serve.updateAt) : serve.updateAt != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = serviceId != null ? serviceId.hashCode() : 0;
-        result = 31 * result + (contextId != null ? contextId.hashCode() : 0);
-        result = 31 * result + (startTime != null ? startTime.hashCode() : 0);
-        result = 31 * result + (endTime != null ? endTime.hashCode() : 0);
-        result = 31 * result + (serviceType != null ? serviceType.hashCode() : 0);
-        result = 31 * result + (state != null ? state.hashCode() : 0);
-        result = 31 * result + (expireStatus != null ? expireStatus.hashCode() : 0);
-        result = 31 * result + (createrId != null ? createrId.hashCode() : 0);
-        result = 31 * result + (createAt != null ? createAt.hashCode() : 0);
-        result = 31 * result + (updaterId != null ? updaterId.hashCode() : 0);
-        result = 31 * result + (updateAt != null ? updateAt.hashCode() : 0);
-        return result;
-    }
 }

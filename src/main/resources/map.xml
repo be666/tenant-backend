@@ -12,12 +12,14 @@
         <class>com.imethod.domain.Region</class>
         <class>com.imethod.domain.Rule</class>
         <class>com.imethod.domain.Seller</class>
-        <class>com.imethod.domain.Service</class>
+        <class>com.imethod.domain.Serve</class>
         <class>com.imethod.domain.Tenant</class>
         <class>com.imethod.domain.TenantCourseRp</class>
         <class>com.imethod.domain.User</class>
-        <class>com.imethod.domain.Classes</class>
         <class>com.imethod.domain.Serve</class>
+        <class>com.imethod.domain.Classes</class>
+        <class>com.imethod.domain.Report</class>
+        <class>com.imethod.domain.Spoc</class>
         <properties>
             <property name="toplink.jdbc.url" value="jdbc:mysql://123.56.156.176:3306/tenant"/>
             <property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>

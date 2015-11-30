@@ -63,7 +63,7 @@ public class TenantDao extends IJdbcTempBaseDao {
             "            left join serve s on s.service_id = t.service_id\n" +
             "            left join code c1 on c1.code = t.current_status and c1.code_type = 'currentStatus'\n" +
             "            left join code c2 on c2.code = t.service_type and c2.code_type = 'serviceType'\n" +
-            "            left join (select tenant_id,count(1) as class_count from class where state = 1 group by tenant_id ) c on c.tenant_id = t.tenant_id \n" +
+            "            left join (select tenant_id,count(1) as class_count from classes where state = 1 group by tenant_id ) c on c.tenant_id = t.tenant_id \n" +
             "            where t.state = 1 ";
 
     public PageMaker pageTenant(String query, Integer currentStatus, Integer serviceType, Long pageIndex, Long pageSize) {

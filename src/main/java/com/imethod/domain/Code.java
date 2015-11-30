@@ -22,11 +22,12 @@ public class Code {
     private Integer code;
     private String codeName;
     private Integer parentId;
-
     private Integer state;
-    //private String codeEnName;
+    private String codeEnName;
 
-    //private Map<Integer,Code> codeMap = new HashMap<>();
+    public void setCodeId(int codeId) {
+        this.codeId = codeId;
+    }
 
     @Id
     @Column(name = "code_id", nullable = false, insertable = true, updatable = true)
@@ -98,35 +99,13 @@ public class Code {
         this.state = state;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Code code1 = (Code) o;
-
-        if (codeId != null ? !codeId.equals(code1.codeId) : code1.codeId != null) return false;
-        if (codeType != null ? !codeType.equals(code1.codeType) : code1.codeType != null) return false;
-        if (levelType != null ? !levelType.equals(code1.levelType) : code1.levelType != null) return false;
-        if (code != null ? !code.equals(code1.code) : code1.code != null) return false;
-        if (codeName != null ? !codeName.equals(code1.codeName) : code1.codeName != null) return false;
-        if (parentId != null ? !parentId.equals(code1.parentId) : code1.parentId != null) return false;
-        if (state != null ? !state.equals(code1.state) : code1.state != null) return false;
-
-        return true;
+    @Basic
+    @Column(name = "code_en_name", nullable = true, length = 100)
+    public String getCodeEnName() {
+        return codeEnName;
     }
 
-    @Override
-    public int hashCode() {
-        int result = codeId != null ? codeId.hashCode() : 0;
-        result = 31 * result + (codeType != null ? codeType.hashCode() : 0);
-        result = 31 * result + (levelType != null ? levelType.hashCode() : 0);
-        result = 31 * result + (code != null ? code.hashCode() : 0);
-        result = 31 * result + (codeName != null ? codeName.hashCode() : 0);
-        result = 31 * result + (parentId != null ? parentId.hashCode() : 0);
-        result = 31 * result + (state != null ? state.hashCode() : 0);
-        return result;
+    public void setCodeEnName(String codeEnName) {
+        this.codeEnName = codeEnName;
     }
-
-
 }

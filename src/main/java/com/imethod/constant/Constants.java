@@ -10,4 +10,8 @@ package com.imethod.constant;
 public class Constants {
     public static final int STATE_FALSE = 0;
     public static final int STATE_TRUE = 1;
+
+    public enum ServiceType {
+        Tenant, Class, Course, Resource, Score
+    }
 }

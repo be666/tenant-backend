@@ -31,9 +31,6 @@ public class UserService {
     public void insert(User user) {
         Integer userId = UserContent.getLUser().getUser().getUserId();
         Date now = DateTools.getCurrentDateTime();
-        user.setUpdateAt(now);
-        user.setCreateAt(now);
-        user.setCreaterId(userId);
         user.setPassword("123456");
         user.setState(1);
         userDao.insert(user);
@@ -41,9 +38,7 @@ public class UserService {
 
     public void update(User user) {
         User userDB = userDao.loadById(user.getUserId());
-        userDB.setUpdateAt(DateTools.getCurrentDateTime());
         Integer userId = UserContent.getLUser().getUser().getUserId();
-        userDB.setUpdaterId(userId);
         userDB.setState(user.getState());
         userDB.setOrgId(user.getOrgId());
         userDB.setUserName(user.getUserName());
