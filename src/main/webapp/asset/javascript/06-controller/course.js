@@ -8,12 +8,15 @@
 define('controller/course', [
     'service/course_service',
     'view/course/info',
+    'view/course/list_body',
+    'view/course/list_head',
     "template"
 ], function (require, exports, module) {
 
     var courseService = require("service/course_service");
     var courseInfo = require("view/course/info");
-
+    var courseListHead = require('view/course/list_head');
+    var courseListBody = require('view/course/list_body');
     var _tenantTabId = null;
     var _tenantId = null;
     var _courseType = null;
@@ -24,6 +27,8 @@ define('controller/course', [
         pageMaker['items'] = pageMaker['items'] || [];
         tenantTab.iMethodTable({
             dataList: pageMaker['items'],
+            templateHead: courseListHead,
+            templateBody: courseListBody,
             titles: null,
             page: {
                 pageIndex: pageMaker['pageIndex'],

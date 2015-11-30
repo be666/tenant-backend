@@ -113,10 +113,10 @@ public class ServeService {
             return;
         }
 
-        String emailBody = serviceName+"即将过期,过期时间为："+DateTools.format(serve.getEndTime(), DateTools.DateType.DATE_TIME) ;
-        List<String> eamillToList = new ArrayList<>();
-        eamillToList.add("jqwang@sina.com");
-        EmailMessage emailMessage = new EmailMessage(emailBody,eamillToList);
+        String emailContent = serviceName+"即将过期,过期时间为："+DateTools.format(serve.getEndTime(), DateTools.DateType.DATE_TIME) ;
+        List<String> emailToList = new ArrayList<>();
+        emailToList.add("jqwang@gaoxiaobang.com");
+        EmailMessage emailMessage = new EmailMessage(emailContent,emailToList);
         emailService.sendHtmlMail(emailMessage);
     }
 

@@ -28,6 +28,5 @@ define('service/class_service', function (require, exports, module) {
         })
     };
 
-
     iMethod.service.course_service = module.exports
 });
