@@ -51,7 +51,6 @@ define('controller/org', [
                     key: "orgType",
                     name: '机构类型',
                     render: function (org, orgType) {
-                        var _orgType = _orgType || [];
                         var _l = _orgType.length;
                         while (_l > 0) {
                             _l--;
@@ -60,20 +59,60 @@ define('controller/org', [
                                 return _ot['codeName'];
                             }
                         }
-                        if (_orgType == 0) {
+                        if (orgType == 0) {
                             return "root";
                         }
                         return "其他";
                     }
                 }, {
                     key: "schoolType",
-                    name: '学校类型'
+                    name: '学校类型',
+                    render: function (org, schoolType) {
+                        var _l = _schoolType.length;
+                        while (_l > 0) {
+                            _l--;
+                            var _ot = _schoolType[_l];
+                            if (_ot['code'] == schoolType) {
+                                return _ot['codeName'];
+                            }
+                        }
+                        return "其他";
+                    }
                 }, {
                     key: "province",
-                    name: '省'
+                    name: '省',
+                    render: function (org, province) {
+                        var _l = _province.length;
+                        while (_l > 0) {
+                            _l--;
+                            var _ot = _province[_l];
+                            if (_ot['regionCode'] == province) {
+                                return _ot['regionName'];
+                            }
+                        }
+                        return "其他";
+                    }
                 }, {
                     key: "city",
-                    name: '市'
+                    name: '市',
+                    render: function (org, city) {
+                        var _l = _province.length;
+                        while (_l > 0) {
+                            _l--;
+                            var _ot = _province[_l];
+                            var _city = _ot['childRegion'] || [];
+                            var _cl = _city.length;
+                            while (_cl) {
+                                _cl--;
+                                var _cot = _city[_cl];
+                                if (_cot['regionCode'] == city) {
+                                    return _cot['regionName'];
+                                }
+                            }
+
+                        }
+                        return "其他";
+                    }
                 }],
                 page: {
                     pageIndex: pageIndex,

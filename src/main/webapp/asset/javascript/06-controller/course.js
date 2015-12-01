@@ -36,7 +36,7 @@ define('controller/course', [
             templateHead: courseListHead,
             templateBody: courseListBody,
             pk: "courseId",
-            pageCols:"10",
+            pageCols:"9",
             titles: [{
                 key: "courseId",
                 name: "课程id"
@@ -50,14 +50,17 @@ define('controller/course', [
                 key: "courseTypeName",
                 name: "课程类型"
             }, {
-                key: "courseTypeName",
-                name: "服务开始时间"
-            }, {
                 key: "startTime",
-                name: "服务开始时间"
+                name: "服务开始时间",
+                render:function(obj,el){
+                    return utils.parseDate(el)
+                }
             }, {
                 key: "endTime",
-                name: "服务截止时间"
+                name: "服务截止时间",
+                render:function(obj,el){
+                    return utils.parseDate(el)
+                }
             }, {
                 key: "expireStatusName",
                 name: "当前状态"
@@ -96,10 +99,16 @@ define('controller/course', [
                 name: "课程类型"
             }, {
                 key: 'startTime',
-                name: "开始时间"
+                name: "开始时间",
+                render:function(obj,el){
+                    return utils.parseDate(el)
+                }
             }, {
                 key: 'endTime',
-                name: "结束时间"
+                name: "结束时间",
+                render:function(obj,el){
+                    return utils.parseDate(el)
+                }
             }, {
                 key: 'expireStatusName',
                 name: "使用状态"
@@ -198,7 +207,7 @@ define('controller/course', [
             course['name'] = addDialog.target.find(".iMethod-name").val();
             course['courseType'] = addDialog.target.find(".iMethod-courseType").iMethodSelect().getSelected()['code'];
             course['serviceType'] = addDialog.target.find(".iMethod-serviceType").iMethodSelect().getSelected()['code'];
-            course['serviceTime'] = addDialog.target.find(".iMethod-serviceTime").val();
+            course['serviceTime'] =  new Date(addDialog.target.find(".iMethod-serviceTime").val()).Format("yyyy-MM-dd hh:mm:ss");
             course['courseMoney'] = addDialog.target.find(".iMethod-courseMoney").val();
             course['videoTime'] = addDialog.target.find(".iMethod-videoTime").val();
             course['courseScore'] = addDialog.target.find(".iMethod-courseScore").val();
@@ -243,10 +252,16 @@ define('controller/course', [
                         name: "课程类型"
                     }, {
                         key: 'startTime',
-                        name: "开始时间"
+                        name: "开始时间",
+                        render:function(obj,el){
+                            return utils.parseDate(el)
+                        }
                     }, {
                         key: 'endTime',
-                        name: "结束时间"
+                        name: "结束时间",
+                        render:function(obj,el){
+                            return utils.parseDate(el)
+                        }
                     }, {
                         key: 'expireStatusName',
                         name: "使用状态"

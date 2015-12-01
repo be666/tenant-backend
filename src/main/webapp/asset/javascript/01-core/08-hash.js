@@ -104,7 +104,7 @@
                 var hash = [];
                 hash.push("#!state=" + hObj['state']);
                 var ks = [];
-                for (var k in args) {
+                for (var k in hObj) {
                     if (k != 'state') {
                         ks.push(k + "");
                     }
@@ -112,8 +112,8 @@
                 ks = utils.sortStrArr(ks);
                 for (var i = 0; i < ks.length; i++) {
                     var _k = ks[i];
-                    if (!utils.nothing(args[k])) {
-                        hash.push(_k + "=" + args[k]);
+                    if (!utils.nothing(hObj[_k])) {
+                        hash.push(_k + "=" + hObj[_k]);
                     }
                 }
                 window.location.hash = hash.join('&');
