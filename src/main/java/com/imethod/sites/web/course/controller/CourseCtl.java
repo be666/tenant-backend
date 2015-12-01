@@ -22,13 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * time : 15/11/13.
- * auth :
- * desc :
- * tips :
- * 1.
- */
+
 @Controller
 public class CourseCtl {
 

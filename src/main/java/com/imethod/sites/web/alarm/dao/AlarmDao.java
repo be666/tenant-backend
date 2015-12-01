@@ -72,7 +72,7 @@ public class AlarmDao extends IJdbcTempBaseDao {
             "select course.course_id,course.course_name,s.start_time,s.end_time," +
             "s.expire_status,c.code_name as expire_status_name,\n" +
             "course.course_type ,c2.code_name as course_type_name ,t.tenant_name \n" +
-            "from serve s join tenant_course_rp tcr on tcr.rc_id = s.course_id  \n" +
+            "from serve s join tenant_course_rp tcr on tcr.tc_id = s.context_id  \n" +
             "join course course on tcr.course_id = course.course_id  \n" +
             "join tenant t on t.tenant_id = tcr.tenant_id    \n" +
             "left join code c on s.expire_status = c.`code` and c.code_type = 'expireStatue' \n" +
