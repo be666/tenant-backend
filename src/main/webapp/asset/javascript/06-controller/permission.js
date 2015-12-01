@@ -202,6 +202,12 @@ define('controller/permission', [
                 }, {
                     key: 'orgName',
                     name: "机构名称"
+                }, {
+                    key: 'email',
+                    name: "邮箱"
+                }, {
+                    key: 'mobile',
+                    name: "手机"
                 }],
                 page: {
                     pageIndex: pageIndex,

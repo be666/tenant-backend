@@ -59,7 +59,7 @@ public class PermissionDao extends IJdbcTempBaseDao {
     public PageMaker getOsUser(String query, Long pageIndex, Long pageSize) {
         Map<String, Object> map = new HashMap<>();
         StringBuffer sql = new StringBuffer();
-        sql.append("SELECT  ou.os_user_id,ou.user_id,u.user_name,u.user_code," +
+        sql.append("SELECT  ou.os_user_id,ou.user_id,u.user_name,u.user_code,u.email,u.mobile," +
                 "u.org_id,o.org_name FROM os_user ou\n" +
                 "join user u on u.user_id=ou.user_id\n" +
                 "join org o on o.org_id=u.org_id\n" +
@@ -74,7 +74,7 @@ public class PermissionDao extends IJdbcTempBaseDao {
     public PageMaker getUnOsUser(String query, Long pageIndex, Long pageSize) {
         Map<String, Object> map = new HashMap<>();
         StringBuffer sb = new StringBuffer();
-        sb.append("select u.user_id,u.user_name,u.user_code,u.org_id,o.org_name\n" +
+        sb.append("select u.user_id,u.user_name,u.user_code,u.org_id,o.org_name,u.email,u.mobile\n" +
                 "from user u\n" +
                 "  join org o on o.org_id=u.org_id\n" +
                 "where not exists(\n" +

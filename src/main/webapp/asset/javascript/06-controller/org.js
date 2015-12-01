@@ -40,7 +40,7 @@ define('controller/org', [
                 templateHead: orgListHead,
                 templateBody: orgListBody,
                 dataList: dateList,
-                pageCols:"8",
+                pageCols: "8",
                 titles: [{
                     key: "orgCode",
                     name: '机构代码'
@@ -49,7 +49,22 @@ define('controller/org', [
                     name: '机构名称'
                 }, {
                     key: "orgType",
-                    name: '机构类型'
+                    name: '机构类型',
+                    render: function (org, orgType) {
+                        var _orgType = _orgType || [];
+                        var _l = _orgType.length;
+                        while (_l > 0) {
+                            _l--;
+                            var _ot = _orgType[_l];
+                            if (_ot['code'] == orgType) {
+                                return _ot['codeName'];
+                            }
+                        }
+                        if (_orgType == 0) {
+                            return "root";
+                        }
+                        return "其他";
+                    }
                 }, {
                     key: "schoolType",
                     name: '学校类型'

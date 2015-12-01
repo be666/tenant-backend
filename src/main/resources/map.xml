@@ -23,6 +23,8 @@
         <class>com.imethod.domain.OsUser</class>
         <class>com.imethod.domain.ServeTicket</class>
         <class>com.imethod.domain.OsTicket</class>
+        <class>com.imethod.domain.LoginRecord</class>
+        <class>com.imethod.domain.VistitRecord</class>
         <properties>
             <property name="toplink.jdbc.url" value="jdbc:mysql://123.56.156.176:3306/tenant"/>
             <property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>

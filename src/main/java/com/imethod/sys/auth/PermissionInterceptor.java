@@ -2,6 +2,8 @@ package com.imethod.sys.auth;
 
 import com.imethod.core.util.StringTools;
 import com.imethod.domain.User;
+import com.imethod.domain.VisitRecord;
+import com.imethod.sites.web.log.service.LogService;
 import com.imethod.sites.web.permission.service.PermissionService;
 import com.imethod.sites.web.user.service.UserService;
 import com.imethod.sys.sso.SSOService;
@@ -29,6 +31,9 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
     private PermissionService permissionService;
+
+    @Autowired
+    private LogService logService;
 
     @Autowired
     private UserService userService;
@@ -115,7 +120,13 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         super.afterCompletion(request, response, handler, ex);
-//        restUserContent();
+        if (handler instanceof HandlerMethod) {
+            VisitRecord visitRecord = new VisitRecord();
+            visitRecord.setVisitUrl(request.getRequestURI());
+            visitRecord.setUserId(UserContent.getLUser().getUserId());
+            logService.insertVisit(visitRecord);
+        }
+        restUserContent();
     }
 
 

@@ -1,7 +1,9 @@
 package com.imethod.sys.sso;
 
 import com.imethod.core.util.IdentitieTools;
+import com.imethod.domain.LoginRecord;
 import com.imethod.domain.OsTicket;
+import com.imethod.sites.web.log.service.LogService;
 import com.imethod.sites.web.permission.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,6 +20,9 @@ public class SSOServletService implements SSOService {
     @Autowired
     private PermissionService permissionService;
 
+    @Autowired
+    private LogService logService;
+
     @Override
     public boolean login(HttpServletRequest request, Integer userId) {
         String user_ticket = IdentitieTools.uuid2();
@@ -27,6 +32,10 @@ public class SSOServletService implements SSOService {
         osTicket.setTicketInfo(user_ticket);
         osTicket.setState(1);
         permissionService.saveTicket(osTicket);
+        LoginRecord loginRecord=new LoginRecord();
+        loginRecord.setUserId(userId);
+        loginRecord.setIp(request.getRemoteAddr());
+        logService.insertLogin(loginRecord);
         request.getServletContext().setAttribute("USER_TICKET_" + user_ticket, osTicket);
         return true;
     }
