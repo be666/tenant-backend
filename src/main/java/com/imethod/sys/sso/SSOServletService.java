@@ -38,6 +38,7 @@ public class SSOServletService implements SSOService {
             String user_ticket = (String) USER_TICKET;
             permissionService.deleteTicket(user_ticket);
             request.getServletContext().setAttribute("USER_TICKET_" + user_ticket, null);
+            request.getSession().setAttribute("USER_TICKET", null);
         }
         return false;
     }

@@ -20,13 +20,15 @@
         templateFoot: template("table.foot"),
         dataList: null,
         titles: null,
-        pk:null,
+        pk: null,
         page: null
     };
     var iMethodTable = function (targetId, args) {
         var params = utils.extend(def, args);
         var $target = $("#" + targetId);
-
+        if (!$target.hasClass("iMethod-table-warp")) {
+            $target.addClass("iMethod-table-warp")
+        }
         var pub = {
             setConfig: function (opts) {
                 params = utils.extend(params, opts);
@@ -39,14 +41,14 @@
             },
             buildHead: function (titles) {
                 var templateHead = params['templateHead'];
-                $(".iMethod-head", $target).html(templateHead({
+                $(".iMethod-table-head", $target).html(templateHead({
                     titles: titles
                 }));
             },
             buildBody: function (titles, dataList) {
                 var templateBody = params['templateBody'];
-                $(".iMethod-body", $target).html(templateBody({
-                    pk:params['pk'],
+                $(".iMethod-table-body", $target).html(templateBody({
+                    pk: params['pk'],
                     titles: titles,
                     dataList: dataList
                 }));
@@ -54,11 +56,12 @@
             buildFoot: function (title, page) {
                 if (utils.nothing(page)) {
                     var templateFoot = params['templateFoot'];
-                    $(".iMethod-foot", $target).html(templateFoot({
-                        titles: titles
+                    $(".iMethod-table-foot", $target).html(templateFoot({
+                        titles: titles,
+                        pageCols: params['pageCols']
                     }));
                 } else {
-                    $(".iMethod-foot td.page", $target).iMethodPage({
+                    $(".iMethod-table-foot td.page", $target).iMethodPage({
                         pageIndex: page['pageIndex'],
                         totalPage: page['totalPage'],
                         rowCount: page['rowCount'],
@@ -92,8 +95,9 @@
             }
         }
         var templateFoot = params['templateFoot'];
-        $(".iMethod-foot", $target).html(templateFoot({
-            titles: params['titles']
+        $(".iMethod-table-foot", $target).html(templateFoot({
+            titles: params['titles'],
+            pageCols: params['pageCols']
         }));
         pub.setConfig();
         return pub;

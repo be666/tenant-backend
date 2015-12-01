@@ -40,7 +40,7 @@ public class AuthCtl {
             //登陆
             if (ssoService.login(request, user.getUserId())) {
                 if (StringTools.isNotEmpty(refer) && !refer.contains("/login")) {
-                    return new ModelAndView("redirect:/" + refer);
+                    return new ModelAndView("redirect:" + refer);
                 } else {
                     return new ModelAndView("redirect:/");
                 }
@@ -51,7 +51,8 @@ public class AuthCtl {
 
     @PermissionCheck(false)
     @RequestMapping("/logout")
-    public String logout() {
+    public String logout(HttpServletRequest request) {
+        ssoService.logout(request);
         return "logout";
     }
 

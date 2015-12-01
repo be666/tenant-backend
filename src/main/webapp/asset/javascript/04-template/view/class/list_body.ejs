@@ -8,7 +8,7 @@ for(var i = 0;i < dLength;i++){
     var data = dataList[i];
 %>
 <tr data-pk="<%= data[pk] || "" %>">
-    <td>
+    <td class="iMethod-tlc">
         <i class="iMethod-check select-item"></i>
     </td>
     <% for(var j = 0;j < tLength;j++){
@@ -20,7 +20,7 @@ for(var i = 0;i < dLength;i++){
     </td>
     <% } %>
     <td>
-        <i class="iMethod-btn iMethod-btn-pri class-manager">编辑</i>
+        <i class="iMethod-btn iMethod-btn-pri iMethod-btn-sm class-manager">编辑</i>
     </td>
 </tr>
 <% } %>

@@ -131,6 +131,7 @@ define('controller/permission', [
                     templateBody: dialogListBody,
                     pk: "userId",
                     dataList: dateList,
+                    pageCols:"5",
                     titles: [{
                         key: 'userCode',
                         name: "用户编号"
@@ -188,6 +189,7 @@ define('controller/permission', [
                 templateHead: listHead,
                 templateBody: listBody,
                 pk: "userId",
+                pageCols:"5",
                 dataList: dateList,
                 titles: [{
                     key: 'userCode',

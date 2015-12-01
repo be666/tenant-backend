@@ -52,7 +52,8 @@ define('controller/class', [
             page: {
                 pageIndex: pageMaker['pageIndex'],
                 pageSize: pageMaker['pageSize'],
-                totalPage: pageMaker['totalPage'],
+                totalPage: pageMaker['pageMax'],
+                pages: pageMaker['pageArr'],
                 rowCount: pageMaker['items'].length,
                 pageClick: function (index, size) {
                     queryClass(index, size);
@@ -153,7 +154,8 @@ define('controller/class', [
             page: {
                 pageIndex: pageMaker['pageIndex'],
                 pageSize: pageMaker['pageSize'],
-                totalPage: pageMaker['totalPage'],
+                totalPage: pageMaker['pageMax'],
+                pages: pageMaker['pageArr'],
                 rowCount: pageMaker['items'].length,
                 pageClick: function (index, size) {
                     queryCourseClass(index, size);

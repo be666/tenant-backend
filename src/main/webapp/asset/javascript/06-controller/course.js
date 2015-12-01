@@ -36,6 +36,7 @@ define('controller/course', [
             templateHead: courseListHead,
             templateBody: courseListBody,
             pk: "courseId",
+            pageCols:"10",
             titles: [{
                 key: "courseId",
                 name: "课程id"
@@ -64,7 +65,8 @@ define('controller/course', [
             page: {
                 pageIndex: pageMaker['pageIndex'],
                 pageSize: pageMaker['pageSize'],
-                totalPage: pageMaker['totalPage'],
+                totalPage: pageMaker['pageMax'],
+                pages: pageMaker['pageArr'],
                 rowCount: pageMaker['items'].length,
                 pageClick: function (index, size) {
                     queryCourse(index, size);
@@ -78,6 +80,7 @@ define('controller/course', [
         pageMaker = pageMaker || {};
         pageMaker['items'] = pageMaker['items'] || [];
         tenantTab.iMethodTable({
+            pageCols:"8",
             templateHead: courseListHead,
             templateBody: courseListBody,
             pk: "courseId",
@@ -104,7 +107,8 @@ define('controller/course', [
             page: {
                 pageIndex: pageMaker['pageIndex'],
                 pageSize: pageMaker['pageSize'],
-                totalPage: pageMaker['totalPage'],
+                totalPage: pageMaker['pageMax'],
+                pages: pageMaker['pageArr'],
                 rowCount: pageMaker['items'].length,
                 pageClick: function (index, size) {
                     queryOrgCourse(index, size);
@@ -223,6 +227,7 @@ define('controller/course', [
                 var rowCount = pageMaker['rowCount'];
                 var pages = pageMaker['pageArr'];
                 addDialog.target.find(".iMethod-courseTable").iMethodTable({
+                    pageCols:"8",
                     templateHead: courseListHead,
                     templateBody: courseBuyBody,
                     pk: "courseId",

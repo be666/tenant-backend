@@ -40,6 +40,7 @@ define('controller/org', [
                 templateHead: orgListHead,
                 templateBody: orgListBody,
                 dataList: dateList,
+                pageCols:"8",
                 titles: [{
                     key: "orgCode",
                     name: '机构代码'
