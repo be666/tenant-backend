@@ -205,6 +205,7 @@ define('controller/org', [
             org['province'] = addDialog.target.find(".iMethod-province").iMethodSelect().getSelected()['regionCode'] || "";
             org['city'] = addDialog.target.find(".iMethod-city").iMethodSelect().getSelected()['regionCode'] || "";
             orgService.saveOrg(org, function (org) {
+                addDialog.close();
                 queryOrg();
             })
         })

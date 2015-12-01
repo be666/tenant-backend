@@ -25,15 +25,25 @@
     <div class="row iMethod-header clear-fix">
         <div class="col-md-8 iMethod-header-left">
             <div class="iMethod-logo">
-                <a href="#">
-                    <img class="logo-img" alt=""/>
+                <a href="${contextPath}/">
+                    高校邦租户管理系统
                 </a>
             </div>
-
         </div>
     </div>
 </div>
-<div class="body"></div>
+<div class="iMethod-body">
+    <div class="container">
+        <div class="row" style="text-align: center;font-size: 32px;line-height: 1.5">
+            您已登出系统,欢迎使用!
+        </div>
+        <div class="row" style="text-align: center">
+            <div class="iMethod-btn" style="padding: 20px 40px;font-size: 32px;line-height: 1.5">
+                <a href="${contextPath}/login">重新登陆</a>!
+            </div>
+        </div>
+    </div>
+</div>
 <%@include file="/WEB-INF/jsp/common/footer.jsp" %>
 <script src="${contextPath}/js/ui.min.js"></script>
 <script src="${contextPath}/js/config.min.js"></script>

@@ -6,15 +6,15 @@
             班次
         </div>
         <div class="panel-body">
-            <div class="row">
-                <div class="col-md-2">
+            <div class="row iMethod-toolbar">
+                <div class="col-md-3">
                     <input type="text" class="iMethod-queryClass">
                 </div>
                 <div class="col-md-2">
                     <div class="iMethod-currentStatus"></div>
                 </div>
                 <div class="col-md-2">
-                    <i class="iMethod-btn iMethod-courseClassAdd">
+                    <i class="iMethod-btn iMethod-btn iMethod-btn-action  iMethod-courseClassAdd">
                         新建班次
                     </i>
                 </div>

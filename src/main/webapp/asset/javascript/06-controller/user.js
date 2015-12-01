@@ -64,6 +64,7 @@ define('controller/user', [
                     }
                 }
             });
+            selectUserDialog.position();
         }, {
             pageIndex: index,
             pageSize: size

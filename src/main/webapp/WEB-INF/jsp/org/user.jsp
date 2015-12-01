@@ -6,7 +6,7 @@
             组织机构>人员管理
         </div>
         <div class="panel-body" id="orgUserPanel">
-            <div class="row">
+            <div class="row iMethod-toolbar">
                 <div class="col-md-8">
                     <input type="text" name="search"/>
                     <i class="search">
@@ -14,7 +14,7 @@
                     </i>
                 </div>
                 <div class="col-md-4">
-                    <i class="btn iMethod-orgUserAdd">
+                    <i class="iMethod-btn iMethod-btn-action  iMethod-orgUserAdd">
                         添加人员
                     </i>
                 </div>

@@ -261,13 +261,15 @@ define('controller/course', [
                             queryCourseCanBuy(index, size)
                         }
                     }
-                })
+                });
+                addDialog.position();
             }, {
                 pageIndex: index,
                 pageSize: size,
                 currentStatus: null,
                 currentStage: null
             });
+
         };
         var addDialog = iMethod.dialog({
             className: "iMethod-dialog-addCourse",

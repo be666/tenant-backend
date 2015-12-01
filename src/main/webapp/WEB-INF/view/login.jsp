@@ -68,8 +68,8 @@
     <div class="row iMethod-header clear-fix">
         <div class="col-md-8 iMethod-header-left">
             <div class="iMethod-logo">
-                <a href="#">
-                    <img class="logo-img" alt=""/>
+                <a href="${contextPath}/">
+                    高校邦租户管理系统
                 </a>
             </div>
 

@@ -6,7 +6,7 @@
             组织机构
         </div>
         <div class="panel-body" id="orgPanel">
-            <div class="row">
+            <div class="row iMethod-toolbar">
                 <div class="col-md-8">
                     <input type="text" name="search"/>
                     <i class="search">
@@ -14,7 +14,7 @@
                     </i>
                 </div>
                 <div class="col-md-4">
-                    <i class="btn iMethod-orgAdd">
+                    <i class="iMethod-btn iMethod-btn-action iMethod-orgAdd">
                         添加机构
                     </i>
                 </div>
@@ -34,7 +34,7 @@
     var region =${iMethod:toJSONlLine(region)};
     seajs.use(['controller/org'], function (orgCtl) {
         $(function () {
-            orgCtl.orgTable("orgPanel", orgType, schoolType,region);
+            orgCtl.orgTable("orgPanel", orgType, schoolType, region);
         })
     })
 

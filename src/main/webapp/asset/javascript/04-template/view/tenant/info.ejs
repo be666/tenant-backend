@@ -7,7 +7,7 @@
             机构
         </div>
         <div class="col-md-4">
-            <input type="text" class="input iMethod-schoolOrg" readonly/>
+            <input type="text" class="input iMethod-schoolOrg" readonly required/>
         </div>
     </div>
     <div class="row">
@@ -15,7 +15,7 @@
             租户名称
         </div>
         <div class="col-md-4">
-            <input type="text" class="input iMethod-tenantName" name="tenantName"/>
+            <input type="text" class="input iMethod-tenantName" name="tenantName" required/>
         </div>
     </div>
 
@@ -24,7 +24,7 @@
             学校二级域名：
         </div>
         <div class="col-md-6">
-            <input type="text" class="input iMethod-shortName" name="shortName"/>.gaoxiaobang.com
+            <input type="text" class="input iMethod-shortName" name="shortName" required/>.gaoxiaobang.com
         </div>
     </div>
 
@@ -133,7 +133,7 @@
             交付日期：
         </div>
         <div class="col-md-4">
-            <input type="text" name="tenantTime" class="tenantTime"/>
+            <input type="datetime" name="tenantTime" class="tenantTime" required/>
         </div>
         <div class="col-md-2">
             当前交付状态：

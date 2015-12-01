@@ -62,4 +62,9 @@ public class AuthCtl {
     public String noAuth() {
         return "没有权限";
     }
+
+    @RequestMapping("/main")
+    public String main() {
+        return "main";
+    }
 }

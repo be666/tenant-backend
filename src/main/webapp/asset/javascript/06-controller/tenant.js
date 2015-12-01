@@ -285,6 +285,7 @@ define('controller/tenant', [
                         }
                     }
                 });
+                selectDialog.position();
             }, {
                 pageIndex: index,
                 pageSize: size
@@ -355,6 +356,7 @@ define('controller/tenant', [
                         }
                     }
                 });
+                selectDialog.position();
             }, {
                 pageIndex: index,
                 pageSize: size

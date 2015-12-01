@@ -6,21 +6,20 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="/WEB-INF/include.jsp"%>
+<%@include file="/WEB-INF/include.jsp" %>
 <div class="iMethod-header-warp">
     <div class="row iMethod-header clear-fix">
         <div class="col-md-8 iMethod-header-left">
             <div class="iMethod-logo">
-                <a href="#">
-                    <img class="logo-img" alt=""/>
+                <a href="${contextPath}/">
+                    高校邦租户管理系统
                 </a>
             </div>
 
         </div>
         <c:if test="${!LUser.guest}">
             <div class="col-md-4 iMethod-header-right">
-
-                <div class="iMethod-user-info" id="iMethodUser">
+                <div class="iMethod-user-info pull-right" id="iMethodUser">
 
                     <div class="text">
                         <span class="user-name">${LUser.user.userName}</span>
