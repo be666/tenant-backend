@@ -4,8 +4,10 @@ import com.imethod.core.log.Logger;
 import com.imethod.core.log.LoggerFactory;
 import com.imethod.domain.ReturnBean;
 import com.imethod.sites.web.alarm.service.AlarmService;
+import com.imethod.sites.web.code.service.CodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,7 +30,16 @@ public class AlarmCtl {
     @Autowired
     private AlarmService alarmService;
 
+    @Autowired
+    private CodeService codeService;
+
     @RequestMapping(value = "/alarm", method = RequestMethod.GET)
+    public String alarm(ModelMap modelMap) {
+        modelMap.put("expireStatue", codeService.listCodeByType("expireStatue"));
+        return "alarm";
+    }
+
+    @RequestMapping(value = "/alarm.ajax", method = RequestMethod.POST)
     @ResponseBody
     public ReturnBean list(@RequestParam(required = false) String query,
                            @RequestParam(required = false, defaultValue = "1") Long pageIndex,
@@ -37,11 +48,12 @@ public class AlarmCtl {
                            @RequestParam(required = false) Integer expireStatus) {
         Map<String, Object> map = new HashMap<>();
         try {
-            if(serviceType.equals("tenant")||serviceType.equals("course")){
+            if (serviceType.equals("tenant") || serviceType.equals("course")) {
                 map.put("pageMaker", alarmService.pageAlarm(query, serviceType, expireStatus, pageIndex, pageSize));
-                map.put("countAll",alarmService.countServiceType(serviceType));
+                map.put("countAll", alarmService.countServiceType(serviceType));
                 map.put("count30", alarmService.countTypeAndExpire(serviceType, 30));
                 map.put("count20", alarmService.countTypeAndExpire(serviceType, 20));
+                map.put("serviceType", serviceType);
             }
             return new ReturnBean(map);
         } catch (Exception e) {

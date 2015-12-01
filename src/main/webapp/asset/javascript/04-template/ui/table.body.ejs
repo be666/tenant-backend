@@ -11,9 +11,14 @@ for(var i = 0;i < dLength;i++){
     <% for(var j = 0;j < tLength;j++){
         var title = titles[j];
         var key = title['key'];
+        var render = title['render'];
+        var view = data[key];
+        if (isFunc(render)) {
+            view = render(data, data[key]);
+        }
     %>
     <td>
-        <%= data[key] %>
+        <%= view %>
     </td>
     <% } %>
 </tr>

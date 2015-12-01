@@ -48,10 +48,16 @@ define('controller/tenant', [
                 name: "租户名称"
             }, {
                 key: "startTime",
-                name: "服务开通时间"
+                name: "服务开通时间",
+                render:function(obj,el){
+                    return utils.parseDate(el)
+                }
             }, {
                 key: "endTime",
-                name: "服务截止时间"
+                name: "服务截止时间",
+                render:function(obj,el){
+                    return utils.parseDate(el)
+                }
             }, {
                 key: "currentStatusName",
                 name: "当前状态"
@@ -488,7 +494,7 @@ define('controller/tenant', [
             tenant['serviceUser'] = $tenantInfo.find(".iMethod-service").attr("data-userId");
             tenant['resourceService'] = $tenantInfo.find(".resource-service").is("check") ? 1 : 0;
             tenant['scoreService'] = $tenantInfo.find(".score-service").is("check") ? 1 : 0;
-            tenant['tenantTime'] = $tenantInfo.find(".tenantTime").val();
+            tenant['tenantTime'] = new Date($tenantInfo.find(".tenantTime").val()).Format("yyyy-MM-dd hh:mm:ss");
             tenant['currentStatus'] = $tenantInfo.find(".iMethod-currentStatus").iMethodSelect().getSelected()['code'];
             tenantService.saveTenant(tenant, function (res) {
                 if (res.status == 1) {

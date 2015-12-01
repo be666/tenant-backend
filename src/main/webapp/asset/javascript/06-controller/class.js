@@ -17,6 +17,7 @@ define('controller/class', [
     var _classTabId = null;
     var _courseClassTabId = null;
     var _courseId = null;
+    var utils = iMethod.utils;
 
     var classTab = function (pageMaker) {
         var classTab = $("#" + _classTabId);
@@ -38,13 +39,22 @@ define('controller/class', [
                 name: "租户"
             }, {
                 key: "classStartTime",
-                name: "班次开始时间"
+                name: "班次开始时间",
+                render: function (obj, el) {
+                    return utils.parseDate(el)
+                }
             }, {
                 key: "classEndTime",
-                name: "班次结束时间"
+                name: "班次结束时间",
+                render: function (obj, el) {
+                    return utils.parseDate(el)
+                }
             }, {
                 key: "isWeight",
-                name: "是否开启权重"
+                name: "是否开启权重",
+                render: function (org, isWeight) {
+                    return isWeight == 1 ? "是" : "否";
+                }
             }, {
                 key: "finishStatusName",
                 name: "使用状态"
@@ -140,13 +150,22 @@ define('controller/class', [
                 name: "租户"
             }, {
                 key: "classStartTime",
-                name: "班次开始时间"
+                name: "班次开始时间",
+                render: function (obj, el) {
+                    return utils.parseDate(el)
+                }
             }, {
                 key: "classEndTime",
-                name: "班次结束时间"
+                name: "班次结束时间",
+                render: function (obj, el) {
+                    return utils.parseDate(el)
+                }
             }, {
                 key: "isWeight",
-                name: "是否开启权重"
+                name: "是否开启权重",
+                render: function (org, isWeight) {
+                    return isWeight == 1 ? "是" : "否";
+                }
             }, {
                 key: "finishStatusName",
                 name: "使用状态"
@@ -224,8 +243,8 @@ define('controller/class', [
         })
         addDialog.target.on("click.iMethod-sure", ".iMethod-sure", function () {
             var classes = {};
-            classes['openTime'] = addDialog.target.find(".iMethod-openTime").val();
-            classes['endTime'] = addDialog.target.find(".iMethod-endTime").val();
+            classes['openTime'] = new Date(addDialog.target.find(".iMethod-openTime").val()).Format("yyyy-MM-dd hh:mm:ss");
+            classes['endTime'] = new Date(addDialog.target.find(".iMethod-endTime").val()).Format("yyyy-MM-dd hh:mm:ss");;
             classes['template'] = templateRadio.getChecked("data-template");
             classes['score'] = scoreRadio.getChecked("data-score");
             classes['video'] = addDialog.target.find(".iMethod-video").val();
