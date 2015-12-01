@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -204,6 +205,7 @@ public class CourseCtl {
             course = courseService.insert(course);
             TenantCourseRp tenantCourseRp = new TenantCourseRp();
             tenantCourseRp.setCourseId(course.getCourseId());
+            tenantCourseRp.setEndTime(new Date());
             tenantCourseRp.setTenantId(course.getTenantId());
             tenantCourseRp.setState(1);
             tenantCourseRp.setIsOwner(1);
