@@ -14,6 +14,7 @@ import java.util.Date;
  */
 @Entity
 public class LogRecord extends BasicEntity {
+    private static final long serialVersionUID = -7327277804918445497L;
     private Long logId;
     private Integer userId;
     private Integer actionType;

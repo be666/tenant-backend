@@ -11,6 +11,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "login_record")
 public class LoginRecord extends BasicEntity {
+    private static final long serialVersionUID = -9023797421894961643L;
     private Integer loginId;
     private Integer userId;
     private String ip;

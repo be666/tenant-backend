@@ -1,5 +1,7 @@
 package com.imethod.domain;
 
+import com.imethod.domain.base.BasicEntity;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +17,8 @@ import java.util.Map;
  * 1.
  */
 @Entity
-public class Code {
+public class Code extends BasicEntity {
+    private static final long serialVersionUID = -4009117757820710358L;
     private Integer codeId;
     private String codeType;
     private Integer levelType;

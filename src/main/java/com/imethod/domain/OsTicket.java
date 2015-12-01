@@ -11,6 +11,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "os_ticket")
 public class OsTicket extends BasicEntity {
+    private static final long serialVersionUID = 7570379425280710740L;
     private Integer ticketId;
     private Integer userId;
     private String ticketInfo;

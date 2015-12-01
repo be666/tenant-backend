@@ -13,8 +13,10 @@ define('service/course_service', function (require, exports, module) {
             data: {
                 pageIndex: query['pageIndex'],
                 pageSize: query['pageSize'],
-                currentStatus: query['currentStatus'],
-                currentStage: query['currentStage']
+                query:query['query'],
+                courseId: query['courseId'],
+                tenantId: query['tenantId'],
+                courseType: query['courseType']
             },
             type: "get",
             success: function (res) {
@@ -33,8 +35,9 @@ define('service/course_service', function (require, exports, module) {
             data: {
                 pageIndex: query['pageIndex'],
                 pageSize: query['pageSize'],
-                currentStatus: query['currentStatus'],
-                currentStage: query['currentStage']
+                query:query['query'],
+                courseId: query['courseId'],
+                courseType: query['courseType']
             },
             type: "get",
             success: function (res) {
@@ -47,7 +50,7 @@ define('service/course_service', function (require, exports, module) {
         })
     };
 
-    exports.queryCourseCanBuy = function (tenantId, callback,query) {
+    exports.queryCourseCanBuy = function (tenantId, callback, query) {
         iMethod._.ajax({
             url: "/tenant/" + tenantId + "/course/buy.ajax",
             data: {
@@ -67,9 +70,9 @@ define('service/course_service', function (require, exports, module) {
         })
     };
 
-    exports.courseBuy = function (tenantId,courseId,callback) {
+    exports.courseBuy = function (tenantId, courseId, callback) {
         iMethod._.ajax({
-            url: "/tenant/" + tenantId + "/course/buy/"+courseId,
+            url: "/tenant/" + tenantId + "/course/buy/" + courseId,
             data: {},
             type: "post",
             success: function (res) {

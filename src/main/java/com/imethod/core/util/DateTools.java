@@ -24,6 +24,9 @@ public class DateTools {
     }
 
     public static Date getDateTime(String strTime) {
+        if(StringTools.isBlank(strTime)){
+            return null;
+        }
         return getTime(strTime, DateType.DATE_TIME);
     }
 

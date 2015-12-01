@@ -61,16 +61,16 @@ public class CourseDao extends IJdbcTempBaseDao {
             "from tenant_course_rp tcr \n" +
             " join course c on c.course_id = tcr.course_id \n" +
             " join tenant t on tcr.tenant_id = t.tenant_id \n" +
-            "left join serve s on tcr.service_id = s.service_id \n" +
-            "left join code c1 on c1.code = c.course_type \n" +
-            "left join code c2 on c2.code = s.expire_status \n" +
-            " where tcr.state = 1 and c1.code_type = 'courseType' and c2.code_type = 'expireStatue'";
+            " join serve s on tcr.course_id = s.context_id and s.context_type='Course' \n" +
+            " join code c1 on c1.code = c.course_type and c1.code_type = 'courseType' \n" +
+            " join code c2 on c2.code = s.expire_status and c2.code_type = 'expireStatue' \n" +
+            " where tcr.state = 1 ";
 
     private static String SQL_LIST_COURSE2 = "select c.course_id,c.course_name,c.tenant_id,t.tenant_name,c.course_type,c1.code_name as course_type_name\n" +
             ",s.start_time,s.end_time,s.expire_status,c2.code_name as expire_status_name\n" +
             " from course c \n" +
             " join tenant t on c.tenant_id = t.tenant_id \n" +
-            "left join serve s on c.course_id = s.context_id and s.service_type='Course'  \n" +
+            "left join serve s on c.course_id = s.context_id and s.context_type='Course'  \n" +
             "left join code c1 on c1.code = c.course_type \n" +
             "left join code c2 on c2.code = s.expire_status \n" +
             " where c.state = 1 and c1.code_type = 'courseType' and c2.code_type = 'expireStatue'";

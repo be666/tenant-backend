@@ -243,8 +243,8 @@ define('controller/class', [
         })
         addDialog.target.on("click.iMethod-sure", ".iMethod-sure", function () {
             var classes = {};
-            classes['openTime'] = new Date(addDialog.target.find(".iMethod-openTime").val()).Format("yyyy-MM-dd hh:mm:ss");
-            classes['endTime'] = new Date(addDialog.target.find(".iMethod-endTime").val()).Format("yyyy-MM-dd hh:mm:ss");;
+            classes['openTime'] = new Date(addDialog.target.find(".iMethod-openTime").val()).Format("yyyy-MM-dd 00:00:00");
+            classes['endTime'] = new Date(addDialog.target.find(".iMethod-endTime").val()).Format("yyyy-MM-dd 00:00:00");;
             classes['template'] = templateRadio.getChecked("data-template");
             classes['score'] = scoreRadio.getChecked("data-score");
             classes['video'] = addDialog.target.find(".iMethod-video").val();

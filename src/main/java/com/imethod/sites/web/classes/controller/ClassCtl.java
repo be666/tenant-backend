@@ -154,7 +154,7 @@ public class ClassCtl {
             Serve serve = new Serve();
             serve.setOrgId(tenant.getOrgId());
             serve.setContextId(classes.getClassId());
-            serve.setServiceType(Constants.ServiceType.Class.toString());
+            serve.setContextType(Constants.ServiceType.Class.toString());
             serve.setStartTime(DateTools.getDateTime(openTime));
             serve.setEndTime(DateTools.getDateTime(endTime));
             serve.setExpireStatus(10);

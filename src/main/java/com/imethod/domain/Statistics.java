@@ -17,6 +17,7 @@ import java.util.Date;
  */
 @Entity
 public class Statistics extends BasicEntity {
+    private static final long serialVersionUID = -8727212463383191013L;
     private Integer id;
     private Integer contextId;
     private Date createdAt;

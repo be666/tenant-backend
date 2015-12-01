@@ -105,15 +105,15 @@ public class ServeService {
     }
 
     private void sendMail(Serve serve) {
-        String serviceType = serve.getServiceType();
+        String ContextType = serve.getContextType();
         String serviceName = null;
-        if ("tenant".equals(serviceType)) {
+        if ("tenant".equals(ContextType)) {
             Tenant tenant = tenantService.getById(serve.getContextId());
             serviceName = "租户:" + tenant == null ? "" : tenant.getTenantName();
-        } else if ("course".equals(serviceType)) {
+        } else if ("course".equals(ContextType)) {
             //TeaantCourse course = tenantService.getById(serve.getContextId());
             serviceName = "课程";
-        } else if ("class".equals(serviceType)) {
+        } else if ("class".equals(ContextType)) {
             serviceName = "班次";
         } else {
             return;

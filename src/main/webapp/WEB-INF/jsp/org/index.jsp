@@ -8,7 +8,7 @@
         <div class="panel-body" id="orgPanel">
             <div class="row iMethod-toolbar">
                 <div class="col-md-8">
-                    <input type="text" name="search"/>
+                    <input type="text" name="search" placeholder="enter for search"/>
                     <i class="search">
                         查询
                     </i>

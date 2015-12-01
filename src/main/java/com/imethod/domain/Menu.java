@@ -17,6 +17,7 @@ import java.util.Date;
  */
 @Entity
 public class Menu extends BasicEntity {
+    private static final long serialVersionUID = -6363174120526501580L;
     private Integer menuId;
     private String menuName;
     private Integer menuType;

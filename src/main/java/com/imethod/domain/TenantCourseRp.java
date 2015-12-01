@@ -13,6 +13,7 @@ import java.util.Date;
  */
 @Entity
 public class TenantCourseRp extends BasicEntity {
+    private static final long serialVersionUID = -3976786428310268844L;
     private Integer tcId;
     private Integer tenantId;
     private Integer courseId;

@@ -2,12 +2,15 @@ package com.imethod.domain.base;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by bcaring on 15/11/30.
  */
-public class BasicEntity {
+public class BasicEntity implements Serializable {
+
+    private static final long serialVersionUID = 2660453599505808785L;
     private Integer creatorId;
     private Date createAt;
     private Integer updaterId;

@@ -8,6 +8,7 @@ import com.imethod.core.util.StringTools;
 import com.imethod.domain.*;
 import com.imethod.sites.web.buyer.service.BuyerService;
 import com.imethod.sites.web.code.service.CodeService;
+import com.imethod.sites.web.course.service.CourseService;
 import com.imethod.sites.web.job.service.ServeService;
 import com.imethod.sites.web.manager.service.ManagerService;
 import com.imethod.sites.web.region.service.RegionService;
@@ -59,6 +60,8 @@ public class TenantCtl {
     private SpocService spocService;
     @Autowired
     private ReportService reportService;
+    @Autowired
+    private CourseService courseService;
 
 
     @RequestMapping(value = "/tenant", method = RequestMethod.GET)
@@ -82,13 +85,19 @@ public class TenantCtl {
     public String create(ModelMap modelMap) {
         modelMap.put("currentStatus", codeService.listCodeByType("currentStatus"));
         modelMap.put("serviceType", codeService.listCodeByType("serviceType"));
+        modelMap.put("orgType", codeService.listCodeByType("orgType"));
+        modelMap.put("schoolType", codeService.listCodeByType("schoolType"));
+        modelMap.put("region", regionService.getRegionTree());
         return "tenant.info";
     }
 
     @RequestMapping(value = "/tenant/{tenantId}/course", method = RequestMethod.GET)
     public String course(@PathVariable String tenantId, ModelMap modelMap) {
+        modelMap.put("courseList", courseService.listCourseAll());
+        modelMap.put("tenantList", tenantService.listTenantAll());
         modelMap.put("courseType", codeService.listCodeByType("courseType"));
         modelMap.put("serviceType", codeService.listCodeByType("serviceType"));
+        modelMap.put("currentStatus", codeService.listCodeByType("currentStatus"));
         modelMap.put("tenantId", tenantId);
         return "tenant.course";
     }
@@ -154,6 +163,7 @@ public class TenantCtl {
         tenant.setTenantName(tenantName);
         tenant.setDomain(shortName);
         tenant.setOrgName(orgName);
+        tenant.setServiceType(StringTools.getInteger(serviceType));
         tenant.setOrgId(StringTools.getInteger(schoolOrg == null ? "0" : schoolOrg));
         tenant = tenantService.insert(tenant);
         Buyer buyer = new Buyer();
@@ -179,7 +189,8 @@ public class TenantCtl {
         Serve serve = new Serve();
         serve.setOrgId(tenant.getOrgId());
         serve.setContextId(tenant.getTenantId());
-        serve.setServiceType(Constants.ServiceType.Tenant.toString());
+        serve.setContextType(Constants.ServiceType.Tenant.toString());
+        serve.setServiceType(StringTools.getInteger(serviceType));
         serve.setStartTime(DateTools.getDateTime(tenantTime));
         serve.setExpireStatus(10);
         serve.setState(1);

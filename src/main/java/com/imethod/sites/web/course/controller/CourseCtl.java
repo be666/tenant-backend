@@ -42,10 +42,11 @@ public class CourseCtl {
     @RequestMapping(value = "/course", method = RequestMethod.GET)
     public String index(ModelMap modelMap) {
         try {
-            List<Course> courseList = courseService.listCourseAll();
-            List<Tenant> tenantList = tenantService.listTenantAll();
-            modelMap.put("courseList", courseList);
-            modelMap.put("tenantList", tenantList);
+            modelMap.put("courseList", courseService.listCourseAll());
+            modelMap.put("tenantList", tenantService.listTenantAll());
+            modelMap.put("courseType", codeService.listCodeByType("courseType"));
+            modelMap.put("currentStatus", codeService.listCodeByType("currentStatus"));
+
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());
@@ -112,6 +113,7 @@ public class CourseCtl {
     @RequestMapping(value = "/tenant/{tenantId}/course/buy/{courseId}", method = RequestMethod.POST)
     @ResponseBody
     public ReturnBean courseBuy(@PathVariable Long tenantId,
+                                @RequestParam String serviceType,
                                 @PathVariable Long courseId) {
         Map<String, Object> map = new HashMap<>();
         Course course = courseService.getById(StringTools.getInteger(courseId));
@@ -125,7 +127,8 @@ public class CourseCtl {
         Serve serve = new Serve();
         serve.setOrgId(tenant.getOrgId());
         serve.setContextId(course.getCourseId());
-        serve.setServiceType(Constants.ServiceType.Course.toString());
+        serve.setContextType(Constants.ServiceType.Course.toString());
+        serve.setServiceType(StringTools.getInteger(serviceType));
         serve.setStartTime(DateTools.getCurrentDateTime());
         serve.setEndTime(DateTools.getCurrentDateTime());
         serve.setServiceMoney(0);
@@ -192,6 +195,7 @@ public class CourseCtl {
             course.setPeopleAll(StringTools.getInteger(peopleAll));
             course.setPeopleNum(StringTools.getInteger(peopleNum));
             course.setPeopleMoney(StringTools.getInteger(peopleMoney));
+            course.setServiceType(StringTools.getInteger(serviceType));
             course.setState(1);
             course.setScore(StringTools.getInteger(courseScore));
             course.setVideoLength(StringTools.getInteger(videoTime));
@@ -207,7 +211,8 @@ public class CourseCtl {
             Serve serve = new Serve();
             serve.setOrgId(tenant.getOrgId());
             serve.setContextId(course.getCourseId());
-            serve.setServiceType(Constants.ServiceType.Course.toString());
+            serve.setContextType(Constants.ServiceType.Course.toString());
+            serve.setServiceType(StringTools.getInteger(serviceType));
             serve.setStartTime(DateTools.getCurrentDateTime());
             serve.setEndTime(DateTools.getDateTime(serviceTime));
             serve.setServiceMoney(StringTools.getInteger(courseMoney));

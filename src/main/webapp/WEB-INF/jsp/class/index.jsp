@@ -8,7 +8,7 @@
         <div class="panel-body">
             <div class="row iMethod-toolbar">
                 <div class="col-md-3">
-                    <input type="text" class="iMethod-queryClass">
+                    <input type="text" class="iMethod-queryClass" placeholder="enter for search">
                 </div>
                 <div class="col-md-2">
                     <div class="iMethod-currentStatus"></div>

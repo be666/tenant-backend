@@ -1,25 +1,22 @@
 /**
- * auth : iMethod
- * create_at: 15/11/15.
- * desc:
- * note:
- *  1.
+ * Created by bcaring on 15/12/2.
  */
-define('service/alarm_service', function (require, exports, module) {
+define('service/statistics_service', function (require, exports, module) {
 
-
-    exports.queryAlarmList = function (callback, query) {
-        var serviceType = query['serviceType'];
-        var expireStatus = query['expireStatus'];
+    exports.queryStatisticsList = function (callback, query) {
+        var type = query['type'];
+        var startDate = query['startDate'];
+        var endDate = query['endDate'];
         var pageIndex = query['pageIndex'];
         var pageSize = query['pageSize'];
         var _query = query['query'];
         iMethod._.ajax({
-            url: "/alarm.ajax",
+            url: "/statistics.ajax",
             data: {
+                type:type,
                 query: _query,
-                serviceType: serviceType,
-                expireStatus: expireStatus,
+                startDate: startDate,
+                endDate: endDate,
                 pageIndex: pageIndex,
                 pageSize: pageSize
             },
@@ -33,5 +30,5 @@ define('service/alarm_service', function (require, exports, module) {
             }
         })
     };
-    iMethod.service.alarm_service = module.exports
+    iMethod.service.statistics_service = module.exports
 });

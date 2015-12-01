@@ -17,12 +17,14 @@ import java.util.Date;
  */
 @Entity
 public class Serve extends BasicEntity {
+    private static final long serialVersionUID = -1780294324618304955L;
     private Integer serviceId;
     private Integer orgId;
     private Integer contextId;
     private Date startTime;
     private Date endTime;
-    private String serviceType;
+    private Integer serviceType;
+    private String contextType;
     private Integer state;
     private Integer forever;
     private Integer expireStatus;
@@ -80,11 +82,11 @@ public class Serve extends BasicEntity {
 
     @Basic
     @Column(name = "service_type", nullable = true, insertable = true, updatable = true, length = 20)
-    public String getServiceType() {
+    public Integer getServiceType() {
         return serviceType;
     }
 
-    public void setServiceType(String serviceType) {
+    public void setServiceType(Integer serviceType) {
         this.serviceType = serviceType;
     }
 
@@ -126,5 +128,15 @@ public class Serve extends BasicEntity {
 
     public void setServiceMoney(Integer serviceMoney) {
         this.serviceMoney = serviceMoney;
+    }
+
+    @Basic
+    @Column(name = "context_type", nullable = true, insertable = true, updatable = true, length = 20)
+    public String getContextType() {
+        return contextType;
+    }
+
+    public void setContextType(String contextType) {
+        this.contextType = contextType;
     }
 }

@@ -14,6 +14,7 @@ import java.util.Date;
 @Entity
 public class Classes extends BasicEntity {
 
+    private static final long serialVersionUID = 5535496163127012729L;
     private Integer classId;
 
     private String className;
