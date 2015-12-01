@@ -16,19 +16,22 @@
             </div>
 
         </div>
-        <div class="col-md-4 iMethod-header-right">
+        <c:if test="${!LUser.guest}">
+            <div class="col-md-4 iMethod-header-right">
 
-            <div class="iMethod-user-info" id="iMethodUser">
-                <sapn class="text">
-                    <span class="user-name">${LUser.user.userName}</span>
-                    <span class="nav-toggle">&#9660</span>
-                    <ul class="iMethod-hide">
-                        <li><a href="#">个人设置</a></li>
-                        <li><a href="#">退出</a></li>
-                    </ul>
-                </sapn>
+                <div class="iMethod-user-info" id="iMethodUser">
+
+                    <sapn class="text">
+                        <span class="user-name">${LUser.user.userName}</span>
+                        <span class="nav-toggle">&#9660</span>
+                        <ul class="iMethod-hide">
+                            <li><a href="#">个人设置</a></li>
+                            <li><a href="#">退出</a></li>
+                        </ul>
+                    </sapn>
+                </div>
             </div>
-        </div>
+        </c:if>
     </div>
 </div>
 <script>

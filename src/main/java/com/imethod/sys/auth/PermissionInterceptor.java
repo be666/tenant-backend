@@ -1,14 +1,17 @@
-package com.imethod.sites.web.sys.auth;
+package com.imethod.sys.auth;
 
 import com.imethod.core.util.StringTools;
 import com.imethod.domain.User;
 import com.imethod.sites.web.permission.service.PermissionService;
 import com.imethod.sites.web.user.service.UserService;
+import com.imethod.sys.sso.SSOService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.support.ResourceHolder;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.mvc.ParameterizableViewController;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,36 +33,48 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private SSOService ssoService;
+
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         if (handler instanceof ResourceHttpRequestHandler) {
             return true;
         }
+        HandlerMethod methodHandler = null;
+        if (handler instanceof ResourceHolder) {
+            return true;
+        }
         //获取用户
-        Integer userId = 0;
-        User user = userService.loadById(1);
+        User user = null;
+        Integer userId = ssoService.getUserId(request);
+        if (userId != null) {
+            user = userService.loadById(userId);
+        }
+        LUser lUser = new LUser(user);
         String url = request.getRequestURI();
         if (StringTools.isNotEmpty(request.getQueryString())) {
             url = url.concat("?").concat(request.getQueryString());
         }
         request.setAttribute(PermissionKey.visit_url, url);
         // 装载会话中的登录上下文
-        UserContent.setLUser(null);
-        UserContent.setRequest(request);
-        UserContent.setResponse(response);
-        LUser lUser = new LUser(user);
-        UserContent.saveLUser(lUser);
-        // 自动获取权限
+        UserContent.saveLUser(request, response, lUser);
+        //获取权限
         PermissionCheck permissionCheck;
         ResponseBody responseBody;
-        HandlerMethod methodHandler = null;
+
         boolean allowAnonymous = false;
         String menuType;
+        boolean hasRule = true;
         if (handler instanceof HandlerMethod) {
             methodHandler = (HandlerMethod) handler;
             permissionCheck = methodHandler.getMethodAnnotation(PermissionCheck.class);
             responseBody = methodHandler.getMethodAnnotation(ResponseBody.class);
+            if (responseBody != null) {
+                request.setAttribute("responseBody", "true");
+            }
             menuType = "option";
             if (permissionCheck == null) {
                 Object bean = methodHandler.getBean();
@@ -67,14 +82,12 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
                 permissionCheck = bean.getClass().getAnnotation(PermissionCheck.class);
             }
             if (permissionCheck != null) {
-                if (permissionCheck.value().length() >= 1 && permissionCheck.value().equalsIgnoreCase("false")) {
+                if (!permissionCheck.value()) {
                     allowAnonymous = true;
                 } else {
                     String menu = permissionCheck.menu();
                     List<String> ruleList = permissionService.getUserRuleStr(userId, menuType);
-                    if (!ruleList.contains(menu)) {
-                        return false;
-                    }
+                    hasRule = ruleList.contains(menu);
                 }
             }
             if (responseBody != null) {
@@ -88,6 +101,12 @@ public class PermissionInterceptor extends HandlerInterceptorAdapter {
         if (allowAnonymous) {
             // 不要求登录验证
             return true;
+        } else if (user == null) {
+            response.sendRedirect("/login?refer=" + url);
+            return false;
+        } else if (!hasRule) {
+            response.sendRedirect("/noAuth");
+            return false;
         }
         return true;
         //获取用户权限

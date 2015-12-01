@@ -71,11 +71,12 @@
         </property>
     </bean>
 
+    <bean id="ssoService" class="com.imethod.sys.sso.SSOServletService"/>
 
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <bean class="com.imethod.sites.web.sys.auth.PermissionInterceptor"/>
+            <bean class="com.imethod.sys.auth.PermissionInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 

@@ -8,14 +8,12 @@ import com.imethod.domain.ReturnBean;
 import com.imethod.sites.web.code.service.CodeService;
 import com.imethod.sites.web.org.service.OrgService;
 import com.imethod.sites.web.region.service.RegionService;
-import com.imethod.sites.web.sys.auth.UserContent;
 import com.imethod.sites.web.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 

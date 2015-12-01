@@ -1,0 +1,18 @@
+package com.imethod.sys.sso;
+
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * Created by bcaring on 15/12/1.
+ */
+public interface SSOService {
+
+    //登陆
+    boolean login(HttpServletRequest request, Integer userId);
+
+    //验证登陆信息是否有效
+    boolean logout(HttpServletRequest request);
+
+    //获取登陆信息 (包含校验 与 自动登陆)
+    Integer getUserId(HttpServletRequest request);
+}

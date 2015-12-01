@@ -1,4 +1,4 @@
-package com.imethod.sites.web.sys;
+package com.imethod.sys;
 
 import org.springframework.web.context.ContextLoaderListener;
 

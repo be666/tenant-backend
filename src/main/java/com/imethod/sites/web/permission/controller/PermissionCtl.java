@@ -5,7 +5,7 @@ import com.imethod.core.util.StringTools;
 import com.imethod.domain.OsUser;
 import com.imethod.domain.ReturnBean;
 import com.imethod.sites.web.permission.service.PermissionService;
-import com.imethod.sites.web.sys.auth.UserContent;
+import com.imethod.sys.auth.UserContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +46,7 @@ public class PermissionCtl {
     public ReturnBean userMenu(@PathVariable String userId,
                                @RequestParam(value = "menus[]") List<Integer> menuList) {
         Map<String, Object> map = new HashMap<>();
-        permissionService.saveUserMenu(StringTools.getInteger(userId),menuList);
+        permissionService.saveUserMenu(StringTools.getInteger(userId), menuList);
         return new ReturnBean(map);
     }
 
@@ -86,6 +86,7 @@ public class PermissionCtl {
     public ReturnBean addUser(@PathVariable String userId) {
         Map<String, Object> map = new HashMap<>();
         OsUser osUser = new OsUser();
+        osUser.setPassword("123456");
         osUser.setUserId(StringTools.getInteger(userId));
         permissionService.insert(osUser);
         return new ReturnBean(map);

@@ -8,7 +8,7 @@ import com.imethod.core.util.BeanTools;
 import com.imethod.core.util.DateTools;
 import com.imethod.core.util.ExceptionTools;
 import com.imethod.domain.base.BasicEntity;
-import com.imethod.sites.web.sys.auth.UserContent;
+import com.imethod.sys.auth.UserContent;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;

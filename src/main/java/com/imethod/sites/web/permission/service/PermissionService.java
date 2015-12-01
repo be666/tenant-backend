@@ -3,6 +3,7 @@ package com.imethod.sites.web.permission.service;
 import com.imethod.core.jdbc.PageMaker;
 import com.imethod.core.util.ListTools;
 import com.imethod.domain.Menu;
+import com.imethod.domain.OsTicket;
 import com.imethod.domain.OsUser;
 import com.imethod.domain.Rule;
 import com.imethod.sites.web.permission.dao.PermissionDao;
@@ -74,5 +75,17 @@ public class PermissionService {
             rule.setMenuId(menuId);
             permissionDao.insert(rule);
         }
+    }
+
+    public OsTicket saveTicket(OsTicket osTicket) {
+        return permissionDao.insert(osTicket);
+    }
+
+    public void deleteTicket(String user_ticket) {
+        permissionDao.deleteTicket(user_ticket);
+    }
+
+    public OsTicket queryTicket(String userTicket) {
+        return permissionDao.queryTicket(userTicket);
     }
 }

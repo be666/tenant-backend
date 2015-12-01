@@ -1,9 +1,4 @@
-package com.imethod.sites.web.sys.auth;
-
-import com.imethod.core.util.IdentitieTools;
-import com.imethod.core.util.StringTools;
-import com.imethod.domain.User;
-import com.sun.org.apache.bcel.internal.generic.LUSHR;
+package com.imethod.sys.auth;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,7 +55,10 @@ public class UserContent {
     }
 
 
-    public static void saveLUser(LUser user) {
+    public static void saveLUser(HttpServletRequest request, HttpServletResponse response, LUser user) {
+        setLUser(null);
+        setRequest(request);
+        setResponse(response);
         setLUser(user);
     }
 

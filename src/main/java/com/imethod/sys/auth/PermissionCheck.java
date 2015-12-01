@@ -1,4 +1,4 @@
-package com.imethod.sites.web.sys.auth;
+package com.imethod.sys.auth;
 
 import java.lang.annotation.*;
 
@@ -13,7 +13,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface PermissionCheck {
-    String value() default "true";
+    boolean value() default true;
 
     String menu() default "";
 }
