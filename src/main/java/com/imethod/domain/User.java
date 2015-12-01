@@ -24,7 +24,6 @@ public class User extends BasicEntity {
     private String mobile;
     private String email;
     private String gender;
-    private String password;
     private Integer state;
 
     @Id
@@ -85,16 +84,6 @@ public class User extends BasicEntity {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    @Basic
-    @Column(name = "password", nullable = true, insertable = true, updatable = true, length = 100)
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     @Basic

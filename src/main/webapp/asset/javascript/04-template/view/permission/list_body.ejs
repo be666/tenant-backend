@@ -14,20 +14,13 @@ for(var i = 0;i < dLength;i++){
     <% for(var j = 0;j < tLength;j++){
         var title = titles[j];
         var key = title['key'];
-        var render = title['render'];
-        log(render);
-        var view = data[key];
-        if (isFunc(render)) {
-            view = render(data, data[key]);
-        }
     %>
     <td>
-        <%= view %>
+        <%= data[key] %>
     </td>
     <% } %>
     <td>
-        <i class="iMethod-btn iMethod-btn-pri user-manager">用户管理</i>
-        <i class="iMethod-btn iMethod-btn-pri org-edit">编辑</i>
+        <i class="iMethod-btn iMethod-btn-pri permission-edit">权限设置</i>
     </td>
 </tr>
 <% } %>
