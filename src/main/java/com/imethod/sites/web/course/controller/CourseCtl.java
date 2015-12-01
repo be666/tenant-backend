@@ -42,10 +42,11 @@ public class CourseCtl {
     @RequestMapping(value = "/course", method = RequestMethod.GET)
     public String index(ModelMap modelMap) {
         try {
-            List<Course> courseList = courseService.listCourseAll();
-            List<Tenant> tenantList = tenantService.listTenantAll();
-            modelMap.put("courseList", courseList);
-            modelMap.put("tenantList", tenantList);
+            modelMap.put("courseList", courseService.listCourseAll());
+            modelMap.put("tenantList", tenantService.listTenantAll());
+            modelMap.put("courseType", codeService.listCodeByType("courseType"));
+            modelMap.put("currentStatus", codeService.listCodeByType("currentStatus"));
+
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());

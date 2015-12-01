@@ -8,6 +8,7 @@ import com.imethod.core.util.StringTools;
 import com.imethod.domain.*;
 import com.imethod.sites.web.buyer.service.BuyerService;
 import com.imethod.sites.web.code.service.CodeService;
+import com.imethod.sites.web.course.service.CourseService;
 import com.imethod.sites.web.job.service.ServeService;
 import com.imethod.sites.web.manager.service.ManagerService;
 import com.imethod.sites.web.region.service.RegionService;
@@ -59,6 +60,8 @@ public class TenantCtl {
     private SpocService spocService;
     @Autowired
     private ReportService reportService;
+    @Autowired
+    private CourseService courseService;
 
 
     @RequestMapping(value = "/tenant", method = RequestMethod.GET)
@@ -90,8 +93,11 @@ public class TenantCtl {
 
     @RequestMapping(value = "/tenant/{tenantId}/course", method = RequestMethod.GET)
     public String course(@PathVariable String tenantId, ModelMap modelMap) {
+        modelMap.put("courseList", courseService.listCourseAll());
+        modelMap.put("tenantList", tenantService.listTenantAll());
         modelMap.put("courseType", codeService.listCodeByType("courseType"));
         modelMap.put("serviceType", codeService.listCodeByType("serviceType"));
+        modelMap.put("currentStatus", codeService.listCodeByType("currentStatus"));
         modelMap.put("tenantId", tenantId);
         return "tenant.course";
     }

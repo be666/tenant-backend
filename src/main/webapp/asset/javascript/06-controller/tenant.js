@@ -89,16 +89,17 @@ define('controller/tenant', [
             var pageMaker = dataMap['pageMaker'];
             tableInit(pageMaker);
         }, {
+            query: $(".iMethod-queryTenant").val() || "",
             pageIndex: index,
             pageSize: size,
-            currentStatus: null,
-            currentStage: null
+            currentStatus: $(".iMethod-currentStatus").iMethodSelect().getSelected()['code'],
+            serviceType: $(".iMethod-serviceType").iMethodSelect().getSelected()['code']
         });
     };
 
     exports.tenantTable = function (tenantTabId, currentStatus, serviceType) {
         _tenantTabId = tenantTabId;
-        queryTenant();
+
         currentStatus = [{
             code: "",
             codeName: "请选择"
@@ -111,6 +112,9 @@ define('controller/tenant', [
             unSelected: {
                 code: "",
                 codeName: "请选择"
+            },
+            onChange: function () {
+                queryTenant();
             }
         });
         serviceType = [{
@@ -124,6 +128,9 @@ define('controller/tenant', [
             unSelected: {
                 code: "",
                 codeName: "请选择"
+            },
+            onChange: function () {
+                queryTenant();
             }
         });
 
@@ -135,7 +142,22 @@ define('controller/tenant', [
             var $this = $(this);
             var tenantId = $this.closest("tr").attr("data-pk");
             window.location.href = iMethod.contextPath + "/tenant/" + tenantId + "/course";
-        })
+        });
+
+        var keyTimer;
+        $(".iMethod-queryTenant").on("keyup.queryTenant", function () {
+            var $this = $(this);
+            if (event.keyCode == 13) {
+                if (keyTimer != null) {
+                    clearTimeout(keyTimer);
+                }
+                keyTimer = setTimeout(function () {
+                    queryTenant();
+                    clearTimeout(keyTimer);
+                }, 500);
+            }
+        });
+        queryTenant();
     };
 
 
@@ -444,7 +466,7 @@ define('controller/tenant', [
         var $tenantInfo = $("#" + tenant_info);
         _orgType = orgType;
         _schoolType = schoolType;
-        _province= province;
+        _province = province;
         $tenantInfo.html(tenantInfo());
         $tenantInfo.on("click.select-schoolOrg", ".iMethod-schoolOrg", function () {
             var $this = $(this);

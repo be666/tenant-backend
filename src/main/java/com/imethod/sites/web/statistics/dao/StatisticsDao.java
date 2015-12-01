@@ -37,7 +37,7 @@ public class StatisticsDao extends IJdbcTempBaseDao {
     private static String STATISTICS_TENANT_SQL = "" +
             "select t.tenant_id,t.tenant_name,t.course_num,ifnull(c.classes_num,0) as classes_num ,sel.user_name,\n" +
             "ifnull(s.user_num,0) as user_num,ifnull(s.active_num,0) as active_num ,ifnull(s.pv,0) as pv,IFNULL(s.uv,0) as uv   from tenant t \n" +
-            "join serve se on se.context_id = t.tenant_id and se.service_type = 'tenant' \n" +
+            "join serve se on se.context_id = t.tenant_id and se.context_type = 'Tenant' \n" +
             "left join (select tenant_id,count(1) as classes_num from classes where state = 1  group by tenant_id) c on c.tenant_id = t.tenant_id \n" +
             "left join (select * from statistics where type = 'tenant') s on s.context_id = t.tenant_id\n" +
             "left join (select ss.*,u.user_name from seller ss join user u on u.user_id = ss.user_id " +

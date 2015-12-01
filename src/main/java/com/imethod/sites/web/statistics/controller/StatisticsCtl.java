@@ -1,5 +1,6 @@
 package com.imethod.sites.web.statistics.controller;
 
+import com.imethod.core.util.DateTools;
 import com.imethod.domain.ReturnBean;
 import com.imethod.sites.web.statistics.service.StatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,18 +32,19 @@ public class StatisticsCtl {
         return "statistics";
     }
 
-    @RequestMapping(value = "/statistics.ajax", method = RequestMethod.GET)
+    @RequestMapping(value = "/statistics.ajax", method = RequestMethod.POST)
     @ResponseBody
     public ReturnBean list(@RequestParam(required = false) String query,
                            @RequestParam(required = false, defaultValue = "1") Long pageIndex,
                            @RequestParam(required = false, defaultValue = "10") Long pageSize,
                            @RequestParam(required = false, defaultValue = "tenant") String type,
-                           @RequestParam(required = false) Date startDate,
-                           @RequestParam(required = false) Date andDate) {
+                           @RequestParam(required = false) String startDate,
+                           @RequestParam(required = false) String endDate) {
         Map<String, Object> map = new HashMap<>();
         try {
             if (type.equals("tenant") || type.equals("course") || type.equals("class")) {
-                map.put("pageMaker", statisticsService.pagesStatistics(type, query, startDate, andDate, pageIndex, pageSize));
+                map.put("pageMaker", statisticsService.pagesStatistics(type, query,
+                        DateTools.getDateTime(startDate), DateTools.getDateTime(endDate), pageIndex, pageSize));
                 map.put("type", type);
             }
             return new ReturnBean(map);

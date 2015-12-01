@@ -36,7 +36,7 @@ define('controller/course', [
             templateHead: courseListHead,
             templateBody: courseListBody,
             pk: "courseId",
-            pageCols:"9",
+            pageCols: "9",
             titles: [{
                 key: "courseId",
                 name: "课程id"
@@ -52,13 +52,13 @@ define('controller/course', [
             }, {
                 key: "startTime",
                 name: "服务开始时间",
-                render:function(obj,el){
+                render: function (obj, el) {
                     return utils.parseDate(el)
                 }
             }, {
                 key: "endTime",
                 name: "服务截止时间",
-                render:function(obj,el){
+                render: function (obj, el) {
                     return utils.parseDate(el)
                 }
             }, {
@@ -83,7 +83,7 @@ define('controller/course', [
         pageMaker = pageMaker || {};
         pageMaker['items'] = pageMaker['items'] || [];
         tenantTab.iMethodTable({
-            pageCols:"8",
+            pageCols: "8",
             templateHead: courseListHead,
             templateBody: courseListBody,
             pk: "courseId",
@@ -100,13 +100,13 @@ define('controller/course', [
             }, {
                 key: 'startTime',
                 name: "开始时间",
-                render:function(obj,el){
+                render: function (obj, el) {
                     return utils.parseDate(el)
                 }
             }, {
                 key: 'endTime',
                 name: "结束时间",
-                render:function(obj,el){
+                render: function (obj, el) {
                     return utils.parseDate(el)
                 }
             }, {
@@ -133,8 +133,11 @@ define('controller/course', [
         }, {
             pageIndex: index,
             pageSize: size,
-            currentStatus: null,
-            currentStage: null
+            query:$(".iMethod-queryCourse").val()||"",
+            courseId: $(".iMethod-courseList").iMethodSelect().getSelected()['courseId'],
+            tenantId: $(".iMethod-tenantList").iMethodSelect().getSelected()['tenantId'],
+            courseType: $(".iMethod-courseType").iMethodSelect().getSelected()['code']
+
         });
     };
 
@@ -146,8 +149,10 @@ define('controller/course', [
         }, {
             pageIndex: index,
             pageSize: size,
-            currentStatus: null,
-            currentStage: null
+            query:$(".iMethod-queryCourse").val()||"",
+            courseId: $(".iMethod-courseList").iMethodSelect().getSelected()['courseId'],
+            tenantId: $(".iMethod-tenantList").iMethodSelect().getSelected()['tenantId'],
+            courseType: $(".iMethod-courseType").iMethodSelect().getSelected()['code']
         });
     };
 
@@ -155,15 +160,86 @@ define('controller/course', [
      * 课程管理
      * @param tenantTabId
      */
-    exports.courseTab = function (tenantTabId) {
+    exports.courseTab = function (tenantTabId, tenantList, courseList, courseType, currentStatus) {
         _tenantTabId = tenantTabId;
-        queryCourse();
+
         var tenantTab = $("#" + _tenantTabId);
         tenantTab.on("click.class-manager", ".class-manager", function () {
             var $this = $(this);
             var pk = $this.closest("tr").attr("data-pk");
             window.location.href = iMethod.contextPath + "/course/" + pk + "/class";
-        })
+        });
+        //$(".iMethod-currentStatus").iMethodSelect({
+        //    id: "code",
+        //    text: "codeName",
+        //    dataList: currentStatus || [],
+        //    unSelected: {
+        //        code: "",
+        //        codeName: "请选择"
+        //    },
+        //    onChange:function(){
+        //        queryCourse();
+        //    }
+        //});
+        $(".iMethod-courseType").iMethodSelect({
+            id: "code",
+            text: "codeName",
+            dataList: [{
+                code: "",
+                codeName: "请选择"
+            }].concat(courseType),
+            unSelected: {
+                code: "",
+                codeName: "请选择"
+            },
+            onChange: function () {
+                queryCourse();
+            }
+        });
+        $(".iMethod-courseList").iMethodSelect({
+            id: "courseId",
+            text: "courseName",
+            dataList: [{
+                courseId: "",
+                courseName: "请选择"
+            }].concat(courseList),
+            unSelected: {
+                courseId: "",
+                courseName: "请选择"
+            },
+            onChange: function () {
+                queryCourse();
+            }
+        });
+        $(".iMethod-tenantList").iMethodSelect({
+            id: "tenantId",
+            text: "tenantName",
+            dataList: [{
+                tenantId: "",
+                tenantName: "请选择"
+            }].concat(tenantList),
+            unSelected: {
+                tenantId: "",
+                tenantName: "请选择"
+            },
+            onChange: function () {
+                queryCourse();
+            }
+        });
+        var keyTimer;
+        $(".iMethod-queryCourse").on("keyup.queryCourse", function () {
+            var $this = $(this);
+            if (event.keyCode == 13) {
+                if (keyTimer != null) {
+                    clearTimeout(keyTimer);
+                }
+                keyTimer = setTimeout(function () {
+                    queryCourse();
+                    clearTimeout(keyTimer);
+                }, 500);
+            }
+        });
+        queryCourse();
     };
 
 
@@ -207,7 +283,7 @@ define('controller/course', [
             course['name'] = addDialog.target.find(".iMethod-name").val();
             course['courseType'] = addDialog.target.find(".iMethod-courseType").iMethodSelect().getSelected()['code'];
             course['serviceType'] = addDialog.target.find(".iMethod-serviceType").iMethodSelect().getSelected()['code'];
-            course['serviceTime'] =  new Date(addDialog.target.find(".iMethod-serviceTime").val()).Format("yyyy-MM-dd 00:00:00");
+            course['serviceTime'] = new Date(addDialog.target.find(".iMethod-serviceTime").val()).Format("yyyy-MM-dd 00:00:00");
             course['courseMoney'] = addDialog.target.find(".iMethod-courseMoney").val();
             course['videoTime'] = addDialog.target.find(".iMethod-videoTime").val();
             course['courseScore'] = addDialog.target.find(".iMethod-courseScore").val();
@@ -236,7 +312,7 @@ define('controller/course', [
                 var rowCount = pageMaker['rowCount'];
                 var pages = pageMaker['pageArr'];
                 addDialog.target.find(".iMethod-courseTable").iMethodTable({
-                    pageCols:"8",
+                    pageCols: "8",
                     templateHead: courseListHead,
                     templateBody: courseBuyBody,
                     pk: "courseId",
@@ -253,13 +329,13 @@ define('controller/course', [
                     }, {
                         key: 'startTime',
                         name: "开始时间",
-                        render:function(obj,el){
+                        render: function (obj, el) {
                             return utils.parseDate(el)
                         }
                     }, {
                         key: 'endTime',
                         name: "结束时间",
-                        render:function(obj,el){
+                        render: function (obj, el) {
                             return utils.parseDate(el)
                         }
                     }, {
@@ -319,12 +395,12 @@ define('controller/course', [
      * @param tenantTabId
      * @param tenantId
      */
-    exports.orgCourseTab = function (tenantTabId, tenantId, courseType, serviceType) {
+    exports.orgCourseTab = function (tenantTabId, tenantId, courseType, serviceType, tenantList, courseList, currentStatus) {
         _tenantTabId = tenantTabId;
         _tenantId = tenantId;
         _courseType = courseType;
         _serviceType = serviceType;
-        queryOrgCourse();
+
         $(".iMethod-courseAdd").on("click", function () {
             //window.location.href = iMethod.contextPath + "/tenant/" + tenantId + "/course/new";
             dialogCourse();
@@ -338,6 +414,66 @@ define('controller/course', [
             var pk = $this.closest("tr").attr("data-pk");
             window.location.href = iMethod.contextPath + "/course/" + pk + "/class";
         })
+        $(".iMethod-courseType").iMethodSelect({
+            id: "code",
+            text: "codeName",
+            dataList: [{
+                code: "",
+                codeName: "请选择"
+            }].concat(courseType),
+            unSelected: {
+                code: "",
+                codeName: "请选择"
+            },
+            onChange: function () {
+                queryOrgCourse();
+            }
+        });
+        $(".iMethod-courseList").iMethodSelect({
+            id: "courseId",
+            text: "courseName",
+            dataList: [{
+                courseId: "",
+                courseName: "请选择"
+            }].concat(courseList),
+            unSelected: {
+                courseId: "",
+                courseName: "请选择"
+            },
+            onChange: function () {
+                queryOrgCourse();
+            }
+        });
+        $(".iMethod-tenantList").iMethodSelect({
+            id: "tenantId",
+            text: "tenantName",
+            dataList: [{
+                tenantId: "",
+                tenantName: "请选择"
+            }].concat(tenantList),
+            unSelected: {
+                tenantId: "",
+                tenantName: "请选择"
+            },
+            onChange: function () {
+                queryOrgCourse();
+            }
+        });
+
+        var keyTimer;
+        $(".iMethod-queryCourse").on("keyup.queryCourse", function () {
+            var $this = $(this);
+            if (event.keyCode == 13) {
+                if (keyTimer != null) {
+                    clearTimeout(keyTimer);
+                }
+                keyTimer = setTimeout(function () {
+                    queryOrgCourse();
+                    clearTimeout(keyTimer);
+                }, 500);
+            }
+        });
+        queryOrgCourse();
     };
 
     exports.courseInfo = function () {

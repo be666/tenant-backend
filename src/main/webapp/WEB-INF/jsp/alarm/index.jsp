@@ -14,7 +14,7 @@
             </div>
             <div class="row iMethod-toolbar">
                 <div class="col-md-3">
-                    <input type="text" class="iMethod-query" placeholder="enter search for name">
+                    <input type="text" class="iMethod-query" placeholder="enter for search">
                 </div>
                 <div class="col-md-2">
                     <div class="iMethod-expireStatue"></div>

@@ -11,10 +11,11 @@ define('service/tenant_service', function (require, exports, module) {
         iMethod._.ajax({
             url: "/tenant.ajax",
             data: {
+                query: query['query'],
                 pageIndex: query['pageIndex'],
                 pageSize: query['pageSize'],
                 currentStatus: query['currentStatus'],
-                currentStage: query['currentStage']
+                serviceType: query['serviceType']
             },
             type: "get",
             success: function (res) {
