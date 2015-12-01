@@ -31,7 +31,7 @@
                 </a>
             </div>
             <div class="iMethod-btn iMethod-btn-panel">
-                <a href="${contextPath}/bi">
+                <a href="${contextPath}/statistics">
                     BI统计查阅
                 </a>
             </div>

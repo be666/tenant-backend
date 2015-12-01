@@ -11,6 +11,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "visit_record")
 public class VisitRecord extends BasicEntity {
+    private static final long serialVersionUID = -3850045348989223747L;
     private Integer visitRecordId;
     private Integer userId;
     private String visitUrl;

@@ -280,7 +280,7 @@
         if (utils.isEmptyStr(timeStamp)) {
             return "";
         }
-        return new Date(timeStamp).Format("yyyy-MM-dd hh:mm");
+        return new Date(timeStamp).Format("yyyy-MM-dd");
     };
     $w.iMethod.utils = $w.iMethod.utils || utils;
 })(window, jQuery);

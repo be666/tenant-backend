@@ -11,6 +11,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "os_user")
 public class OsUser extends BasicEntity {
+    private static final long serialVersionUID = 8745717622447652338L;
     private Integer OsUserId;
     private Integer userId;
     private String password;

@@ -18,6 +18,7 @@ import java.util.Map;
  */
 @Entity
 public class Region extends BasicEntity {
+    private static final long serialVersionUID = 8774482436481033205L;
     private Long regionId;
     private String regionName;
     private String regionCode;

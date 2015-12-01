@@ -27,6 +27,11 @@ public class StatisticsCtl {
     private StatisticsService statisticsService;
 
     @RequestMapping(value = "/statistics", method = RequestMethod.GET)
+    public String index() {
+        return "statistics";
+    }
+
+    @RequestMapping(value = "/statistics.ajax", method = RequestMethod.GET)
     @ResponseBody
     public ReturnBean list(@RequestParam(required = false) String query,
                            @RequestParam(required = false, defaultValue = "1") Long pageIndex,
@@ -36,8 +41,9 @@ public class StatisticsCtl {
                            @RequestParam(required = false) Date andDate) {
         Map<String, Object> map = new HashMap<>();
         try {
-            if(type.equals("tenant")||type.equals("course")||type.equals("class")){
-                map.put("pageMaker", statisticsService.pagesStatistics(type,query, startDate, andDate, pageIndex, pageSize));
+            if (type.equals("tenant") || type.equals("course") || type.equals("class")) {
+                map.put("pageMaker", statisticsService.pagesStatistics(type, query, startDate, andDate, pageIndex, pageSize));
+                map.put("type", type);
             }
             return new ReturnBean(map);
         } catch (Exception e) {

@@ -17,6 +17,7 @@ import java.util.Date;
  */
 @Entity
 public class Org extends BasicEntity {
+    private static final long serialVersionUID = 1355436566033216395L;
     private Integer orgId;
     private String orgName;
     private String orgType;

@@ -17,6 +17,7 @@ import java.util.Date;
  */
 @Entity
 public class Rule extends BasicEntity {
+    private static final long serialVersionUID = 8680787831107635768L;
     private Integer ruleId;
     private Integer menuId;
     private Integer userId;

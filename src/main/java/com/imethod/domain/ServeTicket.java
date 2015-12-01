@@ -11,6 +11,7 @@ import java.util.Date;
 @Entity
 @Table(name = "serve_ticket")
 public class ServeTicket extends BasicEntity {
+    private static final long serialVersionUID = -7471246590819731651L;
     private int stId;
 
     private Integer serviceId;

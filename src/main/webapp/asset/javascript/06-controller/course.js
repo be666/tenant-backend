@@ -207,7 +207,7 @@ define('controller/course', [
             course['name'] = addDialog.target.find(".iMethod-name").val();
             course['courseType'] = addDialog.target.find(".iMethod-courseType").iMethodSelect().getSelected()['code'];
             course['serviceType'] = addDialog.target.find(".iMethod-serviceType").iMethodSelect().getSelected()['code'];
-            course['serviceTime'] =  new Date(addDialog.target.find(".iMethod-serviceTime").val()).Format("yyyy-MM-dd hh:mm:ss");
+            course['serviceTime'] =  new Date(addDialog.target.find(".iMethod-serviceTime").val()).Format("yyyy-MM-dd 00:00:00");
             course['courseMoney'] = addDialog.target.find(".iMethod-courseMoney").val();
             course['videoTime'] = addDialog.target.find(".iMethod-videoTime").val();
             course['courseScore'] = addDialog.target.find(".iMethod-courseScore").val();

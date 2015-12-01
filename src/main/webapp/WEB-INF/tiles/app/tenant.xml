@@ -28,10 +28,10 @@
     </definition>
 
 
-    <definition name="bi" extends="template">
+    <definition name="statistics" extends="template">
         <put-attribute name="content">
             <definition extends="main.lr">
-                <put-attribute name="content_r" value="/WEB-INF/jsp/bi/index.jsp"/>
+                <put-attribute name="content_r" value="/WEB-INF/jsp/statistics/index.jsp"/>
             </definition>
         </put-attribute>
     </definition>

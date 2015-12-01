@@ -36,7 +36,7 @@ define('controller/tenant', [
         pageMaker['items'] = pageMaker['items'] || [];
         tenantTab.iMethodTable({
             pk: "tenantId",
-            pageCols:"10",
+            pageCols: "10",
             templateHead: tenantListHead,
             templateBody: tenantListBody,
             dataList: pageMaker['items'],
@@ -49,13 +49,13 @@ define('controller/tenant', [
             }, {
                 key: "startTime",
                 name: "服务开通时间",
-                render:function(obj,el){
+                render: function (obj, el) {
                     return utils.parseDate(el)
                 }
             }, {
                 key: "endTime",
                 name: "服务截止时间",
-                render:function(obj,el){
+                render: function (obj, el) {
                     return utils.parseDate(el)
                 }
             }, {
@@ -269,16 +269,70 @@ define('controller/tenant', [
                         name: '机构名称'
                     }, {
                         key: "orgType",
-                        name: '机构类型'
+                        name: '机构类型',
+                        render: function (org, orgType) {
+                            var _l = _orgType.length;
+                            while (_l > 0) {
+                                _l--;
+                                var _ot = _orgType[_l];
+                                if (_ot['code'] == orgType) {
+                                    return _ot['codeName'];
+                                }
+                            }
+                            if (orgType == 0) {
+                                return "root";
+                            }
+                            return "其他";
+                        }
                     }, {
                         key: "schoolType",
-                        name: '学校类型'
+                        name: '学校类型',
+                        render: function (org, schoolType) {
+                            var _l = _schoolType.length;
+                            while (_l > 0) {
+                                _l--;
+                                var _ot = _schoolType[_l];
+                                if (_ot['code'] == schoolType) {
+                                    return _ot['codeName'];
+                                }
+                            }
+                            return "其他";
+                        }
                     }, {
                         key: "province",
-                        name: '省'
+                        name: '省',
+                        render: function (org, province) {
+                            var _l = _province.length;
+                            while (_l > 0) {
+                                _l--;
+                                var _ot = _province[_l];
+                                if (_ot['regionCode'] == province) {
+                                    return _ot['regionName'];
+                                }
+                            }
+                            return "其他";
+                        }
                     }, {
                         key: "city",
-                        name: '市'
+                        name: '市',
+                        render: function (org, city) {
+                            var _l = _province.length;
+                            while (_l > 0) {
+                                _l--;
+                                var _ot = _province[_l];
+                                var _city = _ot['childRegion'] || [];
+                                var _cl = _city.length;
+                                while (_cl) {
+                                    _cl--;
+                                    var _cot = _city[_cl];
+                                    if (_cot['regionCode'] == city) {
+                                        return _cot['regionName'];
+                                    }
+                                }
+
+                            }
+                            return "其他";
+                        }
                     }],
                     page: {
                         pageIndex: pageIndex,
@@ -383,10 +437,14 @@ define('controller/tenant', [
 
         queryUser();
     };
-
-    exports.tenantInfo = function (tenant_info, currentStatus, serviceType) {
+    var _orgType;
+    var _schoolType;
+    var _province;
+    exports.tenantInfo = function (tenant_info, currentStatus, serviceType, orgType, schoolType, province) {
         var $tenantInfo = $("#" + tenant_info);
-
+        _orgType = orgType;
+        _schoolType = schoolType;
+        _province= province;
         $tenantInfo.html(tenantInfo());
         $tenantInfo.on("click.select-schoolOrg", ".iMethod-schoolOrg", function () {
             var $this = $(this);
@@ -494,7 +552,7 @@ define('controller/tenant', [
             tenant['serviceUser'] = $tenantInfo.find(".iMethod-service").attr("data-userId");
             tenant['resourceService'] = $tenantInfo.find(".resource-service").is("check") ? 1 : 0;
             tenant['scoreService'] = $tenantInfo.find(".score-service").is("check") ? 1 : 0;
-            tenant['tenantTime'] = new Date($tenantInfo.find(".tenantTime").val()).Format("yyyy-MM-dd hh:mm:ss");
+            tenant['tenantTime'] = new Date($tenantInfo.find(".tenantTime").val()).Format("yyyy-MM-dd 00:00:00");
             tenant['currentStatus'] = $tenantInfo.find(".iMethod-currentStatus").iMethodSelect().getSelected()['code'];
             tenantService.saveTenant(tenant, function (res) {
                 if (res.status == 1) {

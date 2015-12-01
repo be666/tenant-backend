@@ -17,10 +17,12 @@ import java.io.Serializable;
  */
 @Entity
 public class Course extends BasicEntity {
+    private static final long serialVersionUID = 1520051600335085246L;
     private Integer courseId;
     private String courseName;
     private Integer tenantId;
     private Integer courseType;
+    private Integer serviceType;
     private String info;
     private Integer score;
     private Integer videoLength;
@@ -176,4 +178,13 @@ public class Course extends BasicEntity {
         this.peopleAll = peopleAll;
     }
 
+    @Basic
+    @Column(name = "service_type", nullable = true)
+    public Integer getServiceType() {
+        return serviceType;
+    }
+
+    public void setServiceType(Integer serviceType) {
+        this.serviceType = serviceType;
+    }
 }

@@ -45,7 +45,7 @@ define('controller/permission', [
             content: "<div class='menu_table'></div>",
             buttons: [{
                 className: "iMethod-sure",
-                text: "保存",
+                text: "保存"
             }, {
                 className: "iMethod-cancel",
                 text: "取消",
@@ -133,7 +133,7 @@ define('controller/permission', [
                     templateBody: dialogListBody,
                     pk: "userId",
                     dataList: dateList,
-                    pageCols: "5",
+                    pageCols: "7",
                     titles: [{
                         key: 'userCode',
                         name: "用户编号"
@@ -143,6 +143,12 @@ define('controller/permission', [
                     }, {
                         key: 'orgName',
                         name: "机构名称"
+                    }, {
+                        key: 'email',
+                        name: "邮箱"
+                    }, {
+                        key: 'mobile',
+                        name: "手机"
                     }],
                     page: {
                         pageIndex: pageIndex,
@@ -155,6 +161,7 @@ define('controller/permission', [
                         }
                     }
                 });
+                addDialog.position()
             }, {
                 pageIndex: index,
                 pageSize: size
@@ -191,7 +198,7 @@ define('controller/permission', [
                 templateHead: listHead,
                 templateBody: listBody,
                 pk: "userId",
-                pageCols: "5",
+                pageCols: "7",
                 dataList: dateList,
                 titles: [{
                     key: 'userCode',

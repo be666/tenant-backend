@@ -13,6 +13,7 @@ import java.io.Serializable;
  */
 @Entity
 public class Spoc extends BasicEntity {
+    private static final long serialVersionUID = 1196936478121900890L;
     private Integer spocId;
     private Integer tenantId;
     private Integer spocState;

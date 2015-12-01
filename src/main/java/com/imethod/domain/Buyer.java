@@ -16,6 +16,7 @@ import javax.persistence.Id;
  */
 @Entity
 public class Buyer extends BasicEntity {
+    private static final long serialVersionUID = 567719201542677782L;
     private Integer buyerId;
     private Integer userId;
     private Integer orgId;

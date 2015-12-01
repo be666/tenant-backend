@@ -112,6 +112,7 @@ public class CourseCtl {
     @RequestMapping(value = "/tenant/{tenantId}/course/buy/{courseId}", method = RequestMethod.POST)
     @ResponseBody
     public ReturnBean courseBuy(@PathVariable Long tenantId,
+                                @RequestParam String serviceType,
                                 @PathVariable Long courseId) {
         Map<String, Object> map = new HashMap<>();
         Course course = courseService.getById(StringTools.getInteger(courseId));
@@ -125,7 +126,8 @@ public class CourseCtl {
         Serve serve = new Serve();
         serve.setOrgId(tenant.getOrgId());
         serve.setContextId(course.getCourseId());
-        serve.setServiceType(Constants.ServiceType.Course.toString());
+        serve.setContextType(Constants.ServiceType.Course.toString());
+        serve.setServiceType(StringTools.getInteger(serviceType));
         serve.setStartTime(DateTools.getCurrentDateTime());
         serve.setEndTime(DateTools.getCurrentDateTime());
         serve.setServiceMoney(0);
@@ -192,6 +194,7 @@ public class CourseCtl {
             course.setPeopleAll(StringTools.getInteger(peopleAll));
             course.setPeopleNum(StringTools.getInteger(peopleNum));
             course.setPeopleMoney(StringTools.getInteger(peopleMoney));
+            course.setServiceType(StringTools.getInteger(serviceType));
             course.setState(1);
             course.setScore(StringTools.getInteger(courseScore));
             course.setVideoLength(StringTools.getInteger(videoTime));
@@ -207,7 +210,8 @@ public class CourseCtl {
             Serve serve = new Serve();
             serve.setOrgId(tenant.getOrgId());
             serve.setContextId(course.getCourseId());
-            serve.setServiceType(Constants.ServiceType.Course.toString());
+            serve.setContextType(Constants.ServiceType.Course.toString());
+            serve.setServiceType(StringTools.getInteger(serviceType));
             serve.setStartTime(DateTools.getCurrentDateTime());
             serve.setEndTime(DateTools.getDateTime(serviceTime));
             serve.setServiceMoney(StringTools.getInteger(courseMoney));

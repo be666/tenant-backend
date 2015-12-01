@@ -17,6 +17,7 @@ import java.util.Date;
  */
 @Entity
 public class Manager extends BasicEntity {
+    private static final long serialVersionUID = 633942951282284210L;
     private Integer managerId;
     private Integer userId;
     private Integer contentId;

@@ -13,6 +13,7 @@ import java.io.Serializable;
  */
 @Entity
 public class Report extends BasicEntity {
+    private static final long serialVersionUID = 6162701496458966158L;
     private Integer reportId;
     private Integer tenantId;
     private Integer reportUserId;

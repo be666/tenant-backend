@@ -16,6 +16,7 @@ import javax.persistence.Id;
  */
 @Entity
 public class Tenant extends BasicEntity {
+    private static final long serialVersionUID = 8294706492117003543L;
     private Integer tenantId;
     private String tenantName;
     private Integer orgId;

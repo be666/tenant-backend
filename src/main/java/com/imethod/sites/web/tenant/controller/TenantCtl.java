@@ -82,6 +82,9 @@ public class TenantCtl {
     public String create(ModelMap modelMap) {
         modelMap.put("currentStatus", codeService.listCodeByType("currentStatus"));
         modelMap.put("serviceType", codeService.listCodeByType("serviceType"));
+        modelMap.put("orgType", codeService.listCodeByType("orgType"));
+        modelMap.put("schoolType", codeService.listCodeByType("schoolType"));
+        modelMap.put("region", regionService.getRegionTree());
         return "tenant.info";
     }
 
@@ -154,6 +157,7 @@ public class TenantCtl {
         tenant.setTenantName(tenantName);
         tenant.setDomain(shortName);
         tenant.setOrgName(orgName);
+        tenant.setServiceType(StringTools.getInteger(serviceType));
         tenant.setOrgId(StringTools.getInteger(schoolOrg == null ? "0" : schoolOrg));
         tenant = tenantService.insert(tenant);
         Buyer buyer = new Buyer();
@@ -179,7 +183,8 @@ public class TenantCtl {
         Serve serve = new Serve();
         serve.setOrgId(tenant.getOrgId());
         serve.setContextId(tenant.getTenantId());
-        serve.setServiceType(Constants.ServiceType.Tenant.toString());
+        serve.setContextType(Constants.ServiceType.Tenant.toString());
+        serve.setServiceType(StringTools.getInteger(serviceType));
         serve.setStartTime(DateTools.getDateTime(tenantTime));
         serve.setExpireStatus(10);
         serve.setState(1);
