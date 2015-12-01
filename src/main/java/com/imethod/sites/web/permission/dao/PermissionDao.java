@@ -5,6 +5,7 @@ import com.imethod.core.jdbc.mine.IJdbcTempBaseDao;
 import com.imethod.core.jdbc.mine.ISqlHelp;
 import com.imethod.core.util.StringTools;
 import com.imethod.domain.Menu;
+import com.imethod.domain.OsTicket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -96,5 +97,23 @@ public class PermissionDao extends IJdbcTempBaseDao {
         Map<String, Object> map = new HashMap<>();
         map.put("userId", userId);
         update("delete from rule where user_id = :userId", map);
+    }
+
+    public void deleteTicket(String user_ticket) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("userTicket", user_ticket);
+        update("update os_ticket set state=0 where ticket_info=:userTicket ", map);
+    }
+
+    public OsTicket queryTicket(String userTicket) {
+        StringBuffer sql = new StringBuffer();
+        sql.append("select * from os_ticket where ticket_info=:userTicket and state=1;");
+        Map<String, Object> map = new HashMap<>();
+        map.put("userTicket", userTicket);
+        List<OsTicket> ticketList = queryForList(sql.toString(), map, OsTicket.class);
+        if (ticketList.isEmpty()) {
+            return null;
+        }
+        return ticketList.get(0);
     }
 }

@@ -1,4 +1,4 @@
-package com.imethod.sites.web.sys;
+package com.imethod.sys;
 
 import com.imethod.core.log.Logger;
 import com.imethod.core.log.LoggerFactory;

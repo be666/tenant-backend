@@ -22,9 +22,12 @@
         <class>com.imethod.domain.Spoc</class>
         <class>com.imethod.domain.OsUser</class>
         <class>com.imethod.domain.ServeTicket</class>
+        <class>com.imethod.domain.OsTicket</class>
         <properties>
             <property name="toplink.jdbc.url" value="jdbc:mysql://123.56.156.176:3306/tenant"/>
             <property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="toplink.jdbc.user"/>
+            <property name="toplink.jdbc.password"/>
         </properties>
     </persistence-unit>
 </persistence>

@@ -10,7 +10,6 @@ import com.imethod.domain.*;
 import com.imethod.sites.web.code.service.CodeService;
 import com.imethod.sites.web.course.service.CourseService;
 import com.imethod.sites.web.job.service.ServeService;
-import com.imethod.sites.web.sys.auth.UserContent;
 import com.imethod.sites.web.tenant.service.TenantCourseService;
 import com.imethod.sites.web.tenant.service.TenantService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -22,13 +22,13 @@
 
     <!--Spring ApplicationContext 载入 -->
     <listener>
-        <listener-class>com.imethod.sites.web.sys.IContextLoaderListener</listener-class>
+        <listener-class>com.imethod.sys.IContextLoaderListener</listener-class>
     </listener>
 
     <!-- Spring MVC Servlet -->
     <servlet>
         <servlet-name>springServlet</servlet-name>
-        <servlet-class>com.imethod.sites.web.sys.IDispatcherServlet</servlet-class>
+        <servlet-class>com.imethod.sys.IDispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>
