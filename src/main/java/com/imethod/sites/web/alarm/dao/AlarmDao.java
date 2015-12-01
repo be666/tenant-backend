@@ -4,7 +4,6 @@ import com.imethod.core.jdbc.PageMaker;
 import com.imethod.core.jdbc.mine.IJdbcTempBaseDao;
 import com.imethod.core.jdbc.mine.ISqlHelp;
 import com.imethod.core.util.StringTools;
-import com.sun.istack.internal.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -34,7 +33,7 @@ public class AlarmDao extends IJdbcTempBaseDao {
 
     private static String SQL_COURSE_BY_TYPE = "select IFNULL(count(1),0) as count from serve where " +
             "service_type =:serviceType   and state = 1";
-    public int countExpire(@NotNull String serviceType, Integer expireStatus) {
+    public int countExpire( String serviceType, Integer expireStatus) {
         Map<String,Object> map = new HashMap<>();
         StringBuffer sb = new StringBuffer();
         sb.append(SQL_COURSE_BY_TYPE);
