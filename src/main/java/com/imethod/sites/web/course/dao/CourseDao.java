@@ -112,4 +112,16 @@ public class CourseDao extends IJdbcTempBaseDao {
     public List<Course> listCourseAll() {
         return queryForList(LIST_COURSE_SQL, null, Course.class);
     }
+
+    public PageMaker pageCourseUnRelation(String query, Integer courseType, Long courseId, Long tenantId, Long pageIndex, Long pageSize) {
+        Map<String, Object> map = new HashMap<>();
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("select * from course c\n" +
+                "where not exists(\n" +
+                "select cr.course_id from tenant_course_rp  cr where cr.tenant_id = :tenantId\n" +
+                "and c.course_id =cr.course_id\n" +
+                ")");
+        map.put("tenantId", tenantId);
+        return this.queryPageList(buffer.toString(), pageIndex, pageSize, map);
+    }
 }
