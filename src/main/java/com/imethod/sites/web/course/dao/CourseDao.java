@@ -87,7 +87,7 @@ public class CourseDao extends IJdbcTempBaseDao {
     public PageMaker pageCourseRelation(String query, Integer courseType, Long courseId, Long tenantId, Long pageIndex, Long pageSize) {
         Map<String, Object> map = new HashMap<>();
         StringBuffer buffer = new StringBuffer();
-        buffer.append(SQL_LIST_COURSE2);
+        buffer.append(SQL_LIST_COURSE);
         if (StringTools.isNotEmpty(query)) {
             buffer.append(" and ( c.course_name like :query or t.tenant_name like :query )  ");
             map.put("query", iSqlHelp.like(query));
