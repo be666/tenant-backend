@@ -33,11 +33,11 @@
     </div>
 </div>
 <div class="iMethod-body">
-    <div class="container">
+    <div class="container" style="padding: 100px 0 0 0;">
         <div class="row" style="text-align: center;font-size: 32px;line-height: 1.5">
             您已登出系统,欢迎使用!
         </div>
-        <div class="row" style="text-align: center">
+        <div class="row" style="text-align: center;margin-top: 80px">
             <div class="iMethod-btn" style="padding: 20px 40px;font-size: 32px;line-height: 1.5">
                 <a href="${contextPath}/login">重新登陆</a>!
             </div>
