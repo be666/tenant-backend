@@ -1,16 +1,18 @@
 body {
   background: @body-bg;
-  &.no-scroll{
+  &.no-scroll {
     overflow: hidden;
   }
 }
 
 .iMethod-header-warp, .iMethod-footer-warp {
   padding: 20px 0;
-  line-height: 32px;
+  line-height: 1.5;
   font-size: 16px;
   background: @panel-bg;
   width: 100%;
+  border-bottom:1px solid #ddd ;
+  border-top:1px solid #ddd ;
 }
 
 .iMethod-body, .iMethod-footer, .iMethod-header {
@@ -52,4 +54,42 @@ body {
 
 .iMethod-inline-block {
   display: inline-block;
+}
+
+.iMethod-no-data {
+  width: 100%;
+  line-height: 30px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.iMethod-toolbar {
+  margin: 5px 10px;
+  font-size: 16px;
+  line-height: 1.5;
+  vertical-align: middle;
+}
+
+#iMethodUser {
+  position: relative;
+  ul {
+    width: 80px;
+    background: #FFFFFF;
+    border: 1px solid #ddd;
+    position: absolute;
+    padding: 5px;
+    right: 0;
+    top: 32px;
+    li {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  }
+}
+
+.iMethod-logo {
+  a{
+    line-height: 1.5;
+    font-size: 34px;
+  }
 }

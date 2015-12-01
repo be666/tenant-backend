@@ -11,3 +11,14 @@
         Copyright &copy;2015 iMethod
     </div>
 </div>
+<script>
+    $(function () {
+        var fixHeight = function () {
+            var wh = $(window).height();
+            var min_bh = wh - 144;
+            $(".iMethod-body").css({"min-height": min_bh + "px"})
+        };
+        iMethod.resize.push("fixHeight", fixHeight);
+        fixHeight();
+    })
+</script>

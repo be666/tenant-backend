@@ -36,6 +36,7 @@ define('controller/tenant', [
         pageMaker['items'] = pageMaker['items'] || [];
         tenantTab.iMethodTable({
             pk: "tenantId",
+            pageCols:"10",
             templateHead: tenantListHead,
             templateBody: tenantListBody,
             dataList: pageMaker['items'],
@@ -67,7 +68,8 @@ define('controller/tenant', [
             page: {
                 pageIndex: pageMaker['pageIndex'],
                 pageSize: pageMaker['pageSize'],
-                totalPage: pageMaker['totalPage'],
+                pages: pageMaker['pageArr'],
+                totalPage: pageMaker['pageMax'],
                 rowCount: pageMaker['items'].length,
                 pageClick: function (index, size) {
                     queryTenant(index, size);
@@ -283,6 +285,7 @@ define('controller/tenant', [
                         }
                     }
                 });
+                selectDialog.position();
             }, {
                 pageIndex: index,
                 pageSize: size
@@ -353,6 +356,7 @@ define('controller/tenant', [
                         }
                     }
                 });
+                selectDialog.position();
             }, {
                 pageIndex: index,
                 pageSize: size

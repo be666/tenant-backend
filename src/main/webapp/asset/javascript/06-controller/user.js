@@ -48,7 +48,8 @@ define('controller/user', [
             var dateList = pageMarker['items'] || [];
             var pageIndex = pageMarker['pageIndex'];
             var pageSize = pageMarker['pageSize'];
-            var totalPage = pageMarker['totalPage'];
+            var totalPage = pageMarker['pageMax'];
+            var pages = pageMarker['pageArr'];
             selectUserDialog.target.find(".iMethod-userTable").iMethodTable({
                 dataList: dateList,
                 titles: null,
@@ -56,12 +57,14 @@ define('controller/user', [
                     pageIndex: pageIndex,
                     pageSize: pageSize,
                     totalPage: totalPage,
+                    pages: pages,
                     rowCount: dateList.length || 0,
                     pageClick: function (index, size) {
                         userTable(index, size)
                     }
                 }
             });
+            selectUserDialog.position();
         }, {
             pageIndex: index,
             pageSize: size
@@ -157,6 +160,7 @@ define('controller/user', [
             var pages = pageMaker['pageArr'];
             $orgUserTab.find(".iMethod-orgUserTable").iMethodTable({
                 pk: "userId",
+                pageCols:"8",
                 templateHead: userListHead,
                 templateBody: userListBody,
                 dataList: dateList,

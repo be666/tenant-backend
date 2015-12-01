@@ -22,7 +22,7 @@ var bLength = buttons.length;
         for(var i = 0;i < bLength;i++){
             var btn = buttons[i];
         %>
-        <div class="btn btn-default <%= splitJoin(btn.className) %>"
+        <div class="iMethod-btn iMethod-btn-dialog <%= splitJoin(btn.className) %>"
                 <%= attr("name", btn.name) %>
                 <%= attr("value", btn.value) %>
                 >

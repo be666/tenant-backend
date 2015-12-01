@@ -21,6 +21,15 @@
         click: null
     };
 
+    var bindClick = function ($target, btn) {
+        var className = btn['className'];
+        var onclick = btn['click'];
+        $("." + className, $target).data("data-click", onclick);
+        $target.on("click." + className, "." + className, function () {
+            onclick && onclick($target);
+        })
+    }
+
     $w.iMethod.dialogFactory = {};
     var dialog = function (opt) {
         var params = utils.extend(def, opt);
@@ -48,15 +57,11 @@
         }
         var buttons = params['buttons'] || [];
         var bl = buttons.length;
-        for (var i = 0; i > bl; i++) {
+        for (var i = 0; i < bl; i++) {
             var btn = buttons[i];
-            var className = btn['className'];
-            var onclick = btn['click'];
-            $("." + className, $target).data("data-click", onclick);
-            $target.on("click." + className, "." + className, function () {
-                onclick && onclick($target);
-            })
+            bindClick($target, btn);
         }
+
         $target.on("click.target", function () {
             var click = params['click'];
             click && click(pub);

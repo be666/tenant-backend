@@ -9,11 +9,21 @@
     li {
       float: left;
       a {
-        padding: 0 5px;
-        border: 1px solid #EFEFEF;
         line-height: 25px;
         vertical-align: middle;
         height: 10px;
+        padding: 6px 12px;
+        margin-left: -1px;
+        color: #337ab7;
+        text-decoration: none;
+        background-color: #fff;
+        border: 1px solid #ddd;
+      }
+      &.active{
+        a {
+          color: #fff;
+          background-color:#337ab7;
+        }
       }
     }
     li:first-child {

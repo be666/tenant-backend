@@ -6,8 +6,8 @@
             课程
         </div>
         <div class="panel-body">
-            <div class="row">
-                <div class="col-md-2">
+            <div class="row iMethod-toolbar">
+                <div class="col-md-3">
                     <input type="text" class="iMethod-queryTenant">
                 </div>
                 <div class="col-md-2">
@@ -17,12 +17,12 @@
                     <div class="iMethod-serviceType"></div>
                 </div>
                 <div class="col-md-2">
-                    <i class="iMethod-btn iMethod-courseAdd">
+                    <i class="iMethod-btn iMethod-btn-action  iMethod-courseAdd">
                         新建课程
                     </i>
                 </div>
                 <div class="cil-md-2">
-                    <i class="iMethod-btn iMethod-courseBuy">
+                    <i class="iMethod-btn iMethod-btn-action  iMethod-courseBuy">
                         购买课程
                     </i>
                 </div>

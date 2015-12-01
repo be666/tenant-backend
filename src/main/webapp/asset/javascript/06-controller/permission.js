@@ -63,6 +63,7 @@ define('controller/permission', [
                     templateHead: menuListHead,
                     templateBody: menuListBody,
                     pk: "menuId",
+                    pageCols: "3",
                     dataList: menuList,
                     titles: [{
                         key: 'menuName',
@@ -82,6 +83,7 @@ define('controller/permission', [
                     var rule = ruleList[i];
                     menuDialog.target.find('[data-pk="' + rule['menuId'] + '"]').addClass("check");
                 }
+                menuDialog.position();
             });
         };
         menuTable();
@@ -131,6 +133,7 @@ define('controller/permission', [
                     templateBody: dialogListBody,
                     pk: "userId",
                     dataList: dateList,
+                    pageCols: "5",
                     titles: [{
                         key: 'userCode',
                         name: "用户编号"
@@ -188,6 +191,7 @@ define('controller/permission', [
                 templateHead: listHead,
                 templateBody: listBody,
                 pk: "userId",
+                pageCols: "5",
                 dataList: dateList,
                 titles: [{
                     key: 'userCode',

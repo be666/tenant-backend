@@ -6,8 +6,8 @@
             租户
         </div>
         <div class="panel-body">
-            <div class="row">
-                <div class="col-md-2">
+            <div class="row iMethod-toolbar">
+                <div class="col-md-3">
                     <input type="text" class="iMethod-queryTenant">
                 </div>
                 <div class="col-md-2">
@@ -17,7 +17,7 @@
                     <div class="iMethod-serviceType"></div>
                 </div>
                 <div class="col-md-2">
-                    <i class="iMethod-btn iMethod-tenantAdd">
+                    <i class="iMethod-btn iMethod-btn-action  iMethod-tenantAdd">
                         新建租户
                     </i>
                 </div>
