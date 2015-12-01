@@ -5,8 +5,30 @@
         <div class="panel-heading">
             权限
         </div>
-        <div class="panel-body">
+        <div class="panel-body" id="OsUserPanel">
+            <div class="row">
+                <div class="col-md-8">
+                    <input type="text" name="search"/>
+                    <i class="search">
+                        查询
+                    </i>
+                </div>
+                <div class="col-md-4">
+                    <i class="btn iMethod-osUserAdd">
+                        添加用户
+                    </i>
+                </div>
+            </div>
+            <div class="row">
+                <div class="iMethod-OsUserTable">
 
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<script>
+    seajs.use(['controller/permission'], function (permissionCtl) {
+        permissionCtl.osUserTable("OsUserPanel");
+    })
+</script>

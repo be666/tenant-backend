@@ -29,9 +29,6 @@ public class UserService {
     private UserDao userDao;
 
     public void insert(User user) {
-        Integer userId = UserContent.getLUser().getUser().getUserId();
-        Date now = DateTools.getCurrentDateTime();
-        user.setPassword("123456");
         user.setState(1);
         userDao.insert(user);
     }

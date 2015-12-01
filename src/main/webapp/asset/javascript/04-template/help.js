@@ -29,6 +29,9 @@ template.helper("isEmptyArr", function (obj) {
 template.helper("nothing", function (obj) {
     return window.iMethod.utils.nothing(obj);
 });
+template.helper("isFunc", function (obj) {
+    return window.iMethod.utils.isFunc(obj);
+});
 
 template.helper("fromCharCode", function (obj) {
     return String.fromCharCode(obj);

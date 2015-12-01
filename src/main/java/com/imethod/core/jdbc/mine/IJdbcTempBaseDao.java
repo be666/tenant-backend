@@ -16,6 +16,7 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -218,8 +219,8 @@ public abstract class IJdbcTempBaseDao {
      * @throws InstantiationException
      * @throws InvocationTargetException
      */
-    private  <T> T load(Class<T> clazz,
-                      String tableName, Map<String, Object> idValue) throws IllegalAccessException, InstantiationException, InvocationTargetException {
+    private <T> T load(Class<T> clazz,
+                       String tableName, Map<String, Object> idValue) throws IllegalAccessException, InstantiationException, InvocationTargetException {
         Method[] methods = clazz.getMethods();
         tableName = getTableName(clazz, tableName);
         StringBuffer wheres = new StringBuffer();
@@ -363,6 +364,10 @@ public abstract class IJdbcTempBaseDao {
         if (tableName != null && tableName.trim().length() > 0) {
             return tableName.trim();
         }
+        Table table = clazz.getClass().getAnnotation(Table.class);
+        if(table!=null){
+            return table.name();
+        }
         String fName = clazz.getName();
         fName = fName.substring(fName.lastIndexOf(".") + 1, fName.length());
         StringBuffer rt = new StringBuffer();
@@ -467,6 +472,7 @@ public abstract class IJdbcTempBaseDao {
     public abstract NamedParameterJdbcTemplate getNamedParameterJdbcTemplate();
 
     protected abstract ISqlHelp getISqlHelp();
+
 
 
 }

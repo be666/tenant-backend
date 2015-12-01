@@ -1,7 +1,10 @@
 package com.imethod.sites.web.permission.dao;
 
+import com.imethod.core.jdbc.PageMaker;
 import com.imethod.core.jdbc.mine.IJdbcTempBaseDao;
 import com.imethod.core.jdbc.mine.ISqlHelp;
+import com.imethod.core.util.StringTools;
+import com.imethod.domain.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -28,13 +31,18 @@ public class PermissionDao extends IJdbcTempBaseDao {
 
     private static String ruleStr = "SELECT m.* FROM menu m\n" +
             "  join rule r on r.menu_id = m.menu_id\n" +
-            "where r.user_id=1 and m.menu_type=1";
+            "where r.user_id=:userId ";
 
     public List<Map<String, Object>> getUserRule(Integer userId, Integer menuType) {
         Map<String, Object> map = new HashMap<>();
         map.put("userId", userId);
+        StringBuffer sb = new StringBuffer();
+        sb.append(ruleStr);
+        if (StringTools.isNotEmpty(menuType)) {
+            sb.append(" and m.menu_type=:menuType ");
+        }
         map.put("menuType", menuType);
-        return queryForList(ruleStr, map);
+        return queryForList(sb.toString(), map);
     }
 
     @Override
@@ -45,5 +53,48 @@ public class PermissionDao extends IJdbcTempBaseDao {
     @Override
     protected ISqlHelp getISqlHelp() {
         return iSqlHelp;
+    }
+
+    public PageMaker getOsUser(String query, Long pageIndex, Long pageSize) {
+        Map<String, Object> map = new HashMap<>();
+        StringBuffer sql = new StringBuffer();
+        sql.append("SELECT  ou.os_user_id,ou.user_id,u.user_name,u.user_code," +
+                "u.org_id,o.org_name FROM os_user ou\n" +
+                "join user u on u.user_id=ou.user_id\n" +
+                "join org o on o.org_id=u.org_id\n" +
+                "where 1=1");
+        if (StringTools.isNotEmpty(query)) {
+            map.put("query", iSqlHelp.like(query));
+            sql.append(" and ( o.org_name like :query or u.user_name like :query )  ");
+        }
+        return queryPageList(sql.toString(), pageIndex, pageSize, map);
+    }
+
+    public PageMaker getUnOsUser(String query, Long pageIndex, Long pageSize) {
+        Map<String, Object> map = new HashMap<>();
+        StringBuffer sb = new StringBuffer();
+        sb.append("select u.user_id,u.user_name,u.user_code,u.org_id,o.org_name\n" +
+                "from user u\n" +
+                "  join org o on o.org_id=u.org_id\n" +
+                "where not exists(\n" +
+                "  select o.user_id from os_user o\n" +
+                "  where o.user_id=u.user_id\n" +
+                ")\n");
+        if (StringTools.isNotEmpty(query)) {
+            sb.append(" and ( o.org_name like :query or u.user_name like :query )  ");
+            map.put("query", iSqlHelp.like(query));
+        }
+        return queryPageList(sb.toString(), pageIndex, pageSize, map);
+
+    }
+
+    public List<Menu> queryMenuList() {
+        return queryForList("select * from menu", null, Menu.class);
+    }
+
+    public void deleteUserMenu(Integer userId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+        update("delete from rule where user_id = :userId", map);
     }
 }
