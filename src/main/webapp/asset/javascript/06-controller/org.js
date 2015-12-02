@@ -136,12 +136,11 @@ define('controller/org', [
         })
     };
 
-    var addDialog;
     /**
      * 新建,编辑
      */
     var dialogInfo = function () {
-        addDialog = iMethod.dialog({
+        var addDialog = iMethod.dialog({
             className: "iMethod-dialog-addOrg",
             title: "添加机构",
             content: orgInfo(),
@@ -206,16 +205,6 @@ define('controller/org', [
             }
         });
 
-        addDialog.target.find(".iMethod-schoolType").iMethodSelect({
-            id: "code",
-            text: "codeName",
-            dataList: _schoolType,
-            unSelected: {
-                code: "",
-                codeName: "请选择"
-            }
-        });
-
         addDialog.target.find(".iMethod-province").iMethodSelect({
             id: "regionCode",
             text: "regionName",
@@ -265,6 +254,148 @@ define('controller/org', [
         })
     };
 
+
+    var dialogInfoEdit = function (orgId) {
+        orgService.queryOrg(orgId, function (dataMap) {
+            var org = dataMap['org'];
+            var editDialog = iMethod.dialog({
+                className: "iMethod-dialog-addOrg",
+                title: "添加机构",
+                content: orgInfo({
+                    org: org
+                }),
+                buttons: [{
+                    className: "iMethod-sure",
+                    text: "添加"
+                }, {
+                    className: "iMethod-cancel",
+                    text: "取消",
+                    click: function () {
+                        editDialog.close();
+                    }
+                }]
+            });
+            orgService.queryOrgList(function (dataMap) {
+                var pageMaker = dataMap['pageMaker'];
+                var items = pageMaker['items'];
+                items = [{orgId: "-1", orgName: "无"}].concat(items);
+                editDialog.target.find(".iMethod-org").iMethodSelect({
+                    id: "orgId",
+                    text: "orgName",
+                    dataList: items,
+                    unSelected: {
+                        orgId: "",
+                        orgName: "请选择"
+                    },
+                    selected: {
+                        orgId: org['orgPid']
+                    }
+                });
+            }, {
+                pageIndex: 0,
+                pageSize: 999
+            });
+
+            editDialog.target.find(".iMethod-orgType").iMethodSelect({
+                id: "code",
+                text: "codeName",
+                dataList: _orgType,
+                unSelected: {
+                    code: "",
+                    codeName: "请选择"
+                },
+                selected: {
+                    code: org['orgType']
+                },
+                onChange: function (obj) {
+                    var _city = [];
+                    if (obj['code'] == "10") {
+                        editDialog.target.find(".iMethod-schoolType").iMethodSelect({
+                            dataList: _schoolType
+                        })
+                    } else {
+                        editDialog.target.find(".iMethod-schoolType").iMethodSelect({
+                            dataList: []
+                        })
+                    }
+                }
+            });
+
+
+            editDialog.target.find(".iMethod-schoolType").iMethodSelect({
+                id: "code",
+                text: "codeName",
+                dataList: _schoolType,
+                unSelected: {
+                    code: "",
+                    codeName: "请选择"
+                },
+                selected: {
+                    code: org['schoolType']
+                }
+            });
+
+            editDialog.target.find(".iMethod-province").iMethodSelect({
+                id: "regionCode",
+                text: "regionName",
+                dataList: _province,
+                unSelected: {
+                    regionCode: "",
+                    regionName: "请选择"
+                },
+                selected: {
+                    regionCode: org['province']
+                },
+                onChange: function (obj) {
+                    var _city = [];
+                    if (obj['regionCode'] != "") {
+                        obj = utils.arrFind(_province, function (el, i, arr) {
+                            return el['regionCode'] == obj['regionCode'] ? el : null;
+                        });
+                        _city = obj[0]['childRegion'];
+                    }
+                    editDialog.target.find(".iMethod-city").iMethodSelect({
+                        dataList: _city,
+                        selected: {
+                            regionCode: org['city']
+                        }
+                    })
+                }
+            });
+
+            editDialog.target.find(".iMethod-city").iMethodSelect({
+                id: "regionCode",
+                text: "regionName",
+                dataList: [],
+                selected: {
+                    regionCode: org['city']
+                },
+                unSelected: {
+                    regionCode: "",
+                    regionName: "请选择"
+                }
+            });
+
+
+            editDialog.target.on("click.iMethod-sure", ".iMethod-sure", function () {
+                var _org = {
+                    orgId: org['orgId']
+                }
+                _org['orgCode'] = editDialog.target.find(".orgCode").eq(0).val();
+                _org['orgName'] = editDialog.target.find(".orgName").eq(0).val();
+                _org['orgPid'] = editDialog.target.find(".iMethod-org").iMethodSelect().getSelected()['orgId'] || "-1";
+                _org['orgType'] = editDialog.target.find(".iMethod-orgType").iMethodSelect().getSelected()['code'] || "";
+                _org['schoolType'] = editDialog.target.find(".iMethod-schoolType").iMethodSelect().getSelected()['code'] || "";
+                _org['province'] = editDialog.target.find(".iMethod-province").iMethodSelect().getSelected()['regionCode'] || "";
+                _org['city'] = editDialog.target.find(".iMethod-city").iMethodSelect().getSelected()['regionCode'] || "";
+                orgService.updateOrg(_org, function (org) {
+                    editDialog.close();
+                    queryOrg();
+                })
+            })
+        })
+    };
+
     /**
      * 查看
      */
@@ -288,7 +419,9 @@ define('controller/org', [
             window.location.href = iMethod.contextPath + "/org/" + pk + "/user";
         });
         $orgTab.on("click.iMethod-orgSelect", ".org-edit", function () {
-
+            var $this = $(this);
+            var pk = $this.closest("tr").attr("data-pk");
+            dialogInfoEdit(pk);
         });
     }
     iMethod.controller.org = module.exports;

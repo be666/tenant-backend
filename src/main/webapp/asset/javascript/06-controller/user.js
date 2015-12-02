@@ -108,6 +108,61 @@ define('controller/user', [
         $orgUserTab.on("click.iMethod-orgUserAdd", ".iMethod-orgUserAdd", function () {
             dialogOrgUser()
         });
+
+        $orgUserTab.on("click.iMethod-user-edit", ".user-edit", function () {
+            var $this = $(this);
+            var pk = $this.closest("tr").attr("data-pk");
+            dialogOrgUserEdit(pk)
+        });
+    };
+
+    var dialogOrgUserEdit = function (userId) {
+        userService.queryUser(userId, function (dateMap) {
+            var user = dateMap['user'];
+            orgUserDialog = iMethod.dialog({
+                className: "iMethod-dialog-addOrg",
+                title: "添加人员",
+                content: orgUser({
+                    org: _org,
+                    user: user
+                }),
+                buttons: [{
+                    className: "iMethod-sure",
+                    text: "添加"
+                }, {
+                    className: "iMethod-cancel",
+                    text: "取消",
+                    click: function () {
+                        orgUserDialog.close();
+                    }
+                }]
+            });
+
+            var genderRadio = iMethod.radio({
+                root: orgUserDialog.target,
+                item: ".iMethod-radio"
+            });
+
+            if (user['gender'] == 1) {
+                $(".man").addClass("check");
+            } else {
+                $(".woman").addClass("check");
+            }
+            orgUserDialog.target.on("click.iMethod-sure", ".iMethod-sure", function () {
+                var _user = {};
+                _user['userId'] = user['userId'];
+                _user['orgId'] = _orgId;
+                _user['userCode'] = orgUserDialog.target.find(".userCode").val();
+                _user['userName'] = orgUserDialog.target.find(".userName").val();
+                _user['gender'] = genderRadio.getChecked().is(".man") ? 1 : 0;
+                _user['mobile'] = orgUserDialog.target.find(".mobile").val();
+                _user['email'] = orgUserDialog.target.find(".email").val();
+                userService.updateUser(_user, function (user) {
+                    orgUserDialog.close();
+                    queryOrgUser();
+                })
+            })
+        })
     };
 
     var dialogOrgUser = function () {
@@ -184,7 +239,10 @@ define('controller/user', [
                     name: '电子邮件'
                 }, {
                     key: "gender",
-                    name: '性别'
+                    name: '性别',
+                    render: function (obj, gender) {
+                        return gender == 1 ? "男" : "女";
+                    }
                 }],
                 page: {
                     pageIndex: pageIndex,

@@ -33,14 +33,12 @@ public class UserService {
 
     public void update(User user) {
         User userDB = userDao.loadById(user.getUserId());
-        Integer userId = UserContent.getLUser().getUser().getUserId();
         userDB.setState(user.getState());
         userDB.setOrgId(user.getOrgId());
         userDB.setUserName(user.getUserName());
         userDB.setEmail(user.getEmail());
         userDB.setMobile(user.getMobile());
         String gender = user.getGender();
-        gender = ("男".equals(gender) || "女".equals(gender)) ? gender : null;
         userDB.setGender(gender);
         try {
             userDao.update(user);

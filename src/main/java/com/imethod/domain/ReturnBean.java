@@ -39,6 +39,10 @@ public class ReturnBean {
     public ReturnBean() {
     }
 
+    public static ReturnBean success(String msg) {
+        return new ReturnBean(true, msg, null);
+    }
+
     public Boolean getStatus() {
         return status;
     }

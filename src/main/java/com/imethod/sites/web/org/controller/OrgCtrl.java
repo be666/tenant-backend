@@ -89,6 +89,21 @@ public class OrgCtrl {
         }
     }
 
+    @RequestMapping(value = "/org/{orgId}.ajax", method = RequestMethod.GET)
+    @ResponseBody
+    public ReturnBean load(@PathVariable String orgId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("org", orgService.loadOrg(orgId));
+        return new ReturnBean(map);
+    }
+
+    @RequestMapping(value = "/org/{orgId}.post", method = RequestMethod.POST)
+    @ResponseBody
+    public ReturnBean update(@PathVariable String orgId, Org org) {
+        orgService.update(org);
+        return ReturnBean.success("更新成功!");
+    }
+
 
     @RequestMapping(value = "/org/{orgId}/user", method = RequestMethod.GET)
     public String orgUser(@PathVariable String orgId,
@@ -107,7 +122,7 @@ public class OrgCtrl {
         Map<String, Object> map = new HashMap<>();
         PageMaker pageMaker = null;
         try {
-            pageMaker = userService.listOrgUser(orgId,query, pageIndex, pageSize);
+            pageMaker = userService.listOrgUser(orgId, query, pageIndex, pageSize);
             map.put("pageMaker", pageMaker);
         } catch (Exception e) {
             logger.error(e);

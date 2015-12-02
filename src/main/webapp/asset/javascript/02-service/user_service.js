@@ -25,6 +25,19 @@ define('service/user_service', function (require, exports, module) {
         })
     };
 
+    exports.queryUser = function (userId, callback) {
+        iMethod._.ajax({
+            url: "/user/" + userId + ".ajax",
+            success: function (res) {
+                if (res.status == 1) {
+                    callback && callback(res['dataMap'] || {});
+                } else if (res['msg']) {
+                    iMethod.alert(res['msg']);
+                }
+            }
+        })
+    };
+
 
     exports.saveUser = function (user, callback) {
         var userName = user['userName'];
@@ -35,6 +48,29 @@ define('service/user_service', function (require, exports, module) {
         var gender = user['gender'];
         iMethod._.ajax({
             url: "/user",
+            type: "post",
+            data: {
+                userCode: userCode,
+                userName: userName,
+                orgId: orgId,
+                mobile: mobile,
+                email: email,
+                gender: gender
+            },
+            success: function (res) {
+                callback && callback(res);
+            }
+        })
+    };
+    exports.updateUser = function (user, callback) {
+        var userName = user['userName'];
+        var userCode = user['userCode'];
+        var orgId = user['orgId'];
+        var mobile = user['mobile'];
+        var email = user['email'];
+        var gender = user['gender'];
+        iMethod._.ajax({
+            url: "/user/" + user['userId'] + '.post',
             type: "post",
             data: {
                 userCode: userCode,

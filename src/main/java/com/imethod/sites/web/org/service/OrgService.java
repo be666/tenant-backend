@@ -42,4 +42,12 @@ public class OrgService {
         }
         return null;
     }
+
+    public void update(Org org) {
+        try {
+            orgDao.update(org);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
 }
