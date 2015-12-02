@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -33,18 +34,12 @@ public class UserCtl {
     @Autowired
     private CodeService codeService;
 
-    @RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/{userId}.ajax", method = RequestMethod.GET)
     @ResponseBody
-    public User load(@PathVariable Integer userId) {
-        User user = null;
-        try {
-
-            user = userService.loadById(userId);
-        } catch (Exception e) {
-            logger.error(e);
-
-        }
-        return user;
+    public ReturnBean load(@PathVariable Integer userId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("user", userService.loadById(userId));
+        return new ReturnBean(map);
     }
 
     /**
@@ -60,6 +55,21 @@ public class UserCtl {
         ReturnBean returnBean = new ReturnBean();
         try {
             userService.insert(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            returnBean.setStatus(ReturnBean.FALSE);
+            returnBean.setMsg("保存失败， " + e.getMessage());
+        }
+        return returnBean;
+    }
+
+    @RequestMapping(value = "/user/{userId}.post", method = RequestMethod.POST)
+    @ResponseBody
+    public ReturnBean update(@PathVariable String userId, User user) {
+
+        ReturnBean returnBean = new ReturnBean();
+        try {
+            userService.update(user);
         } catch (Exception e) {
             e.printStackTrace();
             returnBean.setStatus(ReturnBean.FALSE);
