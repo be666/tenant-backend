@@ -59,7 +59,7 @@ public class ServiceDao extends IJdbcTempBaseDao {
         sb.append(sql);
         Map<String, Object> map = new HashMap<>();
         if (StringTools.isNotEmpty(serviceType)) {
-            sb.append(" and service_type = :serviceType ");
+            sb.append(" and context_type = :serviceType ");
             map.put("serviceType", serviceType);
         }
         if (StringTools.isNotEmpty(expireStatus)) {
