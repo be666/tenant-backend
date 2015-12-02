@@ -23,6 +23,8 @@ public class Classes extends BasicEntity {
 
     private Integer tenantId;
 
+    private Integer tcId;
+
     private Integer templateCourse;
 
     private Integer state;
@@ -83,6 +85,17 @@ public class Classes extends BasicEntity {
 
     public void setTenantId(Integer tenantId) {
         this.tenantId = tenantId;
+    }
+
+
+    @Basic
+    @Column(name = "tc_id", nullable = true)
+    public Integer getTcId() {
+        return tcId;
+    }
+
+    public void setTcId(Integer tcId) {
+        this.tcId = tcId;
     }
 
     @Basic

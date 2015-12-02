@@ -35,7 +35,7 @@ define('controller/course', [
             dataList: pageMaker['items'],
             templateHead: courseListHead,
             templateBody: courseListBody,
-            pk: "courseId",
+            pk: "tcId",
             pageCols: "9",
             titles: [{
                 key: "courseId",
@@ -45,7 +45,7 @@ define('controller/course', [
                 name: "课程名称"
             }, {
                 key: "tenantName",
-                name: "机构名称"
+                name: "租户名称"
             }, {
                 key: "courseTypeName",
                 name: "课程类型"

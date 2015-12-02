@@ -31,7 +31,7 @@
     var finishStatus =${iMethod:toJSONlLine(finishStatus)};
     seajs.use(["controller/class"], function (classCtl) {
         $(function () {
-            classCtl.courseClassTab('courseClassTab',"${courseId}", finishStatus);
+            classCtl.courseClassTab('courseClassTab',"${tcId}", finishStatus);
         })
     })
 </script>

@@ -21,6 +21,7 @@ public class Serve extends BasicEntity {
     private Integer serviceId;
     private Integer orgId;
     private Integer contextId;
+    private Integer tenantId;
     private Date startTime;
     private Date endTime;
     private Integer serviceType;
@@ -48,6 +49,17 @@ public class Serve extends BasicEntity {
 
     public void setOrgId(Integer orgId) {
         this.orgId = orgId;
+    }
+
+
+    @Basic
+    @Column(name = "tenant_id", nullable = true, insertable = true, updatable = true)
+    public Integer getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(Integer tenantId) {
+        this.tenantId = tenantId;
     }
 
     @Basic

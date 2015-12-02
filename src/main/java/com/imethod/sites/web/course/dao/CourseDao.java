@@ -61,7 +61,7 @@ public class CourseDao extends IJdbcTempBaseDao {
             "from tenant_course_rp tcr \n" +
             " join course c on c.course_id = tcr.course_id \n" +
             " join tenant t on tcr.tenant_id = t.tenant_id \n" +
-            " join serve s on tcr.course_id = s.context_id and s.context_type='Course' \n" +
+            " join serve s on tcr.course_id = s.context_id and s.context_type='Course' and s.tenant_id = tcr.tenant_id \n" +
             " join code c1 on c1.code = c.course_type and c1.code_type = 'courseType' \n" +
             " join code c2 on c2.code = s.expire_status and c2.code_type = 'expireStatue' \n" +
             " where tcr.state = 1 ";
