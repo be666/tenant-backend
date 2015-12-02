@@ -188,6 +188,7 @@ public class TenantCtl {
         managerService.insert(manager);
         Serve serve = new Serve();
         serve.setOrgId(tenant.getOrgId());
+        serve.setTenantId(tenant.getTenantId());
         serve.setContextId(tenant.getTenantId());
         serve.setContextType(Constants.ServiceType.Tenant.toString());
         serve.setServiceType(StringTools.getInteger(serviceType));

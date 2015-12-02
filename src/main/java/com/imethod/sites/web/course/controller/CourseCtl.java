@@ -113,7 +113,6 @@ public class CourseCtl {
     @RequestMapping(value = "/tenant/{tenantId}/course/buy/{courseId}", method = RequestMethod.POST)
     @ResponseBody
     public ReturnBean courseBuy(@PathVariable Long tenantId,
-                                @RequestParam String serviceType,
                                 @PathVariable Long courseId) {
         Map<String, Object> map = new HashMap<>();
         Course course = courseService.getById(StringTools.getInteger(courseId));
@@ -126,9 +125,10 @@ public class CourseCtl {
         tenantCourseService.insert(tenantCourseRp);
         Serve serve = new Serve();
         serve.setOrgId(tenant.getOrgId());
+        serve.setTenantId(tenant.getTenantId());
         serve.setContextId(course.getCourseId());
         serve.setContextType(Constants.ServiceType.Course.toString());
-        serve.setServiceType(StringTools.getInteger(serviceType));
+        serve.setServiceType(StringTools.getInteger(course.getServiceType()));
         serve.setStartTime(DateTools.getCurrentDateTime());
         serve.setEndTime(DateTools.getCurrentDateTime());
         serve.setServiceMoney(0);
@@ -210,6 +210,7 @@ public class CourseCtl {
             Tenant tenant = tenantService.getById(StringTools.getInteger(tenantId));
             Serve serve = new Serve();
             serve.setOrgId(tenant.getOrgId());
+            serve.setTenantId(tenant.getTenantId());
             serve.setContextId(course.getCourseId());
             serve.setContextType(Constants.ServiceType.Course.toString());
             serve.setServiceType(StringTools.getInteger(serviceType));

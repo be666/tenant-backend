@@ -39,8 +39,8 @@ public class ClassService {
         }
     }
 
-    public PageMaker pageClassesRelation(String query, Integer classesType, Long classId, Long tenantId, Long pageIndex, Long pageSize) {
-        return classDao.pageClassRelation(query, classesType, classId, tenantId, pageIndex, pageSize);
+    public PageMaker pageClassesRelation(String query, Integer finishStatus, Long classId, Long tenantId, Long pageIndex, Long pageSize) {
+        return classDao.pageClassRelation(query, finishStatus, classId, tenantId, pageIndex, pageSize);
     }
 
 
@@ -61,4 +61,7 @@ public class ClassService {
     }
 
 
+    public PageMaker pageCourseClassesRelation(String query, Integer finishStatus, Long tcId, Long tenantId, Long pageIndex, Long pageSize) {
+        return classDao.pageCourseClassesRelation(query, finishStatus, tcId, tenantId, pageIndex, pageSize);
+    }
 }

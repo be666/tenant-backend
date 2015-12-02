@@ -28,10 +28,10 @@ define('service/class_service', function (require, exports, module) {
         })
     };
 
-    exports.queryCourseClass = function (courseId, callback, query) {
+    exports.queryCourseClass = function (tcId, callback, query) {
 
         iMethod._.ajax({
-            url: "/course/" + courseId + "/class.ajax",
+            url: "/course/" + tcId + "/class.ajax",
             data: {
                 pageIndex: query['pageIndex'],
                 pageSize: query['pageSize'],

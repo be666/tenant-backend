@@ -11,6 +11,7 @@ import com.imethod.sites.web.classes.service.ClassService;
 import com.imethod.sites.web.code.service.CodeService;
 import com.imethod.sites.web.course.service.CourseService;
 import com.imethod.sites.web.job.service.ServeService;
+import com.imethod.sites.web.tenant.service.TenantCourseService;
 import com.imethod.sites.web.tenant.service.TenantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,8 @@ public class ClassCtl {
     @Autowired
     private TenantService tenantService;
     @Autowired
+    private TenantCourseService tenantCourseService;
+    @Autowired
     private CodeService codeService;
     @Autowired
     private ServeService serveService;
@@ -48,26 +51,26 @@ public class ClassCtl {
         return "class";
     }
 
-    @RequestMapping(value = "/course/{courseId}/class", method = RequestMethod.GET)
-    public String courseIndex(@PathVariable String courseId,
+    @RequestMapping(value = "/course/{tcId}/class", method = RequestMethod.GET)
+    public String courseIndex(@PathVariable String tcId,
                               ModelMap modelMap) {
 
         modelMap.put("finishStatus", codeService.listCodeByType("finishStatus"));
-        modelMap.put("courseId", courseId);
+        modelMap.put("tcId", tcId);
         return "course.class";
     }
 
-    @RequestMapping(value = "/course/{courseId}/class.ajax", method = RequestMethod.GET)
+    @RequestMapping(value = "/course/{tcId}/class.ajax", method = RequestMethod.GET)
     @ResponseBody
     public ReturnBean courseList(@RequestParam(required = false) String query,
                                  @RequestParam(required = false) Integer finishStatus,
-                                 @PathVariable Long courseId,
+                                 @PathVariable Long tcId,
                                  @RequestParam(required = false) Long pageIndex,
                                  @RequestParam(required = false) Long pageSize) {
 
         Map<String, Object> map = new HashMap<>();
         try {
-            PageMaker pageMaker = classService.pageClassesRelation(query, finishStatus, courseId, null, pageIndex, pageSize);
+            PageMaker pageMaker = classService.pageCourseClassesRelation(query, finishStatus, tcId, null, pageIndex, pageSize);
             map.put("pageMaker", pageMaker);
         } catch (Exception e) {
             e.printStackTrace();
@@ -133,11 +136,12 @@ public class ClassCtl {
 
         ReturnBean ret = new ReturnBean();
         try {
-            Course course = courseService.getById(StringTools.getInteger(courseId));
+            TenantCourseRp tenantCourseRp = tenantCourseService.getById(StringTools.getInteger(courseId));
             Classes classes = new Classes();
             classes.setClassName(className);
-            classes.setTenantId(course.getTenantId());
-            classes.setCourseId(course.getCourseId());
+            classes.setTenantId(tenantCourseRp.getTenantId());
+            classes.setCourseId(tenantCourseRp.getCourseId());
+            classes.setTcId(tenantCourseRp.getTcId());
             classes.setClassEndTime(DateTools.getDateTime(endTime));
             classes.setClassStartTime(DateTools.getDateTime(openTime));
             classes.setExamWeight(StringTools.getInteger(exam));
@@ -150,9 +154,10 @@ public class ClassCtl {
             classes.setFinishStatus(Constants.FINISH_STATUS_INIT);
             classes.setState(1);
             classes = classService.insert(classes);
-            Tenant tenant = tenantService.getById(course.getTenantId());
+            Tenant tenant = tenantService.getById(tenantCourseRp.getTenantId());
             Serve serve = new Serve();
             serve.setOrgId(tenant.getOrgId());
+            serve.setTenantId(tenant.getTenantId());
             serve.setContextId(classes.getClassId());
             serve.setContextType(Constants.ServiceType.Class.toString());
             serve.setStartTime(DateTools.getDateTime(openTime));

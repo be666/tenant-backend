@@ -60,7 +60,7 @@ public class ClassDao extends IJdbcTempBaseDao {
             "from classes c \n" +
             "join tenant t on c.tenant_id = t.tenant_id \n" +
             "join course c1 on c1.course_id = c.course_id \n" +
-            "join serve s on s.context_id = c.class_id and s.service_type='Class' \n" +
+            "join serve s on s.context_id = c.class_id and s.context_type='Class' \n" +
             "join code co on co.code = c.finish_status and co.code_type='finishStatus'\n" +
             "where c.state = 1 and t.state =1 and c1.state = 1 ";
 
@@ -76,6 +76,36 @@ public class ClassDao extends IJdbcTempBaseDao {
         if (StringTools.isNotEmpty(courseId)) {
             buffer.append(" and c.course_id = :courseId  ");
             map.put("courseId", courseId);
+        }
+        if (StringTools.isNotEmpty(finishStatus)) {
+            buffer.append(" and c.finish_status =:finishStatus ");
+            map.put("finishStatus", finishStatus);
+        }
+        if (StringTools.isNotEmpty(tenantId)) {
+            buffer.append(" and c.tenant_id =:tenantId ");
+            map.put("tenantId", tenantId);
+        }
+        return this.queryPageList(buffer.toString(), pageIndex, pageSize, map);
+    }
+
+    public PageMaker pageCourseClassesRelation(String query, Integer finishStatus, Long tcId, Long tenantId, Long pageIndex, Long pageSize) {
+        Map<String, Object> map = new HashMap<>();
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("select c.class_id,c.class_name,c.course_id,c1.course_name,c.tenant_id,t.tenant_name,c.class_start_time,c.class_end_time,\n" +
+                "c.is_weight,s.service_type,s.start_time,s.end_time,c.finish_status, co.code_name as finish_status_name \n" +
+                "from classes c \n" +
+                "join tenant t on c.tenant_id = t.tenant_id \n" +
+                "join course c1 on c1.course_id = c.course_id \n" +
+                "join serve s on s.context_id = c.class_id and s.context_type='Class' \n" +
+                "join code co on co.code = c.finish_status and co.code_type='finishStatus'\n" +
+                "where c.state = 1 and t.state =1 and c1.state = 1 ");
+        if (StringTools.isNotEmpty(query)) {
+            buffer.append(" and ( c.class_name like :query or t.tenant_name like :query )  ");
+            map.put("query", iSqlHelp.like(query));
+        }
+        if (StringTools.isNotEmpty(tcId)) {
+            buffer.append(" and c.tc_id = :tcId  ");
+            map.put("tcId", tcId);
         }
         if (StringTools.isNotEmpty(finishStatus)) {
             buffer.append(" and c.finish_status =:finishStatus ");

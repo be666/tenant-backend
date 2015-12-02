@@ -160,7 +160,7 @@ define('controller/user', [
             var pages = pageMaker['pageArr'];
             $orgUserTab.find(".iMethod-orgUserTable").iMethodTable({
                 pk: "userId",
-                pageCols:"8",
+                pageCols: "8",
                 templateHead: userListHead,
                 templateBody: userListBody,
                 dataList: dateList,
@@ -172,7 +172,10 @@ define('controller/user', [
                     name: '用户名'
                 }, {
                     key: "orgId",
-                    name: '机构名称'
+                    name: '机构名称',
+                    render: function (user, orgId) {
+                        return _org['orgName'];
+                    }
                 }, {
                     key: "mobile",
                     name: '电话'
