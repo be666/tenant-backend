@@ -5,13 +5,13 @@ import java.util.List;
 public class EmailMessage {
 
 	//发件人邮箱
-	private   String fromEmail = "gxb_backend@sina.com";
-	private   String fromName = "高校邦后台";
+	private   String fromEmail = "backend@sina.com";
+	private   String fromName = "后台";
 	//邮件的类型
 	private   String htmlContentType = "text/html; charset=utf-8";
 	private   String emailContent ;
 	//邮件标题
-    private  String emailSubject = "高校邦后台预警";
+    private  String emailSubject = "后台预警";
 	//邮件头
 	private   String emailHeader = "this is header";
 	//内容
