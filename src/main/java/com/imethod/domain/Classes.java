@@ -9,7 +9,11 @@ import javax.persistence.Id;
 import java.util.Date;
 
 /**
- * Created by bcaring on 15/11/30.
+ * auth : iMethod
+ * create_at:  15/11/30.
+ * desc:
+ * note:
+ *  1.
  */
 @Entity
 public class Classes extends BasicEntity {

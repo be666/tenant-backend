@@ -7,7 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by bcaring on 15/12/1.
+ * auth : iMethod
+ * create_at:  15/12/1.
+ * desc:
+ * note:
+ *  1.
  */
 @Service
 public class LogService {

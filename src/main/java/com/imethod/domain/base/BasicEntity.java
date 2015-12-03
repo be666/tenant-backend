@@ -6,7 +6,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Created by bcaring on 15/11/30.
+ * auth : iMethod
+ * create_at:  15/11/30.
+ * desc:
+ * note:
+ *  1.
  */
 public class BasicEntity implements Serializable {
 

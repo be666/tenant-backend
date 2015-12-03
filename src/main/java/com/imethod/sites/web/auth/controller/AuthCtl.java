@@ -15,7 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by bcaring on 15/12/1.
+ * auth : iMethod
+ * create_at:  15/12/1.
+ * desc:
+ * note:
+ *  1.
  */
 @Controller
 public class AuthCtl {

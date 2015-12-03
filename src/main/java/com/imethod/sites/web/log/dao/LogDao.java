@@ -7,7 +7,11 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 /**
- * Created by bcaring on 15/12/1.
+ * auth : iMethod
+ * create_at:  15/12/1.
+ * desc:
+ * note:
+ *  1.
  */
 @Repository
 public class LogDao extends IJdbcTempBaseDao {

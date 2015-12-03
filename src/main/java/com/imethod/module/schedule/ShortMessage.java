@@ -2,7 +2,7 @@ package com.imethod.module.schedule;
 
 /**
  * time : 15/11/22.
- * auth : jqwang
+ * auth : iMethod
  * desc :
  * tips :
  * 1.

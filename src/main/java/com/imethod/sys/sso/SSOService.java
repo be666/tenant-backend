@@ -3,7 +3,11 @@ package com.imethod.sys.sso;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by bcaring on 15/12/1.
+ * auth : iMethod
+ * create_at:  15/12/1.
+ * desc:
+ * note:
+ *  1.
  */
 public interface SSOService {
 
