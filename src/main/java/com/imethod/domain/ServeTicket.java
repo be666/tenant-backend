@@ -6,7 +6,11 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Created by bcaring on 15/12/1.
+ * auth : iMethod
+ * create_at:  15/12/1.
+ * desc:
+ * note:
+ *  1.
  */
 @Entity
 @Table(name = "serve_ticket")

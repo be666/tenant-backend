@@ -9,7 +9,7 @@ import javax.persistence.Id;
 
 /**
  * time : 15/11/14.
- * auth : jqwang
+ * auth : iMethod
  * desc :
  * tips :
  * 1.

@@ -1,6 +1,10 @@
 /**
- * Created by bcaring on 15/12/2.
- */
+    * auth : iMethod
+    * create_at:  15/12/2.
+    * desc:
+    * note:
+    *  1.
+    */
 define('service/statistics_service', function (require, exports, module) {
 
     exports.queryStatisticsList = function (callback, query) {

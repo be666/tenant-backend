@@ -1,6 +1,5 @@
 package com.imethod.sites.web.tenant.service;
 
-import com.imethod.domain.Course;
 import com.imethod.domain.TenantCourseRp;
 import com.imethod.sites.web.tenant.dao.TenantCourseDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by bcaring on 15/11/30.
+ * auth : iMethod
+ * create_at:  15/11/30.
+ * desc:
+ * note:
+ *  1.
  */
 @Service
 public class TenantCourseService {

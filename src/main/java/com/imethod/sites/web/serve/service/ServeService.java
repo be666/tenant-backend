@@ -122,7 +122,7 @@ public class ServeService {
 
         String emailContent = serviceName + "即将过期,过期时间为：" + DateTools.format(serve.getEndTime(), DateTools.DateType.DATE_TIME);
         List<String> emailToList = new ArrayList<>();
-        emailToList.add("jqwang@gaoxiaobang.com");
+        emailToList.add("iMethod@gaoxiaobang.com");
         EmailMessage emailMessage = new EmailMessage(emailContent, emailToList);
         emailService.sendHtmlMail(emailMessage);
     }

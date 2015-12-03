@@ -7,7 +7,11 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 /**
- * Created by bcaring on 15/11/30.
+ * auth : iMethod
+ * create_at:  15/11/30.
+ * desc:
+ * note:
+ *  1.
  */
 @Repository
 public class BuyerDao extends IJdbcTempBaseDao {

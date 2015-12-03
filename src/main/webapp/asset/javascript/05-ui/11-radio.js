@@ -1,5 +1,9 @@
 /**
- * Created by bcaring on 15/11/28.
+ * auth : iMethod
+ * create_at:  15/11/28.
+ * desc:
+ * note:
+ *  1.
  */
 ;
 (function ($w, $) {

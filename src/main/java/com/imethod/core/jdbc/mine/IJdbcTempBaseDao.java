@@ -22,7 +22,11 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 /**
- * Created by iMethod on 2015/6/2.
+ * auth : iMethod
+ * create_at:  2015/6/2.
+ * desc:
+ * note:
+ *  1.
  */
 public abstract class IJdbcTempBaseDao {
 

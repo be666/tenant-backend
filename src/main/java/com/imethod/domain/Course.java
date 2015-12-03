@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 /**
  * time : 15/11/14.
- * auth : jqwang
+ * auth : iMethod
  * desc :
  * tips :
  * 1.

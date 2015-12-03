@@ -12,7 +12,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by bcaring on 15/12/1.
+ * auth : iMethod
+ * create_at:  15/12/1.
+ * desc:
+ * note:
+ *  1.
  */
 @Repository
 public class AuthDao extends IJdbcTempBaseDao {

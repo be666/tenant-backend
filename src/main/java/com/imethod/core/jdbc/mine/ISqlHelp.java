@@ -1,7 +1,11 @@
 package com.imethod.core.jdbc.mine;
 
 /**
- * Created by iMethod on 15/7/11.
+ * auth : iMethod
+ * create_at:  15/7/11.
+ * desc:
+ * note:
+ *  1.
  */
 public abstract class ISqlHelp {
 
