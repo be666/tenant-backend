@@ -5,7 +5,7 @@ import javax.mail.PasswordAuthentication;
 
 
 public class MailAuthenticator extends Authenticator{
-	private  String username="gxb_backend@sina.com";
+	private  String username="tenant-backend@iMethod.com";
 	private  String password="aaabbbccc";
 	
 	public MailAuthenticator() {
