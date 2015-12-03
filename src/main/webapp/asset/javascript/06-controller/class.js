@@ -97,7 +97,7 @@ define('controller/class', [
             dataList: finishStatus || [],
             unSelected: {
                 code: "",
-                codeName: "请选择"
+                codeName: "选择状态"
             }
         });
         courseList = [{
@@ -111,7 +111,7 @@ define('controller/class', [
             dataList: courseList || [],
             unSelected: {
                 courseId: "",
-                courseName: "请选择"
+                courseName: "选择课程"
             }
         });
 
@@ -125,7 +125,7 @@ define('controller/class', [
             dataList: tenantList || [],
             unSelected: {
                 tenantId: "",
-                tenantName: "请选择"
+                tenantName: "选择租户"
             }
         })
     };
@@ -209,7 +209,7 @@ define('controller/class', [
             dataList: finishStatus || [],
             unSelected: {
                 code: "",
-                codeName: "请选择"
+                codeName: "选择状态"
             }
         })
         $(".iMethod-courseClassAdd").on("click", function () {

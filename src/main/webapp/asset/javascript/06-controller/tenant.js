@@ -106,7 +106,7 @@ define('controller/tenant', [
 
         currentStatus = [{
             code: "",
-            codeName: "请选择"
+            codeName: "选择状态"
         }].concat(currentStatus);
 
         $(".iMethod-currentStatus").iMethodSelect({
@@ -115,7 +115,7 @@ define('controller/tenant', [
             dataList: currentStatus || [],
             unSelected: {
                 code: "",
-                codeName: "请选择"
+                codeName: "选择状态"
             },
             onChange: function () {
                 queryTenant();
@@ -123,7 +123,7 @@ define('controller/tenant', [
         });
         serviceType = [{
             code: "",
-            codeName: "请选择"
+            codeName: "选择服务类型"
         }].concat(serviceType);
         $(".iMethod-serviceType").iMethodSelect({
             id: "code",
@@ -131,7 +131,7 @@ define('controller/tenant', [
             dataList: serviceType || [],
             unSelected: {
                 code: "",
-                codeName: "请选择"
+                codeName: "选择服务类型"
             },
             onChange: function () {
                 queryTenant();
@@ -199,11 +199,10 @@ define('controller/tenant', [
                 dataList: serviceType,
                 unSelected: {
                     code: "",
-                    codeName: "请选择"
+                    codeName: "选择服务类型"
                 },
                 selected: {
-                    code: serve['serviceType'],
-                    codeName: "请选择"
+                    code: serve['serviceType']
                 }
             });
             serveDialog.target.on("click.iMethod-sure", ".iMethod-sure", function () {
@@ -246,7 +245,7 @@ define('controller/tenant', [
             dataList: orgType,
             unSelected: {
                 code: "",
-                codeName: "请选择"
+                codeName: "选择机构类型"
             },
             onChange: function (obj) {
                 if (obj['code'] == "10") {
@@ -269,7 +268,7 @@ define('controller/tenant', [
             dataList: [],
             unSelected: {
                 code: "",
-                codeName: "请选择"
+                codeName: "选择学校类型"
             }
         });
 
@@ -279,7 +278,7 @@ define('controller/tenant', [
             dataList: [],
             unSelected: {
                 code: "",
-                codeName: "请选择"
+                codeName: "选择学校类型"
             }
         });
 
@@ -289,7 +288,7 @@ define('controller/tenant', [
             dataList: region,
             unSelected: {
                 regionCode: "",
-                regionName: "请选择"
+                regionName: "选择省"
             },
             onChange: function (obj) {
                 var _city = [];
@@ -311,7 +310,7 @@ define('controller/tenant', [
             dataList: [],
             unSelected: {
                 regionCode: "",
-                regionName: "请选择"
+                regionName: "选择市"
             }
         });
 
@@ -321,7 +320,7 @@ define('controller/tenant', [
             dataList: serviceType || [],
             unSelected: {
                 code: "",
-                codeName: "请选择"
+                codeName: "选择服务类型"
             }
         });
 
@@ -607,7 +606,7 @@ define('controller/tenant', [
             dataList: serviceType || [],
             unSelected: {
                 code: "",
-                codeName: "请选择"
+                codeName: "选择服务类型"
             }
         });
 
@@ -617,7 +616,7 @@ define('controller/tenant', [
             dataList: currentStatus || [],
             unSelected: {
                 code: "",
-                codeName: "请选择"
+                codeName: "选择状态"
             }
         });
 
