@@ -1,4 +1,4 @@
-package com.imethod.sites.web.job.dao;
+package com.imethod.sites.web.serve.dao;
 
 import com.imethod.core.jdbc.mine.IJdbcTempBaseDao;
 import com.imethod.core.jdbc.mine.ISqlHelp;
@@ -20,7 +20,7 @@ import java.util.Map;
  * 1.
  */
 @Repository
-public class ServiceDao extends IJdbcTempBaseDao {
+public class ServeDao extends IJdbcTempBaseDao {
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -70,4 +70,12 @@ public class ServiceDao extends IJdbcTempBaseDao {
     }
 
 
+    public List<Serve> getServe(String contextId, String contextType) {
+        StringBuffer sb = new StringBuffer(200);
+        sb.append("select * from serve where context_id=:contextId and context_type=:contextType");
+        Map<String, Object> map = new HashMap<>();
+        map.put("contextId", contextId);
+        map.put("contextType", contextType);
+        return queryForList(sb.toString(), map, Serve.class);
+    }
 }

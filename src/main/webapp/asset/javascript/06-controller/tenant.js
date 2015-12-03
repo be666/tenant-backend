@@ -8,11 +8,13 @@
 define('controller/tenant', [
     "controller/user",
     'service/tenant_service',
+    'service/serve_service',
     'service/org_service',
     'service/user_service',
     'view/tenant/info',
     'view/tenant/list_head',
     'view/tenant/list_body',
+    'view/serve/info',
     'view/org/dialog',
     'view/user/dialog',
     "template"
@@ -21,8 +23,10 @@ define('controller/tenant', [
     var userCtl = require("controller/user");
     var tenantService = require("service/tenant_service");
     var orgService = require("service/org_service");
+    var serveService = require("service/serve_service");
     var userService = require("service/user_service");
     var tenantInfo = require("view/tenant/info");
+    var serveInfo = require("view/serve/info");
     var orgDialog = require("view/org/dialog");
     var userDialog = require("view/user/dialog");
 
@@ -144,6 +148,12 @@ define('controller/tenant', [
             window.location.href = iMethod.contextPath + "/tenant/" + tenantId + "/course";
         });
 
+        $("#" + _tenantTabId).on("click.tenant-edit", ".tenant-edit", function () {
+            var $this = $(this);
+            var tenantId = $this.closest("tr").attr("data-pk");
+            dialogTenantEdit(tenantId,serviceType);
+        });
+
         var keyTimer;
         $(".iMethod-queryTenant").on("keyup.queryTenant", function () {
             var $this = $(this);
@@ -160,12 +170,68 @@ define('controller/tenant', [
         queryTenant();
     };
 
+    var dialogTenantEdit = function (tenantId,serviceType) {
+        serveService.queryService(tenantId, "Tenant", function (dataMap) {
+            var serve = dataMap['serve'];
+            var serveDialog = iMethod.dialog({
+                className: "iMethod-dialog-addOrg",
+                title: "修改服务",
+                content: serveInfo({
+                    serve: serve
+                }),
+                buttons: [{
+                    className: "iMethod-sure",
+                    text: "添加"
+                }, {
+                    className: "iMethod-cancel",
+                    text: "取消",
+                    click: function () {
+                        serveDialog.close();
+                    }
+                }]
+            });
+
+            serveDialog.target.find(".iMethod-start").val(new Date(serve['startTime']).Format("yyyy-MM-dd"));
+            serveDialog.target.find(".iMethod-end").val(new Date(serve['endTime']).Format("yyyy-MM-dd"))
+            serveDialog.target.find(".iMethod-serviceType").iMethodSelect({
+                id: "code",
+                text: "codeName",
+                dataList: serviceType,
+                unSelected: {
+                    code: "",
+                    codeName: "请选择"
+                },
+                selected: {
+                    code: serve['serviceType'],
+                    codeName: "请选择"
+                }
+            });
+            serveDialog.target.on("click.iMethod-sure", ".iMethod-sure", function () {
+                var _serve = {
+                    serviceId: serve['serviceId']
+                };
+                _serve['startTime'] = new Date(serveDialog.target.find(".iMethod-start").val()).Format("yyyy-MM-dd 00:00:00");
+                _serve['endTime'] = new Date(serveDialog.target.find(".iMethod-end").val()).Format("yyyy-MM-dd 00:00:00");
+                _serve['serviceType'] = serveDialog.target.find(".iMethod-serviceType").iMethodSelect().getSelected()['code'];
+                serveService.updateService(_serve, function (res) {
+                    if (res.status == 1) {
+                        serveDialog.close();
+                        queryTenant();
+                    } else if (res['msg']) {
+                        iMethod.alert(res['msg']);
+                    }
+                });
+            })
+        })
+    };
+
 
     var infoHash = iMethodHash();
+    var _serviceType;
     exports.info = function (tenant_info, course_info, currentStatus, serviceType, orgType, schoolType, region) {
         var $tenantInfo = $("#" + tenant_info);
         var $courseInfo = $("#" + course_info);
-
+        _serviceType = serviceType;
         $tenantInfo.html(tenantInfo());
         $courseInfo.html(courseInfo());
         $tenantInfo.on("click.select-sell", ".select-sell", function () {
