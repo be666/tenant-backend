@@ -9,7 +9,7 @@ import com.imethod.core.util.StringTools;
 import com.imethod.domain.*;
 import com.imethod.sites.web.code.service.CodeService;
 import com.imethod.sites.web.course.service.CourseService;
-import com.imethod.sites.web.job.service.ServeService;
+import com.imethod.sites.web.serve.service.ServeService;
 import com.imethod.sites.web.tenant.service.TenantCourseService;
 import com.imethod.sites.web.tenant.service.TenantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 

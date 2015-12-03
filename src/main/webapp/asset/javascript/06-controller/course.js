@@ -7,7 +7,9 @@
  */
 define('controller/course', [
     'service/course_service',
+    "service/serve_service",
     'view/course/info',
+    "view/serve/info",
     'view/course/buy',
     'view/course/list_body',
     'view/course/list_head',
@@ -16,8 +18,10 @@ define('controller/course', [
 ], function (require, exports, module) {
 
     var courseService = require("service/course_service");
+    var serveService = require("service/serve_service");
     var courseInfo = require("view/course/info");
     var courseBuy = require("view/course/buy");
+    var serveInfo = require("view/serve/info");
     var courseListHead = require('view/course/list_head');
     var courseListBody = require('view/course/list_body');
     var courseBuyBody = require('view/course/buy_body');
@@ -156,6 +160,47 @@ define('controller/course', [
         });
     };
 
+    var dialogCourseEdit = function (courseId,callback) {
+        serveService.queryService(courseId, "Course", function (dataMap) {
+            var serve = dataMap['serve'];
+            var serveDialog = iMethod.dialog({
+                className: "iMethod-dialog-addOrg",
+                title: "修改服务",
+                content: serveInfo({
+                    serve: serve
+                }),
+                buttons: [{
+                    className: "iMethod-sure",
+                    text: "添加"
+                }, {
+                    className: "iMethod-cancel",
+                    text: "取消",
+                    click: function () {
+                        serveDialog.close();
+                    }
+                }]
+            });
+            serveDialog.target.find(".iMethod-serviceType").closest(".row").remove();
+            serveDialog.target.find(".iMethod-start").val(new Date(serve['startTime']).Format("yyyy-MM-dd"));
+            serveDialog.target.find(".iMethod-end").val(new Date(serve['endTime']).Format("yyyy-MM-dd"))
+            serveDialog.target.on("click.iMethod-sure", ".iMethod-sure", function () {
+                var _serve = {
+                    serviceId: serve['serviceId']
+                };
+                _serve['startTime'] = new Date(serveDialog.target.find(".iMethod-start").val()).Format("yyyy-MM-dd 00:00:00");
+                _serve['endTime'] = new Date(serveDialog.target.find(".iMethod-end").val()).Format("yyyy-MM-dd 00:00:00");
+                serveService.updateService(_serve, function (res) {
+                    if (res.status == 1) {
+                        serveDialog.close();
+                        callback&&callback();
+                    } else if (res['msg']) {
+                        iMethod.alert(res['msg']);
+                    }
+                });
+            })
+        })
+    };
+
     /**
      * 课程管理
      * @param tenantTabId
@@ -169,18 +214,15 @@ define('controller/course', [
             var pk = $this.closest("tr").attr("data-pk");
             window.location.href = iMethod.contextPath + "/course/" + pk + "/class";
         });
-        //$(".iMethod-currentStatus").iMethodSelect({
-        //    id: "code",
-        //    text: "codeName",
-        //    dataList: currentStatus || [],
-        //    unSelected: {
-        //        code: "",
-        //        codeName: "请选择"
-        //    },
-        //    onChange:function(){
-        //        queryCourse();
-        //    }
-        //});
+
+        tenantTab.on("click.course-edit", ".course-edit", function () {
+            var $this = $(this);
+            var courseId = $this.closest("tr").attr("data-pk");
+            dialogCourseEdit(courseId,function(){
+                queryCourse();
+            })
+        });
+
         $(".iMethod-courseType").iMethodSelect({
             id: "code",
             text: "codeName",
@@ -414,6 +456,14 @@ define('controller/course', [
             var pk = $this.closest("tr").attr("data-pk");
             window.location.href = iMethod.contextPath + "/course/" + pk + "/class";
         })
+        $("#" + _tenantTabId).on("click.course-edit", ".course-edit", function () {
+            var $this = $(this);
+            var courseId = $this.closest("tr").attr("data-pk");
+            dialogCourseEdit(courseId,function(){
+                queryOrgCourse();
+            })
+        });
+
         $(".iMethod-courseType").iMethodSelect({
             id: "code",
             text: "codeName",

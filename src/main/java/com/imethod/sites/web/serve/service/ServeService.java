@@ -1,4 +1,4 @@
-package com.imethod.sites.web.job.service;
+package com.imethod.sites.web.serve.service;
 
 import com.imethod.constant.Constants;
 import com.imethod.core.log.Logger;
@@ -11,10 +11,10 @@ import com.imethod.sites.web.classes.service.ClassService;
 import com.imethod.sites.web.course.service.CourseService;
 import com.imethod.sites.web.email.bean.EmailMessage;
 import com.imethod.sites.web.email.service.EmailService;
-import com.imethod.sites.web.job.dao.ServiceDao;
+import com.imethod.sites.web.serve.dao.ServeDao;
+import com.imethod.sites.web.tenant.service.TenantService;
 import com.imethod.sys.auth.LUser;
 import com.imethod.sys.auth.UserContent;
-import com.imethod.sites.web.tenant.service.TenantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +37,7 @@ public class ServeService {
     Logger logger = LoggerFactory.getLogger(ServeService.class);
 
     @Autowired
-    private ServiceDao serviceDao;
+    private ServeDao serviceDao;
 
     @Autowired
     private TenantService tenantService;
@@ -52,14 +52,15 @@ public class ServeService {
     private EmailService emailService;
 
     public Serve insert(Serve service) {
-        Date now = DateTools.getCurrentDateTime();
-
         return serviceDao.insert(service);
     }
 
-    public void update(Serve service) throws InvocationTargetException, IllegalAccessException {
-        serviceDao.update(service);
-
+    public void update(Serve service) {
+        try {
+            serviceDao.update(service);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -127,4 +128,11 @@ public class ServeService {
     }
 
 
+    public Serve getServe(String contextId, String contextType) {
+        List<Serve> serveList = serviceDao.getServe(contextId, contextType);
+        if (!serveList.isEmpty()) {
+            return serveList.get(0);
+        }
+        return null;
+    }
 }

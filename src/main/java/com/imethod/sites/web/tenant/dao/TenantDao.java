@@ -60,9 +60,9 @@ public class TenantDao extends IJdbcTempBaseDao {
             "            s.expire_status ,t.current_status,c1.code_name as current_status_name ,t.service_type,c2.code_name as service_type_name  \n" +
             "            from tenant t \n" +
             "            left join (select tenant_id,count(1) as course_count from tenant_course_rp where state = 1  group by tenant_id) tcr on tcr.tenant_id = t.tenant_id \n" +
-            "            left join serve s on s.service_id = t.service_id\n" +
-            "            left join code c1 on c1.code = t.current_status and c1.code_type = 'currentStatus'\n" +
-            "            left join code c2 on c2.code = t.service_type and c2.code_type = 'serviceType'\n" +
+            "             join serve s on s.context_id = t.tenant_id and s.context_type='Tenant'\n" +
+            "             join code c1 on c1.code = t.current_status and c1.code_type = 'currentStatus'\n" +
+            "             join code c2 on c2.code = t.service_type and c2.code_type = 'serviceType'\n" +
             "            left join (select tenant_id,count(1) as class_count from classes where state = 1 group by tenant_id ) c on c.tenant_id = t.tenant_id \n" +
             "            where t.state = 1 ";
 

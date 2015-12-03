@@ -9,7 +9,7 @@ import com.imethod.domain.*;
 import com.imethod.sites.web.buyer.service.BuyerService;
 import com.imethod.sites.web.code.service.CodeService;
 import com.imethod.sites.web.course.service.CourseService;
-import com.imethod.sites.web.job.service.ServeService;
+import com.imethod.sites.web.serve.service.ServeService;
 import com.imethod.sites.web.manager.service.ManagerService;
 import com.imethod.sites.web.region.service.RegionService;
 import com.imethod.sites.web.report.service.ReportService;
