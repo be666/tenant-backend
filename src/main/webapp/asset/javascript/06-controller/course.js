@@ -228,11 +228,11 @@ define('controller/course', [
             text: "codeName",
             dataList: [{
                 code: "",
-                codeName: "请选择"
+                codeName: "课程类型"
             }].concat(courseType),
             unSelected: {
                 code: "",
-                codeName: "请选择"
+                codeName: "课程类型"
             },
             onChange: function () {
                 queryCourse();
@@ -243,11 +243,11 @@ define('controller/course', [
             text: "courseName",
             dataList: [{
                 courseId: "",
-                courseName: "请选择"
+                courseName: "选择课程"
             }].concat(courseList),
             unSelected: {
                 courseId: "",
-                courseName: "请选择"
+                courseName: "选择课程"
             },
             onChange: function () {
                 queryCourse();
@@ -258,11 +258,11 @@ define('controller/course', [
             text: "tenantName",
             dataList: [{
                 tenantId: "",
-                tenantName: "请选择"
+                tenantName: "选择租户"
             }].concat(tenantList),
             unSelected: {
                 tenantId: "",
-                tenantName: "请选择"
+                tenantName: "选择租户"
             },
             onChange: function () {
                 queryCourse();
@@ -307,7 +307,7 @@ define('controller/course', [
             dataList: _serviceType || [],
             unSelected: {
                 code: "",
-                codeName: "请选择"
+                codeName: "选择服务类型"
             }
         });
         addDialog.target.find(".iMethod-courseType").iMethodSelect({
@@ -316,7 +316,7 @@ define('controller/course', [
             dataList: _courseType || [],
             unSelected: {
                 code: "",
-                codeName: "请选择"
+                codeName: "选择课程类型"
             }
         });
 
@@ -469,11 +469,11 @@ define('controller/course', [
             text: "codeName",
             dataList: [{
                 code: "",
-                codeName: "请选择"
+                codeName: "选择课程类型"
             }].concat(courseType),
             unSelected: {
                 code: "",
-                codeName: "请选择"
+                codeName: "选择课程类型"
             },
             onChange: function () {
                 queryOrgCourse();
@@ -484,11 +484,11 @@ define('controller/course', [
             text: "courseName",
             dataList: [{
                 courseId: "",
-                courseName: "请选择"
+                courseName: "选择课程"
             }].concat(courseList),
             unSelected: {
                 courseId: "",
-                courseName: "请选择"
+                courseName: "选择课程"
             },
             onChange: function () {
                 queryOrgCourse();
@@ -499,11 +499,11 @@ define('controller/course', [
             text: "tenantName",
             dataList: [{
                 tenantId: "",
-                tenantName: "请选择"
+                tenantName: "选择租户"
             }].concat(tenantList),
             unSelected: {
                 tenantId: "",
-                tenantName: "请选择"
+                tenantName: "选择租户"
             },
             onChange: function () {
                 queryOrgCourse();

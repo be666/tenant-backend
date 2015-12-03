@@ -40,7 +40,7 @@ define('controller/alarm', [
             dataList: _dd,
             unSelected: {
                 code: "",
-                codeName: "请选择"
+                codeName: "选择状态"
             },
             onChange: function (obj) {
                 var code = obj['code'];

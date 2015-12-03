@@ -165,7 +165,7 @@ define('controller/org', [
                 dataList: items,
                 unSelected: {
                     orgId: "",
-                    orgName: "请选择"
+                    orgName: "选择机构"
                 }
             });
         }, {
@@ -179,7 +179,7 @@ define('controller/org', [
             dataList: _orgType,
             unSelected: {
                 code: "",
-                codeName: "请选择"
+                codeName: "选择机构类型"
             },
             onChange: function (obj) {
                 var _city = [];
@@ -201,7 +201,7 @@ define('controller/org', [
             dataList: [],
             unSelected: {
                 code: "",
-                codeName: "请选择"
+                codeName: "选择学校类型"
             }
         });
 
@@ -211,7 +211,7 @@ define('controller/org', [
             dataList: _province,
             unSelected: {
                 regionCode: "",
-                regionName: "请选择"
+                regionName: "选择省"
             },
             onChange: function (obj) {
                 var _city = [];
@@ -233,7 +233,7 @@ define('controller/org', [
             dataList: [],
             unSelected: {
                 regionCode: "",
-                regionName: "请选择"
+                regionName: "选择市"
             }
         });
 
@@ -285,7 +285,7 @@ define('controller/org', [
                     dataList: items,
                     unSelected: {
                         orgId: "",
-                        orgName: "请选择"
+                        orgName: "选择机构"
                     },
                     selected: {
                         orgId: org['orgPid']
@@ -302,7 +302,7 @@ define('controller/org', [
                 dataList: _orgType,
                 unSelected: {
                     code: "",
-                    codeName: "请选择"
+                    codeName: "选择机构类型"
                 },
                 selected: {
                     code: org['orgType']
@@ -328,7 +328,7 @@ define('controller/org', [
                 dataList: _schoolType,
                 unSelected: {
                     code: "",
-                    codeName: "请选择"
+                    codeName: "选择学校类型"
                 },
                 selected: {
                     code: org['schoolType']
@@ -341,7 +341,7 @@ define('controller/org', [
                 dataList: _province,
                 unSelected: {
                     regionCode: "",
-                    regionName: "请选择"
+                    regionName: "选择省"
                 },
                 selected: {
                     regionCode: org['province']
@@ -372,7 +372,7 @@ define('controller/org', [
                 },
                 unSelected: {
                     regionCode: "",
-                    regionName: "请选择"
+                    regionName: "选择市"
                 }
             });
 
