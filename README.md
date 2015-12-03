@@ -1,2 +1,1 @@
-# gxb-sb
-gaoxiaobang super banlk
+# tenant backend
